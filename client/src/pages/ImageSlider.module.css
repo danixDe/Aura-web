@@ -1,0 +1,13 @@
+#container{
+    width:50%;
+    display: flex;
+    justify-content: center;
+    /* position: absolute;
+    top:100px; */
+}
+#prevbtn, #nextbtn{
+    width:30px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}

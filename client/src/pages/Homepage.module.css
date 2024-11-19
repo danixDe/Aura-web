@@ -1,0 +1,10 @@
+#homepage{
+    width:100%;
+
+}
+#feed{
+    width:100%;
+    position: absolute;
+    top:100px;
+    display: flex;
+}
