@@ -6,8 +6,19 @@ import {
   Container,
   CssBaseline,
 } from "@mui/material";
+import{Link} from "react-router-dom";
+import React from "react";
 
-const Login = () => {
+const VLogin = () => {
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    const formData = new FormData(e.currentTarget);
+    const email = formData.get("email");
+    const password = formData.get("password");
+
+    console.log("Form submitted:", { email, password });
+  };
+
   return (
     <Container component="main" maxWidth="xs">
       <CssBaseline />
@@ -20,22 +31,19 @@ const Login = () => {
         }}
       >
         <Typography component="h1" variant="h5">
-          Sign In
+          Volunteer Sign In
         </Typography>
         <Box
           component="form"
           sx={{ mt: 3 }}
-          onSubmit={(e) => {
-            e.preventDefault(); 
-            console.log("Form submitted");
-          }}
+          onSubmit={handleSubmit}
         >
           <TextField
             margin="normal"
             required
             fullWidth
             id="email"
-            label="Email Address"
+            label="Email Address/Mobile"
             name="email"
             autoComplete="email"
             autoFocus
@@ -50,26 +58,30 @@ const Login = () => {
             id="password"
             autoComplete="current-password"
           />
-            <Button
+          <Button
             type="submit"
             fullWidth
             variant="contained"
             sx={{
-                mt: 3,
-                mb: 2,
-                bgcolor: "#dc143c",
-                ":hover": {
+              mt: 3,
+              mb: 2,
+              bgcolor: "#dc143c",
+              ":hover": {
                 bgcolor: "#a10f2d",
-                },
+              },
             }}
-            >
+          >
             Sign In
-            </Button>
-
+          </Button>
         </Box>
       </Box>
+
+      <p>
+          Not having an account? <Link to="/VSignup">Sign Up</Link>
+          </p>
+
     </Container>
   );
 };
 
-export default Login;
+export default VLogin;
