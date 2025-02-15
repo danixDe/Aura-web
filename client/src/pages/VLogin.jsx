@@ -6,18 +6,24 @@ import {
   Container,
   CssBaseline,
 } from "@mui/material";
-import{Link} from "react-router-dom";
+import{Link,useNavigate} from "react-router-dom";
 import React from "react";
 
+
 const VLogin = () => {
-  const handleSubmit = (e) => {
+  const navigate =useNavigate();
+ /* const handleSubmit = (e) => {
     e.preventDefault();
     const formData = new FormData(e.currentTarget);
     const email = formData.get("email");
     const password = formData.get("password");
 
     console.log("Form submitted:", { email, password });
-  };
+  };  */
+
+  const handleSubmit = (e) => {
+        navigate('/HomePage');
+  }
 
   return (
     <Container component="main" maxWidth="xs">
@@ -40,7 +46,7 @@ const VLogin = () => {
         >
           <TextField
             margin="normal"
-            required
+           
             fullWidth
             id="email"
             label="Email Address/Mobile"
@@ -50,7 +56,7 @@ const VLogin = () => {
           />
           <TextField
             margin="normal"
-            required
+            
             fullWidth
             name="password"
             label="Password"
@@ -62,6 +68,7 @@ const VLogin = () => {
             type="submit"
             fullWidth
             variant="contained"
+            onClick={handleSubmit}
             sx={{
               mt: 3,
               mb: 2,
