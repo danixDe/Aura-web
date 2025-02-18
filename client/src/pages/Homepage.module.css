@@ -1,3 +1,7 @@
+.ctaButton a{
+  text-decoration: none;
+  color:whitesmoke;
+}
 .container {
     font-family: Arial, sans-serif;
     background-color: #f9f9f9;
@@ -130,13 +134,9 @@
     position: relative;
     z-index: 100;
   }
-  
   .ctaButton:hover {
     transform: scale(1.05);
-  }
-  .ctadarkButtonAlt:hover{
-  }
-  
+  } 
   .hero {
     text-align: center;
     margin-top: 8rem;
@@ -159,8 +159,6 @@
     color: #444;
     margin-top: 0.5rem;
   }
-  
-  
   .darkSection {
     width: 100%;
     padding: 4rem 2rem;
@@ -225,5 +223,26 @@
   .copyright {
     margin-top: 1rem;
     font-size: 0.9rem;
+  }
+  .featuresContainer {
+    display: flex;
+    justify-content: center;
+    gap: 2rem;
+    margin-top: 2rem;
+    flex-wrap: wrap;
+  }
+  
+  .featureCard {
+    background: white;
+    padding: 1.5rem;
+    border-radius: 15px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    width: 280px;
+    text-align: center;
+  }
+  
+  .featureCard h3 {
+    color: hsl(340, 57%, 54%);
+    margin-bottom: 0.5rem;
   }
   

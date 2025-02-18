@@ -112,34 +112,67 @@ export default function Home() {
             : "AuraHP assists hospitals and medical facilities by providing a reliable blood donor network for urgent needs."}
         </p>
         <div className={styles.buttonContainer}>
+        <Link to = "/VLogin" style={{textDecoration:"none"}}>
           <motion.button
             className={styles.ctadarkButton}
             whileHover={{ scale: 1.05 }}
             whileTap={{ scale: 0.95 }}
           >
-           <Link to = '/VLogin'> AuraHP for Donors </Link>
+            <span>
+            AuraHP for Donors
+            </span>
           </motion.button>
+        </Link>
+        <Link to = "/MFLogin" style = {{textDecoration:"none"}}>
           <motion.button
             className={styles.ctadarkButtonAlt}
             whileHover={{ scale: 1.05 }}
             whileTap={{ scale: 0.95 }}
           >
-            <Link to='/MFLogin'
-            >AuraHP for Facilities</Link>
+            <span>AuraHP for Facilities</span>
           </motion.button>
+        </Link>
         </div>
       </motion.section>
 
       <motion.section
-        id="business-support"
-        className={styles.lightSection}
-        initial={{ opacity: 0, y: 50 }}
-        whileInView={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.8 }}
-      >
-        <h2 className={styles.sectionTitle}>Expert Business Support</h2>
-        <p className={styles.sectionText}>Empowering healthcare professionals to focus on patient care.</p>
-      </motion.section>
+  id="business-support"
+  className={styles.lightSection}
+  initial={{ opacity: 0, y: 50 }}
+  whileInView={{ opacity: 1, y: 0 }}
+  transition={{ duration: 0.8 }}
+>
+  <h2 className={styles.sectionTitle}>Empowering Blood Donation</h2>
+  <p className={styles.sectionText}>
+    AuraHP connects donors with those in urgent need, streamlining the donation process and ensuring efficient medical support.
+  </p>
+
+  <div className={styles.featuresContainer}>
+    <div className={styles.featureCard}>
+      <h3>🩸 Real-Time Donor Matching</h3>
+      <p>Find and connect with donors quickly based on location and blood type.</p>
+    </div>
+    <div className={styles.featureCard}>
+      <h3>🏥 Medical Facility Support</h3>
+      <p>Hospitals and clinics can request and manage blood supply effortlessly.</p>
+    </div>
+    <div className={styles.featureCard}>
+      <h3>📊 Smart Analytics</h3>
+      <p>Track donation history, upcoming drives, and availability of blood supply.</p>
+    </div>
+  </div>
+
+  <motion.button
+    className={styles.ctaButton}
+    whileHover={{ scale: 1.05 }}
+    whileTap={{ scale: 0.95 }}
+  >
+    <Link to="/learn-more" style={{ textDecoration: "none", color: "white" }}>
+      Learn More
+    </Link>
+  </motion.button>
+</motion.section>
+
 
       <motion.footer
         className={styles.footer}
