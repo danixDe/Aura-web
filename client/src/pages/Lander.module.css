@@ -127,7 +127,10 @@
     left: 50%;
   }
 
-  
+  .ctadarkButtonAlt:hover{
+    border:2px solid transparent;
+    
+  }
   .ctaButton span,
   .ctadarkButton span,
   .ctadarkButtonAlt span {

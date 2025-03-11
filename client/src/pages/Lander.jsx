@@ -1,9 +1,9 @@
 import { useEffect, useState } from "react";
 import { motion } from "framer-motion";
-import styles from "./Homepage.module.css";
+import styles from "./Lander.module.css";
 import {Link} from 'react-router-dom';
 
-export default function Home() {
+export default function Land() {
   const [activeSection, setActiveSection] = useState("hero");
   const [dropdown, setDropdown] = useState(null);
   const [activeTab, setActiveTab] = useState("donors");
@@ -61,7 +61,9 @@ export default function Home() {
             </li>
           ))}
         </ul>
+        <Link to = '/VLogin' style = {{textDecoration:'none'}}>
         <button className={styles.ctaButton}><span>Donate</span></button>
+        </Link>
       </nav>
 
       <motion.section
@@ -161,7 +163,7 @@ export default function Home() {
       <p>Track donation history, upcoming drives, and availability of blood supply.</p>
     </div>
   </div>
-
+            <br></br>
   <motion.button
     className={styles.ctaButton}
     whileHover={{ scale: 1.05 }}

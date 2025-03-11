@@ -7,7 +7,6 @@ import {
   CssBaseline,
 } from "@mui/material";
 import{Link,useNavigate} from "react-router-dom";
-import React from "react";
 
 
 const VLogin = () => {
@@ -21,8 +20,8 @@ const VLogin = () => {
     console.log("Form submitted:", { email, password });
   };  */
 
-  const handleSubmit = (e) => {
-        navigate('/HomePage');
+  const handleSubmit = () => {
+        navigate('/DonorHome');
   }
 
   return (
