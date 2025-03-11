@@ -1,0 +1,123 @@
+/* Import Google Font */
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap');
+
+body {
+  font-family: 'Poppins', sans-serif;
+  margin: 0;
+  padding: 0;
+  background: linear-gradient(to right, #ff4b5c, #ff6b81);
+  color: #fff;
+}
+
+/* Navbar Styling */
+.navbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background: rgba(255, 255, 255, 0.1);
+  backdrop-filter: blur(10px);
+  padding: 15px 20px;
+  color: white;
+  box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.2);
+}
+
+.navbar h2 {
+  margin: 0;
+  font-weight: 600;
+  letter-spacing: 1px;
+}
+
+.navbar ul {
+  list-style: none;
+  display: flex;
+  margin: 0;
+  padding: 0;
+}
+
+.navbar ul li {
+  margin: 0 15px;
+}
+
+.navbar ul li a {
+  text-decoration: none;
+  color: white;
+  font-weight: 500;
+  transition: color 0.3s ease-in-out;
+}
+
+.navbar ul li a:hover {
+  color: #ffcccb;
+}
+
+/* Main Container */
+.container {
+  text-align: center;
+  padding: 50px 20px;
+}
+
+.title {
+  font-size: 2.5rem;
+  font-weight: 600;
+  text-shadow: 2px 2px 10px rgba(0, 0, 0, 0.3);
+}
+
+/* Blood Inventory Table */
+.blood-table {
+  width: 30%;
+  height: 300px;
+  margin: 30px auto;
+  border-collapse: collapse;
+  background: rgba(255, 255, 255, 0.15);
+  backdrop-filter: blur(10px);
+  border-radius: 10px;
+  overflow: hidden;
+  box-shadow: 0px 10px 20px rgba(0, 0, 0, 0.3);
+}
+
+.blood-table th, .blood-table td {
+  padding: 15px;
+  text-align: center;
+  font-size: 1.2rem;
+}
+
+.blood-table th {
+  background: rgba(255, 255, 255, 0.2);
+  color: white;
+  font-weight: bold;
+}
+
+.blood-table tr {
+  transition: background 0.3s ease-in-out;
+}
+
+.blood-table tr:hover {
+  background: rgba(255, 255, 255, 0.3);
+}
+
+.blood-table td {
+  color: white;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .navbar {
+    flex-direction: column;
+    text-align: center;
+  }
+
+  .navbar ul {
+    padding-top: 10px;
+  }
+
+  .navbar ul li {
+    margin: 5px 0;
+  }
+
+  .title {
+    font-size: 2rem;
+  }
+
+  .blood-table {
+    width: 95%;
+  }
+}

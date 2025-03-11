@@ -6,6 +6,8 @@ import MFLogin from "./pages/MFLogin";
 import MFSignup from "./pages/MFSignup";
 import Land from './pages/Lander'
 import DonorHome from './pages/DonorHome.jsx'
+import Home from './pages/Homepage'
+import BloodBankPage from "./pages/BloodBankPage";
 function App() {
   return (
     <Router>
@@ -16,6 +18,7 @@ function App() {
         <Route path="/MFSignup" element={<MFSignup />} />
         <Route path="/VSignup" element={<VSignup />} />
         <Route path = '/DonorHome' element = {<DonorHome />} />
+        <Route path="bloodbank" element={<BloodBankPage/>} />
       </Routes>
     </Router>
   );
