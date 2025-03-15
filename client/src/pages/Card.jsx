@@ -1,35 +1,45 @@
 import React from "react";
-import { MapPin } from "lucide-react";
+import { MapContainer, TileLayer, Marker, Popup } from "react-leaflet";
+import "leaflet/dist/leaflet.css";
+import styles from "./Card.module.css";
 
 const Card = ({ request }) => {
   const { medicalFacility, bloodGroup, unitsRequired, eLevel, latitude, longitude } = request;
-  
-  const getCardColor = (level) => {
-    const shades = ["#ffebee", "#ffcdd2", "#ef9a9a", "#e57373", "#ef5350", "#f44336", "#d32f2f"];
-    return shades[level - 1] || "#ffebee";
+
+  const getELevelColor = (level) => {
+    const shades = ["#dfe6e9", "#fdecea", "#fab7b7", "#ff6b6b", "#e63946", "#c91f37", "#8b0000"];
+    return shades[level - 1] || "#dfe6e9";
   };
 
   return (
-    <div className="rounded-2xl shadow-md p-4" style={{ backgroundColor: getCardColor(eLevel) }}>
-      <div className="flex">
-        <div className="w-1/3 flex items-center justify-center border-r">
-          <a
-            href={`https://www.google.com/maps?q=${latitude},${longitude}`}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="text-red-700 hover:text-red-900"
-          >
-            <MapPin size={30} />
-          </a>
+    <div className={styles.card}>
+      <div className={styles.mapContainer}>
+        <MapContainer center={[latitude, longitude]} zoom={14} scrollWheelZoom={false} className={styles.map}>
+          <TileLayer url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png" />
+          <Marker position={[latitude, longitude]}>
+            <Popup>
+              <strong>{medicalFacility}</strong><br />
+              <a href={`https://www.google.com/maps?q=${latitude},${longitude}`} target="_blank" rel="noopener noreferrer">
+                Open in Google Maps
+              </a>
+            </Popup>
+          </Marker>
+        </MapContainer>
+      </div>
+
+      <div className={styles.details}>
+        <div className={styles.header}>
+          <h3 className={styles.medicalFacility}>{medicalFacility}</h3>
+          <span className={styles.eLevel} style={{ backgroundColor: getELevelColor(eLevel) }}>
+            E-Level {eLevel}
+          </span>
         </div>
-        {/* Details Section (2/3 of the card) */}
-        <div className="w-2/3 pl-4">
-          <h3 className="text-lg font-bold">{medicalFacility}</h3>
-          <p className="text-sm">Blood Group: <span className="font-semibold">{bloodGroup}</span></p>
-          <p className="text-sm">Units Required: <span className="font-semibold">{unitsRequired}</span></p>
-          <p className="text-sm">Emergency Level: <span className="font-semibold">{eLevel}</span></p>
-          <button className="mt-2 px-4 py-2 bg-red-600 text-white rounded-md hover:bg-red-800">Donate Now</button>
+
+        <div className={styles.info}>
+          <p><strong>Blood Group:</strong> {bloodGroup}</p>
+          <p><strong>Units Required:</strong> {unitsRequired}</p>
         </div>
+        <button className={styles.donateBtn}>Donate Now</button>
       </div>
     </div>
   );
