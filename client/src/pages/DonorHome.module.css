@@ -1,94 +1,53 @@
-.container {
-    background: white;
-    min-height: 100vh;
-    padding-bottom: 60px;
-    position: relative;
-  }
-  
-  .navbar {
-    background: white;
-    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
-    padding: 0px 24px;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
+.iconButton {
+  background: none;
+  border: none;
+  cursor: pointer;
+  transition: transform 0.2s ease-in-out;
+}
 
+.iconButton:hover {
+  transform: scale(1.1);
+}
+  
+.content {
+  display: flex;
+  flex-direction: column;
+  flex:1;
+  padding:24px;
+}
+  
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom:16px;
+}
+  
+.heading {
+  font-size: 1.5rem;
+  font-weight: bold;
+  color: #2d3436;
+}
+  
+.showRequests {
+  display: flex;
+  align-items: center;
+  background: yellowgreen;
+  color: white;
+  border: none;
+  padding: 8px 12px;
+  font-size: 0.9rem;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: background 0.3s ease-in-out;
   }
   
-  .navLeft {
-    display: flex;
-    align-items: center;
-    gap:12px;
-  }
-  
-  .hamburgerButton {
-    background: none;
-    border: none;
-    cursor: pointer;
-    display: block;
-  }
-  
-  .logo {
-    font-size: 1.8rem;
-    font-weight: bold;
-    color: #dc143c;
-  }
-  
-  .navButtons {
-    display: flex;
-    gap: 10px;
-  }
-  
-  .iconButton {
-    background: none;
-    border: none;
-    cursor: pointer;
-    transition: transform 0.2s ease-in-out;
-  }
-  
-  .iconButton:hover {
-    transform: scale(1.1);
-  }
-  
-  .content {
-    display: flex;
-    flex-direction: column;
-    flex:1;
-    padding:24px;
-  }
-  
-  .header {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    margin-bottom:16px;
-  }
-  
-  .heading {
-    font-size: 1.5rem;
-    font-weight: bold;
-    color: #2d3436;
-  }
-  
-  .showRequests {
-    display: flex;
-    align-items: center;
-    background: yellowgreen;
-    color: white;
-    border: none;
-    padding: 8px 12px;
-    font-size: 0.9rem;
-    border-radius: 8px;
-    cursor: pointer;
-    transition: background 0.3s ease-in-out;
-  }
-  
-  .toggleButton svg {
+  .showRequests svg {
     margin-right: 6px;
   }
   
-  .toggleButton:hover {
-    background: #15967f;
+  .showRequests:hover {
+    background: hsl(80, 81%, 50%);
   }
   
   .grid {
@@ -158,10 +117,7 @@
     font-weight: bold;
     cursor: pointer;
   }
-  .dark {
-    background: #121212;
-    color: white;
-  }
+  
   .alertBanner {
     background: crimson;
     color: white;
@@ -187,30 +143,5 @@
     box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
     color:yellowgreen;
   }
-  .darkModeToggle {
-    width: 40px;
-    height: 10px;
-    background: rgba(255, 255, 255, 0.3);
-    border-radius: 50px;
-    display: flex;
-    align-items: center;
-    justify-content: flex-start;
-    padding: 3px;
-    cursor: pointer;
-    position: relative;
-    transition: background 0.1s ease-in-out;
-    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.2);
-  }
-  
-  .toggleCircle {
-    width: 24px;
-    height: 24px;
-    border-radius: 50%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    background: white;
-    box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.2);
-    transition: transform 0s ease-in-out;
-  }
+
   

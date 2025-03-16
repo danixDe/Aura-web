@@ -1,6 +1,7 @@
 import React from "react";
 import styles from "./donor_history.module.css";
 import { Calendar, MapPin, Printer } from "lucide-react";
+import Layout from "./Layout";
 
 const DonationHistory = () => {
   const donations = [
@@ -25,6 +26,8 @@ const DonationHistory = () => {
     window.print();
   };
   return (
+    <Layout>
+
     <div className={styles.historyContainer}>
       <h2 className={styles.title}>Donation History</h2>
       <ul className={styles.donationList}>
@@ -45,6 +48,7 @@ const DonationHistory = () => {
         </button>
       </div>
     </div>
+  </Layout>
   );
 };
 

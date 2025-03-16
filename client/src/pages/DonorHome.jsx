@@ -4,17 +4,14 @@ import Sidebar from "./Sidebar";
 import styles from "./DonorHome.module.css";
 import { motion } from "framer-motion";
 import { Search, User,Sun,Moon, ListFilter, Menu } from "lucide-react";
+import Layout from "./Layout";
 
 const DonorHome = () => {
   const [requests, setRequests] = useState([]);
   const [searchQuery, setSearchQuery] = useState("");
   const [userLocation, setUserLocation] = useState(null);
   const [showAllRequests, setShowAllRequests] = useState(false);
-  const [isSidebarOpen, setIsSidebarOpen] = useState(false);
-  const [darkMode, setDarkMode] = useState(false);
-  const [selectedBloodType, setSelectedBloodType] = useState("");
-
-
+  
   useEffect(() => {
     navigator.geolocation.getCurrentPosition(
       (position) => {
@@ -42,50 +39,45 @@ const DonorHome = () => {
   const getDistance = (lat1, lon1, lat2, lon2) => {
     if (!lat1 || !lon1 || !lat2 || !lon2) return Infinity;
     const toRad = (deg) => (deg * Math.PI) / 180;
-    const R = 6371;
+    const R = 6371; 
     const dLat = toRad(lat2 - lat1);
     const dLon = toRad(lon2 - lon1);
     const a =
       Math.sin(dLat / 2) * Math.sin(dLat / 2) +
-      Math.cos(toRad(lat1)) *
-        Math.cos(toRad(lat2)) *
-        Math.sin(dLon / 2) *
-        Math.sin(dLon / 2);
+      Math.cos(toRad(lat1)) * Math.cos(toRad(lat2)) * 
+      Math.sin(dLon / 2) * Math.sin(dLon / 2);
     const c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
     return R * c;
   };
-  const toggleDarkMode = () => setDarkMode(!darkMode);
-  const effectiveLocation = userLocation || { latitude: 17.6868, longitude: 83.2185 };
-  const finalRequests = requests
-    .filter((request) => request.medicalFacility.toLowerCase().includes(searchQuery))
-    .filter((request) =>
-      showAllRequests ? true : getDistance(effectiveLocation.latitude, effectiveLocation.longitude, request.latitude, request.longitude) <= 30
+  
+  const effectiveLocation = userLocation && userLocation.latitude 
+  ? userLocation 
+  : { latitude: 17.6868, longitude: 83.2185 };
+  console.log("User Location:", userLocation);
+  console.log("Effective Location:", effectiveLocation);
+  
+  const nearbyRequests = requests.filter((request) => {
+    if (showAllRequests) return true;
+    const distance = getDistance(
+      effectiveLocation.latitude,
+      effectiveLocation.longitude,
+      request.latitude,
+      request.longitude
     );
+    console.log(`Distance to ${request.medicalFacility}:`, distance);
+    return distance !== Infinity && distance <= 30;
+  });
+  
+  console.log("Nearby Requests:", nearbyRequests);
+  
+  const finalRequests = nearbyRequests
+    .filter((request) => request.medicalFacility.toLowerCase().includes(searchQuery))
+    .sort((a, b) => b.eLevel - a.eLevel); 
+
 
   return (
-    <motion.div className={`${styles.container} ${darkMode ? styles.dark : ""}`} initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ duration: 0.8 }}>
-      <nav className={styles.navbar}>
-        <div className={styles.navLeft}>
-          <button className={styles.hamburgerButton} onClick={() => setIsSidebarOpen(true)}>
-            <Menu size={24} />
-          </button>
-          <h1 className={styles.logo}>AuraHP</h1>
-        </div>
-        <motion.div 
-            className={styles.darkModeToggle} 
-            onClick={toggleDarkMode}
-            whileTap={{ scale: 0.9 }}
-          >
-            <motion.div 
-              className={styles.toggleCircle}
-              animate={{ x: darkMode ? 30 : 0, background: darkMode ? "#f1c40f" : "#fff" }}
-              transition={{ type: "spring", stiffness: 200 }}
-            >
-              {darkMode ? <Sun size={18} color="black" /> : <Moon size={18} color="black" />}
-            </motion.div>
-          </motion.div>
-      </nav>
-      <div className={styles.alertBanner}>
+    <Layout>
+            <div className={styles.alertBanner}>
         ⚠️ Urgent Blood Requests Available! Help Save Lives.  
       </div>
       <div className={styles.content}>
@@ -128,8 +120,8 @@ const DonorHome = () => {
           )}
         </motion.div>
       </div>
-      {isSidebarOpen && <Sidebar onClose={() => setIsSidebarOpen(false)} />}
-    </motion.div>
+    </Layout>
+
   );
 };
 

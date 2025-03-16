@@ -1,6 +1,6 @@
 import React from "react";
 import styles from "./Sidebar.module.css";
-import { X, User, History, Settings, Info } from "lucide-react";
+import { X, User, History, Settings, Info, HomeIcon } from "lucide-react";
 import {useNavigate} from 'react-router-dom'
 
 const Sidebar = ({ onClose }) => {
@@ -13,6 +13,9 @@ const Sidebar = ({ onClose }) => {
       <div className={styles.menu}>
         <h2 className={styles.menuTitle}>Menu</h2>
         <ul className={styles.menuList}>
+          <li onClick={()=>navigate('/DonorHome')} className = {styles.menuItem}>
+            <HomeIcon size={20} /> Home
+          </li>
           <li onClick = {()=>navigate('/donor')}className={styles.menuItem}>
             <User size={20} /> Profile
           </li>

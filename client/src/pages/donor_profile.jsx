@@ -1,13 +1,13 @@
 import React, { useState } from "react";
 import styles from "./donor_profile.module.css";
 import { Calendar, MapPin, Mail, Phone, Edit3, Save } from "lucide-react";
-
+import Layout from "./Layout";
 const DonorProfile = () => {
   const [user, setUser] = useState({
-    name: "John Doe",
-    username: "johndoe99",
+    name: "arvx",
+    username: "arvx69",
     bloodGroup: "O+",
-    email: "johndoe@example.com",
+    email: "arvix@example.com",
     phone: "+91 9876543210",
     location: "Visakhapatnam, India",
     donations: 5,
@@ -33,6 +33,8 @@ const DonorProfile = () => {
   };
 
   return (
+    <Layout>
+
     <div className={styles.profileContainer}>
       <div className={styles.profileCard}>
         <img src={user.image} alt="Profile" className={styles.profileImage} />
@@ -59,6 +61,7 @@ const DonorProfile = () => {
         </button>
       </div>
     </div>
+    </Layout>
   );
 };
 
