@@ -1,68 +1,89 @@
 .profileContainer {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    height: 100vh;
-    background-color: #f4f4f4;
-  }
-  
-  .profileCard {
-    background: white;
-    padding: 20px;
-    border-radius: 10px;
-    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
-    text-align: center;
-    width: 350px;
-  }
-  
-  .profileImage {
-    width: 100px;
-    height: 100px;
-    border-radius: 50%;
-    object-fit: cover;
-    margin-bottom: 10px;
-  }
-  
-  .inputField {
-    width: 90%;
-    padding: 8px;
-    margin: 5px 0;
-    border: 1px solid #ccc;
-    border-radius: 5px;
-  }
-  
-  .bloodGroup {
-    font-weight: bold;
-    color: red;
-  }
-  
-  .infoRow {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 5px;
-    margin: 5px 0;
-    color:#555;
-  }
-  
-  .stats {
-    margin-top: 15px;
-    font-size: 14px;
-    color: #555;
-  }
-  
-  .editButton {
-    margin-top: 10px;
-    padding: 8px 15px;
-    border: none;
-    background: crimson;
-    color: white;
-    border-radius: 5px;
-    cursor: pointer;
-    transition: 0.3s;
-  }
-  
-  .editButton:hover {
-    background: darkred;
-  }
-  
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: calc(100vh - 80px);
+  padding: 32px;
+  background: linear-gradient(135deg, #2D3436 0%, #000000 100%);
+}
+
+.profileCard {
+  background: rgba(255, 255, 255, 0.1);
+  backdrop-filter: blur(10px);
+  padding: 32px;
+  border-radius: 20px;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+  text-align: center;
+  width: 400px;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  color: white;
+}
+
+.profileImage {
+  width: 120px;
+  height: 120px;
+  border-radius: 50%;
+  object-fit: cover;
+  margin-bottom: 20px;
+  border: 3px solid rgba(255, 255, 255, 0.2);
+}
+
+.inputField {
+  width: 100%;
+  padding: 12px;
+  margin: 8px 0;
+  background: rgba(255, 255, 255, 0.1);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  border-radius: 10px;
+  color: white;
+  font-size: 1rem;
+}
+
+.bloodGroup {
+  font-weight: bold;
+  color: #FF6B6B;
+  font-size: 1.2rem;
+  margin: 16px 0;
+}
+
+.infoRow {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  margin: 12px 0;
+  color: rgba(255, 255, 255, 0.9);
+  font-size: 1.1rem;
+}
+
+.stats {
+  margin-top: 24px;
+  padding: 16px;
+  background: rgba(255, 255, 255, 0.05);
+  border-radius: 12px;
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+}
+
+.editButton {
+  margin-top: 24px;
+  padding: 12px 24px;
+  border: none;
+  background: linear-gradient(135deg, #FF6B6B 0%, #EE5253 100%);
+  color: white;
+  border-radius: 12px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 1.1rem;
+  width: 100%;
+  justify-content: center;
+}
+
+.editButton:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(238, 82, 83, 0.2);
+}

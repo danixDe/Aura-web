@@ -1,75 +1,121 @@
+.container {
+  min-height: 100vh;
+  position: relative;
+  color: var(--text-primary);
+  background: var(--bg-gradient);
+  transition: all 0.3s ease;
+}
+
+.container::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: url('https://images.unsplash.com/photo-1534796636912-3b95b3ab5986?auto=format&fit=crop&w=2000&q=80') center/cover;
+  opacity: 0.1;
+  z-index: 0;
+}
+
+/* Light theme variables */
+.light {
+  --bg-gradient: linear-gradient(135deg, #f6f8fd 0%, #e2e8f4 100%);
+  --text-primary: #1a1f36;
+  --text-secondary: #4a5568;
+  --accent-gradient: linear-gradient(135deg, #6366f1 0%, #4f46e5 100%);
+  --nav-bg: rgba(255, 255, 255, 0.8);
+  --card-bg: rgba(255, 255, 255, 0.9);
+  --border-color: rgba(226, 232, 240, 0.8);
+  --shadow-color: rgba(0, 0, 0, 0.1);
+}
+
+/* Dark theme variables */
 .dark {
-    background: #121212;
-    color: white;
-  }
-  .darkModeToggle {
-    width: 40px;
-    height: 10px;
-    background: rgba(255, 255, 255, 0.3);
-    border-radius: 50px;
-    display: flex;
-    align-items: center;
-    justify-content: flex-start;
-    padding: 3px;
-    cursor: pointer;
-    position: relative;
-    transition: background 0.1s ease-in-out;
-    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.2);
-    margin-right:40px;
-  }
-  
-  .toggleCircle {
-    width: 24px;
-    height: 24px;
-    border-radius: 50%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    background: white;
-    box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.2);
-    transition: transform 0s ease-in-out;
-  }
-  .container {
-    background: white;
-    min-height: 100vh;
-    position: relative;
-  }
-  
-  .navbar {
-    background: white;
-    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
-    padding: 0px 24px;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    top:0;
-    left:0;
-    width:100%;
-    align-items:center;
-    z-index:1000;
-  }
-  
-  .navLeft {
-    display: flex;
-    align-items: center;
-    gap:12px;
-  }
-  
-  .hamburgerButton {
-    background: none;
-    border: none;
-    cursor: pointer;
-    display: block;
-  }
-  
-  .logo {
-    font-size: 1.8rem;
-    font-weight: bold;
-    color: #dc143c;
-  }
-  
-  .navButtons {
-    display: flex;
-    gap: 10px;
-    
-  }
+  --bg-gradient: linear-gradient(135deg, #0f172a 0%, #1e1b4b 100%);
+  --text-primary: #ffffff;
+  --text-secondary: #cbd5e1;
+  --accent-gradient: linear-gradient(135deg, #818cf8 0%, #6366f1 100%);
+  --nav-bg: rgba(15, 23, 42, 0.8);
+  --card-bg: rgba(30, 41, 59, 0.8);
+  --border-color: rgba(255, 255, 255, 0.1);
+  --shadow-color: rgba(0, 0, 0, 0.3);
+}
+
+.navbar {
+  background: var(--nav-bg);
+  backdrop-filter: blur(10px);
+  padding: 16px 24px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-bottom: 1px solid var(--border-color);
+  position: sticky;
+  top: 0;
+  left: 0;
+  width: 100%;
+  z-index: 1000;
+}
+
+.navLeft {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+
+.hamburgerButton {
+  background: transparent;
+  border:none;
+  border-radius: 8px;
+  padding: 8px;
+  cursor: pointer;
+  color: var(--text-primary);
+  transition: all 0.3s ease;
+}
+
+.hamburgerButton:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px var(--shadow-color);
+}
+
+.logo {
+  font-size: 1.8rem;
+  font-weight: bold;
+  background: var(--accent-gradient);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  margin: 0;
+}
+
+.darkModeToggle {
+  width: 50px;
+  height: 20px;
+  background: var(--card-bg);
+  border-radius: 50px;
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  padding: px;
+  cursor: pointer;
+  position: relative;
+  transition: all 0.3s ease;
+  border: 1px solid var(--border-color);
+  margin-right: 40px;
+}
+
+.toggleCircle {
+  width: 24px;
+  height: 24px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--text-primary);
+  box-shadow: 0 2px 5px var(--shadow-color);
+  transition: all 0.1s ease;
+}
+
+.navButtons {
+  display: flex;
+  gap: 16px;
+}

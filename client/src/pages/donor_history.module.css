@@ -1,17 +1,22 @@
 .historyContainer {
-  max-width: 600px;
+  max-width: 800px;
   margin: 40px auto;
-  padding: 20px;
-  background: white;
-  border-radius: 10px;
-  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+  padding: 32px;
+  background: rgba(255, 255, 255, 0.1);
+  backdrop-filter: blur(10px);
+  border-radius: 20px;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  color: white;
 }
 
 .title {
   text-align: center;
-  font-size: 1.5rem;
-  margin-bottom: 20px;
-  color: #dc143c;
+  font-size: 2rem;
+  margin-bottom: 32px;
+  background: linear-gradient(135deg, #FF6B6B 0%, #EE5253 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
 }
 
 .donationList {
@@ -20,45 +25,50 @@
 }
 
 .donationItem {
-  padding: 15px;
-  border-bottom: 1px solid #ddd;
-  display: flex;
-  flex-direction: column;
-  gap: 5px;
+  padding: 20px;
+  margin-bottom: 16px;
+  background: rgba(255, 255, 255, 0.05);
+  border-radius: 12px;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  transition: all 0.3s ease;
 }
 
-.donationItem:last-child {
-  border-bottom: none;
+.donationItem:hover {
+  transform: translateY(-2px);
+  background: rgba(255, 255, 255, 0.1);
 }
 
 .infoRow {
   display: flex;
   align-items: center;
-  gap: 8px;
-  font-size: 1rem;
-  color: #333;
+  gap: 12px;
+  font-size: 1.1rem;
+  color: rgba(255, 255, 255, 0.9);
+  margin: 8px 0;
 }
 
 .buttonContainer {
   display: flex;
   justify-content: center;
-  gap: 15px;
-  margin-top: 20px;
+  gap: 16px;
+  margin-top: 32px;
 }
 
 .actionButton {
-  padding: 10px 15px;
+  padding: 12px 24px;
   border: none;
-  background: crimson;
+  background: linear-gradient(135deg, #FF6B6B 0%, #EE5253 100%);
   color: white;
-  border-radius: 5px;
+  border-radius: 12px;
   cursor: pointer;
   display: flex;
   align-items: center;
   gap: 8px;
-  transition: 0.3s;
+  font-size: 1.1rem;
+  transition: all 0.3s ease;
 }
 
 .actionButton:hover {
-  background: darkred;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(238, 82, 83, 0.2);
 }

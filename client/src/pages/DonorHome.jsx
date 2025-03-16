@@ -77,9 +77,6 @@ const DonorHome = () => {
 
   return (
     <Layout>
-            <div className={styles.alertBanner}>
-        ⚠️ Urgent Blood Requests Available! Help Save Lives.  
-      </div>
       <div className={styles.content}>
       <div className={styles.statsContainer}>
           <motion.div className={styles.statCard} whileHover={{ scale: 1.05 }}>
