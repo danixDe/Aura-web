@@ -1,123 +1,107 @@
-/* Import Google Font */
-@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap');
-
-body {
-  font-family: 'Poppins', sans-serif;
-  margin: 0;
-  padding: 0;
-  background: linear-gradient(to right, #ff4b5c, #ff6b81);
-  color: #fff;
+.wrapper {
+  display: flex;
+  flex-direction: column;
 }
 
-/* Navbar Styling */
 .navbar {
   display: flex;
-  justify-content: space-between;
   align-items: center;
-  background: rgba(255, 255, 255, 0.1);
-  backdrop-filter: blur(10px);
-  padding: 15px 20px;
+  justify-content: space-between;
+  background: rgb(136, 45, 210);
   color: white;
-  box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.2);
+  padding: 15px;
 }
 
-.navbar h2 {
-  margin: 0;
-  font-weight: 600;
-  letter-spacing: 1px;
+.menuBtn {
+  background: none;
+  border: none;
+  color: white;
+  cursor: pointer;
 }
 
-.navbar ul {
+/* Sidebar Styling */
+.sidebar {
+  position: fixed;
+  top: 0;
+  left: -300px;
+  width: 250px;
+  height: 100vh;
+  background: #020202;
+  color: white;
+  transition: left 0.3s;
+  padding: 20px;
+  z-index: 1000;
+}
+
+.sidebar.open {
+  left: 0;
+}
+
+.sidebar ul {
   list-style: none;
-  display: flex;
-  margin: 0;
   padding: 0;
+  margin-top: 40px;
 }
 
-.navbar ul li {
-  margin: 0 15px;
+.sidebar ul li {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 12px;
+  font-size: 16px;
+  cursor: pointer;
 }
 
-.navbar ul li a {
-  text-decoration: none;
+.sidebar ul li a {
   color: white;
-  font-weight: 500;
-  transition: color 0.3s ease-in-out;
+  text-decoration: none;
 }
 
-.navbar ul li a:hover {
-  color: #ffcccb;
+.closeBtn {
+  font-size: 20px;
+  background: none;
+  border: none;
+  color: white;
+  cursor: pointer;
+  position: absolute;
+  right: 20px;
+  top: 15px;
 }
 
-/* Main Container */
+/* Main Content Styling */
+.mainContent {
+  padding: 20px;
+}
+
 .container {
   text-align: center;
-  padding: 50px 20px;
 }
 
-.title {
-  font-size: 2.5rem;
-  font-weight: 600;
-  text-shadow: 2px 2px 10px rgba(0, 0, 0, 0.3);
-}
-
-/* Blood Inventory Table */
-.blood-table {
-  width: 30%;
-  height: 300px;
+/* Table Styling */
+.table {
+  width: 60%;
   margin: 30px auto;
   border-collapse: collapse;
-  background: rgba(255, 255, 255, 0.15);
-  backdrop-filter: blur(10px);
-  border-radius: 10px;
-  overflow: hidden;
-  box-shadow: 0px 10px 20px rgba(0, 0, 0, 0.3);
 }
 
-.blood-table th, .blood-table td {
-  padding: 15px;
+.table th, .table td {
+  padding: 12px;
   text-align: center;
-  font-size: 1.2rem;
+  border: 1px solid #ddd;
 }
 
-.blood-table th {
-  background: rgba(255, 255, 255, 0.2);
+.table th {
+  background: #333;
   color: white;
-  font-weight: bold;
 }
 
-.blood-table tr {
-  transition: background 0.3s ease-in-out;
-}
-
-.blood-table tr:hover {
+.table tr:hover {
   background: rgba(255, 255, 255, 0.3);
-}
-
-.blood-table td {
-  color: white;
 }
 
 /* Responsive Design */
 @media (max-width: 768px) {
-  .navbar {
-    flex-direction: column;
-    text-align: center;
-  }
-
-  .navbar ul {
-    padding-top: 10px;
-  }
-
-  .navbar ul li {
-    margin: 5px 0;
-  }
-
-  .title {
-    font-size: 2rem;
-  }
-
-  .blood-table {
+  .table {
     width: 95%;
   }
 }

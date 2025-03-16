@@ -1,36 +1,95 @@
 import React, { useState } from "react";
-import Bloodunit from "./Bloodunit";
-import styles from "./BloodBankPage.module.css"
+import { Menu, X, Home, ClipboardList, Users, Settings } from "lucide-react";
+import styles from "./BloodBankPage.module.css";
+
 function BloodBankPage() {
-    document.title="AuraHP blood bank"
+  document.title = "AuraHP Blood Bank";
+  const [isSidebarOpen, setSidebarOpen] = useState(false);
+
   return (
-    <div>
-      <div className={styles.container}>
-        <h1 className={styles.title}>Welcome to Aura HP</h1>
-        {/* <BloodInventory /> */}
-        <Bloodunit/>
+    <div className={styles.wrapper}>
+      <Navbar toggleSidebar={() => setSidebarOpen(!isSidebarOpen)} />
+      <Sidebar isOpen={isSidebarOpen} toggleSidebar={() => setSidebarOpen(false)} />
+      <div className={styles.mainContent}>
+        <div className={styles.container}>
+          <h1 className={styles.title}>Aura HP Blood Bank</h1>
+          <Dashboard />
+          <BloodInventory />
+        </div>
       </div>
     </div>
   );
 }
 
+function Navbar({ toggleSidebar }) {
+  return (
+    <div className={styles.navbar}>
+      <button className={styles.menuBtn} onClick={toggleSidebar}>
+        <Menu size={28} />
+      </button>
+      <h2>Aura HP Blood Bank</h2>
+    </div>
+  );
+}
+
+function Sidebar({ isOpen, toggleSidebar }) {
+  return (
+    <div className={`${styles.sidebar} ${isOpen ? styles.open : ""}`}>
+      <button className={styles.closeBtn} onClick={toggleSidebar}>
+        <X size={24} />
+      </button>
+      <ul>
+        <li><Home size={20} /> <a href="#">Dashboard</a></li>
+        <li><ClipboardList size={20} /> <a href="#">Blood Requests</a></li>
+        <li><Users size={20} /> <a href="#">Donors List</a></li>
+        <li><Settings size={20} /> <a href="#">Settings</a></li>
+      </ul>
+    </div>
+  );
+}
+
+function Dashboard() {
+  const [requests] = useState([
+    { bloodType: "O+", urgency: "High", status: "Pending" },
+    { bloodType: "A-", urgency: "Medium", status: "Fulfilled" }
+  ]);
+
+  return (
+    <div className={styles.dashboard}>
+      <h2>Blood Requests</h2>
+      <table className={styles.table}>
+        <thead>
+          <tr>
+            <th>Blood Type</th>
+            <th>Urgency</th>
+            <th>Status</th>
+          </tr>
+        </thead>
+        <tbody>
+          {requests.map((req, index) => (
+            <tr key={index}>
+              <td>{req.bloodType}</td>
+              <td>{req.urgency}</td>
+              <td>{req.status}</td>
+            </tr>
+          ))}
+        </tbody>
+      </table>
+    </div>
+  );
+}
 
 function BloodInventory() {
-  const [bloodStock, setBloodStock] = useState([
+  const [bloodStock] = useState([
     { type: "A+", units: 10 },
-    { type: "A-", units: 5 },
     { type: "B+", units: 8 },
-    { type: "B-", units: 4 },
-    { type: "O+", units: 12 },
     { type: "O-", units: 6 },
-    { type: "AB+", units: 3 },
-    { type: "AB-", units: 2 },
   ]);
 
   return (
     <div>
       <h2>Available Blood Units</h2>
-      <table className={styles["blood-table"]}>
+      <table className={styles.table}>
         <thead>
           <tr>
             <th>Blood Type</th>

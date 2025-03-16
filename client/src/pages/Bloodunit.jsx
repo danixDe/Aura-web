@@ -1,4 +1,4 @@
-import "./Bloodunit.css"
+import "./Bloodunit.module.css"
 export default function Bloodunit(){
     
     return(

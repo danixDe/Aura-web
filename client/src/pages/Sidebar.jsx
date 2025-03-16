@@ -11,7 +11,6 @@ const Sidebar = ({ onClose }) => {
         <X size={28} />
       </button>
       <div className={styles.menu}>
-        <h2 className={styles.menuTitle}>Menu</h2>
         <ul className={styles.menuList}>
           <li onClick={()=>navigate('/DonorHome')} className = {styles.menuItem}>
             <HomeIcon size={20} /> Home
