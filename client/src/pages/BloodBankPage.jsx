@@ -1,10 +1,11 @@
 import React, { useState } from "react";
-import { Menu, X, Home, ClipboardList, Users, Settings } from "lucide-react";
+import { Menu, X, Home, ClipboardList, Users, Settings, PlusCircle, Info } from "lucide-react";
 import styles from "./BloodBankPage.module.css";
 
 function BloodBankPage() {
   document.title = "AuraHP Blood Bank";
   const [isSidebarOpen, setSidebarOpen] = useState(false);
+  const [isRequestOpen, setRequestOpen] = useState(false);
 
   return (
     <div className={styles.wrapper}>
@@ -13,10 +14,14 @@ function BloodBankPage() {
       <div className={styles.mainContent}>
         <div className={styles.container}>
           <h1 className={styles.title}>Aura HP Blood Bank</h1>
+          <button className={styles.postRequestBtn} onClick={() => setRequestOpen(true)}>
+            <PlusCircle size={20} /> Post a Request
+          </button>
           <Dashboard />
           <BloodInventory />
         </div>
       </div>
+      {isRequestOpen && <RequestPopup closePopup={() => setRequestOpen(false)} />}
     </div>
   );
 }
@@ -43,7 +48,55 @@ function Sidebar({ isOpen, toggleSidebar }) {
         <li><ClipboardList size={20} /> <a href="#">Blood Requests</a></li>
         <li><Users size={20} /> <a href="#">Donors List</a></li>
         <li><Settings size={20} /> <a href="#">Settings</a></li>
+        <li><Info size={20} /> About</li>
       </ul>
+    </div>
+  );
+}
+
+function RequestPopup({ closePopup }) {
+  const [formData, setFormData] = useState({
+    bloodGroup: "A+",
+    units: "",
+    urgency: "Urgent",
+    facilityName: "City Hospital",
+    address: "123 Main St, Visakhapatnam",
+  });
+
+  const handleChange = (e) => {
+    setFormData({ ...formData, [e.target.name]: e.target.value });
+  };
+
+  return (
+    <div className={styles.popupOverlay}>
+      <div className={styles.popup}>
+        <button className={styles.closeBtn} onClick={closePopup}>×</button>
+        <h2>Post a Blood Request</h2>
+        <label>Blood Group</label>
+        <select name="bloodGroup" value={formData.bloodGroup} onChange={handleChange}>
+          {["A+", "A-", "B+", "B-", "AB+", "AB-", "O+", "O-"].map((type) => (
+            <option key={type} value={type}>{type}</option>
+          ))}
+        </select>
+
+        <label>Number of Units</label>
+        <input type="number" name="units" value={formData.units} onChange={handleChange} placeholder="Enter units" />
+
+        <label>Urgency Level</label>
+        <select name="urgency" value={formData.urgency} onChange={handleChange}>
+          {["Urgent", "Within 24 hours", "Within 3 days", "Within a week"].map((level) => (
+            <option key={level} value={level}>{level}</option>
+          ))}
+        </select>
+
+        <label>Medical Facility</label>
+        <input type="text" value={formData.facilityName} disabled />
+
+        <label>Address</label>
+        <input type="text" value={formData.address} disabled />
+
+        <button className={styles.submitBtn}>Request</button>
+      </div>
     </div>
   );
 }

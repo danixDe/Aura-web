@@ -7,7 +7,7 @@ const Card = ({ request }) => {
   const { medicalFacility, bloodGroup, unitsRequired, eLevel, latitude, longitude } = request;
 
   const getELevelColor = (level) => {
-    const shades = ["#dfe6e9", "#fdecea", "#fab7b7", "#ff6b6b", "#e63946", "#c91f37", "#8b0000"];
+    const shades = ["#dfe6e9", "#ff6b6b", "#e63946"];
     return shades[level - 1] || "#dfe6e9";
   };
 

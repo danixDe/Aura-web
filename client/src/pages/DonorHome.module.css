@@ -14,6 +14,7 @@
   flex-direction: column;
   flex:1;
   padding:24px;
+  background-color:whitesmoke;
 }
   
 .header {
@@ -32,7 +33,7 @@
 .showRequests {
   display: flex;
   align-items: center;
-  background: yellowgreen;
+  background: black;
   color: white;
   border: none;
   padding: 8px 12px;
@@ -47,7 +48,7 @@
   }
   
   .showRequests:hover {
-    background: hsl(80, 81%, 50%);
+    background: hsla(0, 40%, 0%,0.8);
   }
   
   .grid {
@@ -119,12 +120,12 @@
   }
   
   .alertBanner {
-    background: crimson;
-    color: white;
+    background: whitesmoke;
+    color: crimson;
     padding: 10px;
     text-align: center;
     font-weight: bold;
-    animation: blink 1s infinite alternate;
+    animation: blink 0.5s infinite alternate;
   }
   @keyframes blink {
     from { opacity: 1; }
@@ -136,12 +137,12 @@
     margin: 20px 0;
   }
   .statCard {
-    background: rgba(255, 255, 255, 0.1);
+    background: white;
     padding: 15px;
     border-radius: 10px;
     text-align: center;
     box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
-    color:yellowgreen;
+    color:black;
   }
 
   
