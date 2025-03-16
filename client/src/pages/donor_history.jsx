@@ -24,20 +24,6 @@ const DonationHistory = () => {
   const handlePrint = () => {
     window.print();
   };
-
-  const handleDownloadPDF = () => {
-    const doc = new jsPDF();
-    doc.setFontSize(18);
-    doc.text("Donation History", 20, 20);
-
-    donations.forEach((donation, index) => {
-      doc.setFontSize(12);
-      doc.text(`${index + 1}. ${donation.date} - ${donation.location}`, 20, 30 + index * 10);
-    });
-
-    doc.save("donation_history.pdf");
-  };
-
   return (
     <div className={styles.historyContainer}>
       <h2 className={styles.title}>Donation History</h2>
