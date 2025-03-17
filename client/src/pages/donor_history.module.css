@@ -2,19 +2,21 @@
   max-width: 800px;
   margin: 40px auto;
   padding: 32px;
-  background: rgba(255, 255, 255, 0.1);
+  background: var(--card-bg);
   backdrop-filter: blur(10px);
   border-radius: 20px;
-  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
-  border: 1px solid rgba(255, 255, 255, 0.2);
-  color: white;
+  box-shadow: 0 8px 32px var(--shadow-color);
+  border: 1px solid var(--border-color);
+  color: var(--text-primary);
+  position: relative;
+  z-index: 1;
 }
 
 .title {
   text-align: center;
   font-size: 2rem;
   margin-bottom: 32px;
-  background: linear-gradient(135deg, #FF6B6B 0%, #EE5253 100%);
+  background: var(--accent-gradient);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
 }
@@ -27,15 +29,16 @@
 .donationItem {
   padding: 20px;
   margin-bottom: 16px;
-  background: rgba(255, 255, 255, 0.05);
+  background: var(--nav-bg);
   border-radius: 12px;
-  border: 1px solid rgba(255, 255, 255, 0.1);
+  border: 1px solid var(--border-color);
   transition: all 0.3s ease;
 }
 
 .donationItem:hover {
   transform: translateY(-2px);
-  background: rgba(255, 255, 255, 0.1);
+  background: var(--card-bg);
+  box-shadow: 0 4px 12px var(--shadow-color);
 }
 
 .infoRow {
@@ -43,7 +46,7 @@
   align-items: center;
   gap: 12px;
   font-size: 1.1rem;
-  color: rgba(255, 255, 255, 0.9);
+  color: var(--text-secondary);
   margin: 8px 0;
 }
 
@@ -57,7 +60,7 @@
 .actionButton {
   padding: 12px 24px;
   border: none;
-  background: linear-gradient(135deg, #FF6B6B 0%, #EE5253 100%);
+  background: var(--accent-gradient);
   color: white;
   border-radius: 12px;
   cursor: pointer;
@@ -70,5 +73,5 @@
 
 .actionButton:hover {
   transform: translateY(-2px);
-  box-shadow: 0 4px 12px rgba(238, 82, 83, 0.2);
+  box-shadow: 0 4px 12px var(--shadow-color);
 }

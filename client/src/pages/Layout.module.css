@@ -18,19 +18,8 @@
   z-index: 0;
 }
 
-/* Light theme variables */
-.light {
-  --bg-gradient: linear-gradient(135deg, #f6f8fd 0%, #e2e8f4 100%);
-  --text-primary: #1a1f36;
-  --text-secondary: #4a5568;
-  --accent-gradient: linear-gradient(135deg, #6366f1 0%, #4f46e5 100%);
-  --nav-bg: rgba(255, 255, 255, 0.8);
-  --card-bg: rgba(255, 255, 255, 0.9);
-  --border-color: rgba(226, 232, 240, 0.8);
-  --shadow-color: rgba(0, 0, 0, 0.1);
-}
 
-/* Dark theme variables */
+
 .dark {
   --bg-gradient: linear-gradient(135deg, #0f172a 0%, #1e1b4b 100%);
   --text-primary: #ffffff;
@@ -64,8 +53,8 @@
 }
 
 .hamburgerButton {
-  background: transparent;
-  border:none;
+  background: var(--card-bg);
+  border: 1px solid var(--border-color);
   border-radius: 8px;
   padding: 8px;
   cursor: pointer;
@@ -95,10 +84,10 @@
   display: flex;
   align-items: center;
   justify-content: flex-start;
-  padding: px;
+  padding: ;
   cursor: pointer;
   position: relative;
-  transition: all 0.3s ease;
+  transition: all 0.2s ease;
   border: 1px solid var(--border-color);
   margin-right: 40px;
 }
@@ -112,10 +101,15 @@
   justify-content: center;
   background: var(--text-primary);
   box-shadow: 0 2px 5px var(--shadow-color);
-  transition: all 0.1s ease;
+  transition: all 0.05s ease;
 }
 
 .navButtons {
   display: flex;
   gap: 16px;
+}
+
+.pageContent {
+  position: relative;
+  z-index: 1;
 }

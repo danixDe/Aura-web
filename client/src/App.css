@@ -4,6 +4,15 @@
   /* padding: 2rem; */
   text-align: center;
   width:100%;
-  background: white;
+}
+:root {
+  --bg-gradient: linear-gradient(135deg, #f6f8fd 0%, #e2e8f4 100%);
+  --text-primary: #1a1f36;
+  --text-secondary: #4a5568;
+  --accent-gradient: linear-gradient(135deg, #6366f1 0%, #4f46e5 100%);
+  --nav-bg: rgba(255, 255, 255, 0.8);
+  --card-bg: rgba(255, 255, 255, 0.9);
+  --border-color: rgba(226, 232, 240, 0.8);
+  --shadow-color: rgba(0, 0, 0, 0.1);
 }
 
