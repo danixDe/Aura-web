@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import { motion } from 'framer-motion';
 import BloodBankLayout from '../layouts/BloodBankLayout';
 import styles from './BloodBankPage.module.css';
