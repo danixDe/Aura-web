@@ -9,7 +9,9 @@ import DonorHome from './pages/DonorHome.jsx'
 import BloodBankPage from "./pages/BloodBankPage";
 import DonorProfile from './pages/donor_profile.jsx'
 import DonorHistory from "./pages/donor_history.jsx";
-function App() {
+import BloodRequests from "./pages/BloodRequests.jsx";
+import DonorsList from "./pages/DonorsList.jsx";
+import Analytics from "./pages/Analytics.jsx";function App() {
   return (
     <Router>
       <Routes>
@@ -22,6 +24,9 @@ function App() {
         <Route path="/bloodbank" element={<BloodBankPage/>} />
         <Route path = '/donor' element = {<DonorProfile />} />
         <Route path = '/donationHistory' element = {<DonorHistory />} />
+        <Route path="/blood-requests" element={<BloodRequests />} />
+        <Route path="/donors-list" element={<DonorsList />} />
+        <Route path="/analytics" element={<Analytics />} />
       </Routes>
     </Router>
   );

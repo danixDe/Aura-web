@@ -2,7 +2,8 @@ import React, { useState, useContext } from "react";
 import { Menu, X, Home, ClipboardList, Users, Settings, PlusCircle, Info, Activity, Droplet, AlertTriangle } from "lucide-react";
 import styles from "./BloodBankPage.module.css";
 import { motion, AnimatePresence } from "framer-motion";
-import { ThemeContext } from "./Layout";
+import { ThemeContext } from "../layouts/Layout";
+import { Link } from "react-router-dom";
 
 function BloodBankPage() {
   document.title = "AuraHP Blood Bank";
@@ -81,11 +82,11 @@ function Sidebar({ isOpen, toggleSidebar }) {
         <X size={24} />
       </button>
       <ul>
-        <motion.li whileHover={{ x: 5 }}><Home size={20} /> <a href="#">Dashboard</a></motion.li>
-        <motion.li whileHover={{ x: 5 }}><ClipboardList size={20} /> <a href="#">Blood Requests</a></motion.li>
-        <motion.li whileHover={{ x: 5 }}><Users size={20} /> <a href="#">Donors List</a></motion.li>
-        <motion.li whileHover={{ x: 5 }}><Activity size={20} /> <a href="#">Analytics</a></motion.li>
-        <motion.li whileHover={{ x: 5 }}><Settings size={20} /> <a href="#">Settings</a></motion.li>
+        <motion.li whileHover={{ x: 5 }}><Home size={20} /> <Link to="/bloodbank">Dashboard</Link></motion.li>
+        <motion.li whileHover={{ x: 5 }}><ClipboardList size={20} /> <Link to="/blood-requests">Blood Requests</Link></motion.li>
+        <motion.li whileHover={{ x: 5 }}><Users size={20} /> <Link to="/donors-list">Donors List</Link></motion.li>
+        <motion.li whileHover={{ x: 5 }}><Activity size={20} /> <Link to="/analytics">Analytics</Link></motion.li>
+        <motion.li whileHover={{ x: 5 }}><Settings size={20} /> <Link to="#">Settings</Link></motion.li>
         <motion.li whileHover={{ x: 5 }}><Info size={20} /> About</motion.li>
       </ul>
     </motion.div>
