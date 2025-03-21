@@ -1,214 +1,158 @@
-import { useState } from "react";
-import {
-  Typography,
-  Button,
-  Container,
-  CssBaseline,
-  Box,
-  TextField,
-  FormControl,
-  InputLabel,
-  Select,
-  MenuItem,
-  Checkbox,
-  FormControlLabel,
-} from "@mui/material";
-import { Link } from "react-router-dom";
+import React, { useState } from 'react';
+import { Link } from 'react-router-dom';
+import { GoogleLogin } from '@react-oauth/google';
+import styles from './auth.module.css';
+import { motion } from 'framer-motion';
 
 const MFSignup = () => {
-  const [facilityType, setFacilityType] = useState("");
+  const [facilityType, setFacilityType] = useState('');
   const [termsAccepted, setTermsAccepted] = useState(false);
-
-  const handleFacilityTypeChange = (event) => {
-    setFacilityType(event.target.value);
-  };
-
-  const handleTermsChange = (event) => {
-    setTermsAccepted(event.target.checked);
-  };
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    const formData = new FormData(e.currentTarget);
-    const data = {
-      name: formData.get("name"),
-      facilityType: facilityType,
-      licenseNumber: formData.get("licenseNumber"),
-      contactPerson: formData.get("contactPerson"),
-      contactNumber: formData.get("contactNumber"),
-      address: formData.get("address"),
-      email: formData.get("email"),
-      password: formData.get("password"),
-      confirmPassword: formData.get("confirmPassword"),
-    };
-
     if (!termsAccepted) {
-      alert("You must accept the Terms & Conditions to proceed.");
+      alert('Please accept the terms and conditions');
       return;
     }
+    const formData = new FormData(e.currentTarget);
+    console.log('Form submitted:', Object.fromEntries(formData));
+  };
 
-    console.log("Form submitted:", data);
+  const handleGoogleSuccess = (credentialResponse) => {
+    console.log('Google Sign Up Success:', credentialResponse);
+    // Handle Google sign up success
+  };
+
+  const handleGoogleError = () => {
+    console.log('Google Sign Up Failed');
+    // Handle Google sign up error
   };
 
   return (
-    <>
-      <CssBaseline />
-      <Container component="main" maxWidth="xs">
-        <Box
-          sx={{
-            marginTop: 8,
-            display: "flex",
-            flexDirection: "column",
-            alignItems: "center",
-          }}
-        >
-          <Typography component="h1" variant="h5">
-            Medical Facility Sign Up
-          </Typography>
-          <Box component="form" sx={{ mt: 3 }} onSubmit={handleSubmit}>
-            
-            <TextField
-              margin="normal"
-              required
-              fullWidth
+    <div className={styles.authContainer}>
+      <motion.div 
+        className={styles.formCard}
+        initial={{ opacity: 0, y: 20 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.5 }}
+      >
+        <h1 className={styles.title}>Medical Facility Sign Up</h1>
+        
+        <form onSubmit={handleSubmit}>
+          <div className={styles.formGroup}>
+            <label htmlFor="name">Organization Name</label>
+            <input
+              type="text"
               id="name"
-              label="Organization Name"
               name="name"
-              autoFocus
-            />
-
-           
-            <FormControl
-               required
-               fullWidth
-               margin="normal"
-               variant="outlined"  >
-                <InputLabel id="facility-type-label">Facility Type</InputLabel>
-                    <Select
-                       labelId="facility-type-label"
-                       id="facility-type"
-                       value={facilityType}
-                       onChange={handleFacilityTypeChange}
-                       label="Facility Type" >
-                         <MenuItem value={"Hospital"}>Hospital</MenuItem>
-                         <MenuItem value={"Clinic"}>Clinic</MenuItem>
-                         <MenuItem value={"Blood Bank"}>Blood Bank</MenuItem>
-                         <MenuItem value={"NGO"}>NGO</MenuItem>
-                         <MenuItem value={"Others"}>Others</MenuItem>
-                    </Select>
-            </FormControl>
-
-
-         
-            <TextField
-              margin="normal"
+              className={styles.inputField}
               required
-              fullWidth
+            />
+          </div>
+
+          <div className={styles.formGroup}>
+            <label htmlFor="facilityType">Facility Type</label>
+            <select
+              id="facilityType"
+              name="facilityType"
+              className={styles.select}
+              value={facilityType}
+              onChange={(e) => setFacilityType(e.target.value)}
+              required
+            >
+              <option value="">Select Facility Type</option>
+              <option value="Hospital">Hospital</option>
+              <option value="Clinic">Clinic</option>
+              <option value="Blood Bank">Blood Bank</option>
+              <option value="NGO">NGO</option>
+              <option value="Others">Others</option>
+            </select>
+          </div>
+
+          <div className={styles.formGroup}>
+            <label htmlFor="licenseNumber">License Number</label>
+            <input
+              type="text"
               id="licenseNumber"
-              label="License Number"
               name="licenseNumber"
-            />
-
-            
-            <TextField
-              margin="normal"
+              className={styles.inputField}
               required
-              fullWidth
-              id="contactPerson"
-              label="Contact Person Name"
-              name="contactPerson"
             />
+          </div>
 
-           
-            <TextField
-              margin="normal"
-              required
-              fullWidth
-              id="contactNumber"
-              label="Contact Number"
-              name="contactNumber"
-              type="tel"
-            />
-
-           
-            <TextField
-              margin="normal"
-              required
-              fullWidth
-              id="address"
-              label="Address"
-              name="address"
-              multiline
-              rows={3}
-            />
-
-           
-            <TextField
-              margin="normal"
-              required
-              fullWidth
-              id="email"
-              label="Email Address"
-              name="email"
+          <div className={styles.formGroup}>
+            <label htmlFor="email">Email Address</label>
+            <input
               type="email"
-            />
-
-           
-            <TextField
-              margin="normal"
+              id="email"
+              name="email"
+              className={styles.inputField}
               required
-              fullWidth
-              name="password"
-              label="Password"
+            />
+          </div>
+
+          <div className={styles.formGroup}>
+            <label htmlFor="password">Password</label>
+            <input
               type="password"
               id="password"
-            />
-
-          
-            <TextField
-              margin="normal"
+              name="password"
+              className={styles.inputField}
               required
-              fullWidth
-              name="confirmPassword"
-              label="Confirm Password"
+            />
+          </div>
+
+          <div className={styles.formGroup}>
+            <label htmlFor="confirmPassword">Confirm Password</label>
+            <input
               type="password"
               id="confirmPassword"
+              name="confirmPassword"
+              className={styles.inputField}
+              required
             />
+          </div>
 
-            <FormControlLabel
-              control={
-                <Checkbox
-                  checked={termsAccepted}
-                  onChange={handleTermsChange}
-                  color="primary"
-                />
-              }
-              label="I accept the Terms & Conditions"
+          <label className={styles.checkbox}>
+            <input
+              type="checkbox"
+              checked={termsAccepted}
+              onChange={(e) => setTermsAccepted(e.target.checked)}
             />
+            I accept the Terms & Conditions
+          </label>
 
-            
-            <Button
-              type="submit"
-              fullWidth
-              variant="contained"
-              sx={{
-                mt: 3,
-                mb: 2,
-                bgcolor: "#dc143c",
-                ":hover": {
-                  bgcolor: "#a10f2d",
-                },
-              }}
-            >
-              Sign Up
-            </Button>
-          </Box>
-        </Box>
-        <p>
-          Already have an account? <Link to="/MFLogin">Login</Link>
+          <motion.button 
+            className={styles.submitButton}
+            whileHover={{ scale: 1.02 }}
+            whileTap={{ scale: 0.98 }}
+            type="submit"
+          >
+            Sign Up
+          </motion.button>
+        </form>
+
+        <div className={styles.divider}>
+          <span>or continue with</span>
+        </div>
+
+        <div className={styles.socialButtons}>
+          <GoogleLogin
+            onSuccess={handleGoogleSuccess}
+            onError={handleGoogleError}
+            size="large"
+            width="100%"
+            text="signup_with"
+            shape="rectangular"
+          />
+        </div>
+
+        <p className={styles.switchText}>
+          Already have an account?
+          <Link to="/MFLogin" className={styles.switchLink}>Sign In</Link>
         </p>
-      </Container>
-    </>
+      </motion.div>
+    </div>
   );
 };
 

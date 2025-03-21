@@ -1,124 +1,90 @@
-import React from "react";
-import { Typography, Button, Container, CssBaseline, Box, TextField } from "@mui/material";
-import { Link, useNavigate} from "react-router-dom";
+import React from 'react';
+import { Link, useNavigate } from 'react-router-dom';
+import { GoogleLogin } from '@react-oauth/google';
+import styles from './auth.module.css';
+import { motion } from 'framer-motion';
+
 const MFLogin = () => {
   const navigate = useNavigate();
+
   const handleSubmit = (e) => {
     e.preventDefault();
-    const formData = new FormData(e.currentTarget);
-    const email = formData.get("email");
-    const password = formData.get("password");
+    navigate('/bloodbank');
+  };
 
-    console.log("Form submitted:", { email, password });
-    navigate('/bloodbank')
-    
+  const handleGoogleSuccess = (credentialResponse) => {
+    console.log('Google Sign In Success:', credentialResponse);
+    navigate('/bloodbank');
+  };
+
+  const handleGoogleError = () => {
+    console.log('Google Sign In Failed');
   };
 
   return (
-    <>
-      <CssBaseline />
-      <Container component="main" maxWidth="xs">
-        <Box
-          sx={{
-            marginTop: 8,
-            display: "flex",
-            flexDirection: "column",
-            alignItems: "center",
-          }}
-        >
-          <Typography component="h1" variant="h5">
-            Medical Facility Sign In
-          </Typography>
-          <Box
-            component="form"
-            sx={{ mt: 3 }}
-            onSubmit={handleSubmit}
-          >
-           
-            <TextField
-              margin="normal"
-              required
-              fullWidth
+    <div className={styles.authContainer}>
+      <motion.div 
+        className={styles.formCard}
+        initial={{ opacity: 0, y: 20 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.5 }}
+      >
+        <h1 className={styles.title}>Medical Facility Sign In</h1>
+        
+        <form onSubmit={handleSubmit}>
+          <div className={styles.formGroup}>
+            <label htmlFor="email">Email Address</label>
+            <input
+              type="email"
               id="email"
-              label="Email Address / Mobile"
               name="email"
-              autoComplete="email"
-              autoFocus
-              aria-label="Email or Mobile"
-              InputLabelProps={{
-                shrink: true, 
-              }}
-              variant="outlined" 
-              sx={{
-                "& .MuiOutlinedInput-root": {
-                  "& fieldset": {
-                    borderColor: "#ccc",
-                  },
-                  "&:hover fieldset": {
-                    borderColor: "#000",
-                  },
-                  "&.Mui-focused fieldset": {
-                    borderColor: "#dc143c",
-                  },
-                },
-              }}
-            />
-
-            
-            <TextField
-              margin="normal"
+              className={styles.inputField}
               required
-              fullWidth
-              name="password"
-              label="Password"
+            />
+          </div>
+
+          <div className={styles.formGroup}>
+            <label htmlFor="password">Password</label>
+            <input
               type="password"
               id="password"
-              autoComplete="current-password"
-              aria-label="Password"
-              InputLabelProps={{
-                shrink: true, 
-              }}
-              variant="outlined" 
-              sx={{
-                "& .MuiOutlinedInput-root": {
-                  "& fieldset": {
-                    borderColor: "#ccc",
-                  },
-                  "&:hover fieldset": {
-                    borderColor: "#000",
-                  },
-                  "&.Mui-focused fieldset": {
-                    borderColor: "#dc143c",
-                  },
-                },
-              }}
+              name="password"
+              className={styles.inputField}
+              required
             />
+          </div>
 
-            
-            <Button
-              type="submit"
-              fullWidth
-              variant="contained"
-              sx={{
-                mt: 3,
-                mb: 2,
-                bgcolor: "#dc143c",
-                ":hover": {
-                  bgcolor: "#a10f2d",
-                },
-              }}
-            >
-              Sign In
-            </Button>
-          </Box>
-        </Box>
+          <motion.button 
+            className={styles.submitButton}
+            whileHover={{ scale: 1.02 }}
+            whileTap={{ scale: 0.98 }}
+            type="submit"
+          >
+            Sign In
+          </motion.button>
+        </form>
 
-        
-        <p>
-          Not having an account? <Link to="/MFSignup">Sign Up</Link>
-         </p>
-      </Container>
-    </>
+        <div className={styles.divider}>
+          <span>or continue with</span>
+        </div>
+
+        <div className={styles.socialButtons}>
+          <GoogleLogin
+            onSuccess={handleGoogleSuccess}
+            onError={handleGoogleError}
+            size="large"
+            width="100%"
+            text="signin_with"
+            shape="rectangular"
+          />
+        </div>
+
+        <p className={styles.switchText}>
+          Don't have an account?
+          <Link to="/MFSignup" className={styles.switchLink}>Sign Up</Link>
+        </p>
+      </motion.div>
+    </div>
   );
 };
 

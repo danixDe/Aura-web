@@ -1,93 +1,90 @@
-import {
-  TextField,
-  Button,
-  Box,
-  Typography,
-  Container,
-  CssBaseline,
-} from "@mui/material";
-import{Link,useNavigate} from "react-router-dom";
-
+import React from 'react';
+import { Link, useNavigate } from 'react-router-dom';
+import { GoogleLogin } from '@react-oauth/google';
+import styles from './auth.module.css';
+import { motion } from 'framer-motion';
 
 const VLogin = () => {
-  const navigate =useNavigate();
- /* const handleSubmit = (e) => {
+  const navigate = useNavigate();
+
+  const handleSubmit = (e) => {
     e.preventDefault();
-    const formData = new FormData(e.currentTarget);
-    const email = formData.get("email");
-    const password = formData.get("password");
+    navigate('/DonorHome');
+  };
 
-    console.log("Form submitted:", { email, password });
-  };  */
+  const handleGoogleSuccess = (credentialResponse) => {
+    console.log('Google Sign In Success:', credentialResponse);
+    navigate('/DonorHome');
+  };
 
-  const handleSubmit = () => {
-        navigate('/DonorHome');
-  }
+  const handleGoogleError = () => {
+    console.log('Google Sign In Failed');
+  };
 
   return (
-    <Container component="main" maxWidth="xs">
-      <CssBaseline />
-      <Box
-        sx={{
-          marginTop: 8,
-          display: "flex",
-          flexDirection: "column",
-          alignItems: "center",
-          
-        }}
+    <div className={styles.authContainer}>
+      <motion.div 
+        className={styles.formCard}
+        initial={{ opacity: 0, y: 20 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.5 }}
       >
-        <Typography component="h1" variant="h5">
-          Volunteer Sign In
-        </Typography>
-        <Box
-          component="form"
-          sx={{ mt: 3 }}
-          onSubmit={handleSubmit}
-        >
-          <TextField
-            margin="normal"
-           
-            fullWidth
-            id="email"
-            label="Email Address/Mobile"
-            name="email"
-            autoComplete="email"
-            autoFocus
-          />
-          <TextField
-            margin="normal"
-            
-            fullWidth
-            name="password"
-            label="Password"
-            type="password"
-            id="password"
-            autoComplete="current-password"
-          />
-          <Button
+        <h1 className={styles.title}>Volunteer Sign In</h1>
+        
+        <form onSubmit={handleSubmit}>
+          <div className={styles.formGroup}>
+            <label htmlFor="email">Email Address</label>
+            <input
+              type="email"
+              id="email"
+              name="email"
+              className={styles.inputField}
+              required
+            />
+          </div>
+
+          <div className={styles.formGroup}>
+            <label htmlFor="password">Password</label>
+            <input
+              type="password"
+              id="password"
+              name="password"
+              className={styles.inputField}
+              required
+            />
+          </div>
+
+          <motion.button 
+            className={styles.submitButton}
+            whileHover={{ scale: 1.02 }}
+            whileTap={{ scale: 0.98 }}
             type="submit"
-            fullWidth
-            variant="contained"
-            onClick={handleSubmit}
-            sx={{
-              mt: 3,
-              mb: 2,
-              bgcolor: "#dc143c",
-              ":hover": {
-                bgcolor: "#a10f2d",
-              },
-            }}
           >
             Sign In
-          </Button>
-        </Box>
-      </Box>
+          </motion.button>
+        </form>
 
-      <p>
-          Not having an account? <Link to="/VSignup">Sign Up</Link>
-          </p>
+        <div className={styles.divider}>
+          <span>or continue with</span>
+        </div>
 
-    </Container>
+        <div className={styles.socialButtons}>
+          <GoogleLogin
+            onSuccess={handleGoogleSuccess}
+            onError={handleGoogleError}
+            size="large"
+            width="100%"
+            text="signin_with"
+            shape="rectangular"
+          />
+        </div>
+
+        <p className={styles.switchText}>
+          Don't have an account?
+          <Link to="/VSignup" className={styles.switchLink}>Sign Up</Link>
+        </p>
+      </motion.div>
+    </div>
   );
 };
 
