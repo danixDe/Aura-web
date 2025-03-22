@@ -3,25 +3,40 @@ import { Link } from 'react-router-dom';
 import { GoogleLogin } from '@react-oauth/google';
 import styles from './auth.module.css';
 import { motion } from 'framer-motion';
-
+import { jwtDecode } from 'jwt-decode';
+import { useNavigate } from 'react-router-dom';
+import axios from "axios";
 const VSignup = () => {
-  const handleSubmit = (e) => {
+  const navigate=useNavigate();
+  const handleSubmit =async (e) => {
     e.preventDefault();
     const formData = new FormData(e.currentTarget);
-    const name = formData.get('name');
+    const dName = formData.get('name');
     const email = formData.get('email');
     const password = formData.get('password');
     const confirmPassword = formData.get('confirmPassword');
-
+    const phone = formData.get('phone');
+    const location = formData.get('location');
+    const preferred_notification = formData.get('preferred_notification');
+    const blood_group = formData.get('blood_group');
     if (password !== confirmPassword) {
       console.log('Passwords do not match!');
     } else {
-      console.log('Form submitted:', { name, email, password });
+      const user={ dName, email,phone,location,blood_group,preferred_notification, password };
+      console.log('Form submitted:', user);
+      const response=await axios.post("http://localhost:5000/api/donors",user);
+      if(response.data.message==="Donor added successfully"){
+        navigate("/DonorHome");
+      }
+      else{
+        console.log("error sigi up",response.data.message);
+      }
     }
   };
 
   const handleGoogleSuccess = (credentialResponse) => {
     console.log('Google Sign Up Success:', credentialResponse);
+    console.log("user details",jwtDecode(credentialResponse.credential));
   };
 
   const handleGoogleError = () => {
@@ -56,6 +71,46 @@ const VSignup = () => {
               type="email"
               id="email"
               name="email"
+              className={styles.inputField}
+              required
+            />
+          </div>
+          <div className={styles.formGroup}>
+            <label htmlFor="phone">Mobile number</label>
+            <input
+              type="text"
+              id="phone"
+              name="phone"
+              className={styles.inputField}
+              required
+            />
+          </div>
+          <div className={styles.formGroup}>
+            <label htmlFor="location">Address</label>
+            <input
+              type="text"
+              id="location"
+              name="location"
+              className={styles.inputField}
+              required
+            />
+          </div>
+          <div className={styles.formGroup}>
+            <label htmlFor="blood">Blood Group</label>
+            <input
+              type="text"
+              id="blood"
+              name="blood_group"
+              className={styles.inputField}
+              required
+            />
+          </div>
+          <div className={styles.formGroup}>
+            <label htmlFor="notification">Preferred Notification</label>
+            <input
+              type="text"
+              id="notification"
+              name="preferred_notification"
               className={styles.inputField}
               required
             />

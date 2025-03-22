@@ -5,12 +5,24 @@ import styles from './auth.module.css';
 import { motion } from 'framer-motion';
 import { AuthContext } from '../utils/AuthContext';
 import {jwtDecode} from "jwt-decode";
+import axios from 'axios';
 const VLogin = () => {
   const navigate = useNavigate();
   const {login}=useContext(AuthContext);
-  const handleSubmit = (e) => {
+
+  const handleSubmit = async(e) => {
     e.preventDefault();
-    navigate('/DonorHome');
+    const formdata=new FormData(e.currentTarget);
+    const email=formdata.get("email");
+    const password=formdata.get("password");
+    console.log(password);
+    const response=await axios.post("http://localhost:5000/api/donors/authdonor",{email,password});
+    if(response.data.message==="valid"){
+      navigate('/DonorHome');
+    }
+    else{
+      console.log("invalid user");
+    }
   };
 
   const handleGoogleSuccess = (credentialResponse) => {

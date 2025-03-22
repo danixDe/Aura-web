@@ -9,6 +9,7 @@ const { createDonorTable } = require("./models/donor");
 const { createFacilityTable } = require("./models/facility");
 const { createBloodRequestsTable } = require("./models/bloodRequestsTable");
 const { createMedicalRecordsTable } = require("./models/medicalRecordsModel");
+const cors=require("cors");
 
 
 createDonorTable();
@@ -17,9 +18,9 @@ createBloodRequestsTable();
 createMedicalRecordsTable();
 
 const app = express();
-const PORT = process.env.PORT || 5000;
+const PORT =  5000;
 
-
+app.use(cors());
 app.use(bodyParser.json());
 app.use("/api", donorRoutes);
 app.use("/api", facilityRoutes);
