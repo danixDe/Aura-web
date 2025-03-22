@@ -1,12 +1,13 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { GoogleLogin } from '@react-oauth/google';
 import styles from './auth.module.css';
 import { motion } from 'framer-motion';
-
+import { AuthContext } from '../utils/AuthContext';
+import {jwtDecode} from "jwt-decode";
 const VLogin = () => {
   const navigate = useNavigate();
-
+  const {login}=useContext(AuthContext);
   const handleSubmit = (e) => {
     e.preventDefault();
     navigate('/DonorHome');
@@ -14,6 +15,8 @@ const VLogin = () => {
 
   const handleGoogleSuccess = (credentialResponse) => {
     console.log('Google Sign In Success:', credentialResponse);
+    const user=jwtDecode(credentialResponse.credential);
+    login(user);
     navigate('/DonorHome');
   };
 
