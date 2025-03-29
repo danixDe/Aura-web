@@ -1,4 +1,4 @@
-import React, { useContext } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { GoogleLogin } from '@react-oauth/google';
 import styles from './auth.module.css';
@@ -7,9 +7,10 @@ import { AuthContext } from '../utils/AuthContext';
 import {jwtDecode} from "jwt-decode";
 import axios from 'axios';
 const VLogin = () => {
+  console.log(window.location.href);
   const navigate = useNavigate();
   const {login}=useContext(AuthContext);
-
+  const [valid,setValid]=useState("false");
   const handleSubmit = async(e) => {
     e.preventDefault();
     const formdata=new FormData(e.currentTarget);
@@ -18,20 +19,34 @@ const VLogin = () => {
     console.log(password);
     const response=await axios.post("http://localhost:5000/api/donors/authdonor",{email,password});
     if(response.data.message==="valid"){
-      navigate('/DonorHome');
+      setValid("true");
     }
     else{
       console.log("invalid user");
     }
   };
 
-  const handleGoogleSuccess = (credentialResponse) => {
+  const handleGoogleSuccess =async (credentialResponse) => {
     console.log('Google Sign In Success:', credentialResponse);
-    const user=jwtDecode(credentialResponse.credential);
-    login(user);
-    navigate('/DonorHome');
+    const credential=credentialResponse.credential;
+    const response=await axios.post("http://localhost:5000/api/googleAuth",{credential});
+    console.log("response",response);
+    if(response.data.message==="success"){
+      console.log("success");
+      login(jwtDecode(credential).email);
+      setValid("true");
+    }
+    else{
+      console.log("error login using google",response.data.message);
+    }
   };
-
+useEffect(()=>{
+  console.log("valid effect",valid);
+  if(valid==="true"){
+    console.log("valid",valid);
+    navigate('/DonorHome');
+  }
+},[valid]);
   const handleGoogleError = () => {
     console.log('Google Sign In Failed');
   };
@@ -91,6 +106,8 @@ const VLogin = () => {
             width="100%"
             text="signin_with"
             shape="rectangular"
+            useOneTap
+            ux_mode='popup'
           />
         </div>
 

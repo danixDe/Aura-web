@@ -9,6 +9,12 @@ units int NOT NULL,
 urgency ENUM('Urgent', 'Within 24 hours', 'Within 3 days', 'Within a week') NOT NULL,
 type ENUM('live_blood','store_blood') NOT NULL,
 created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+address varchar(30),
+contactNumber varchar(12),
+facilityName varchar(30),
+notes varchar(200) ,
+patientName varchar(30),
+patientAge int,
 FOREIGN KEY (facility_id) REFERENCES facility(id) ON DELETE CASCADE
 );
 `;

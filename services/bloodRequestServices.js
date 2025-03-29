@@ -1,13 +1,15 @@
 const db = require("../config/database");
 
 const BloodRequestsService = {
-  async createBloodRequest({ facility_id, blood_group, units, urgency, type }) {
+  async createBloodRequest({ facility_id, blood_group, units, urgency, type, address, contactNumber, facilityName, notes = null, patientName, patientAge }) {
     try {
       const [result] = await db.execute(
-        `INSERT INTO bloodRequests (facility_id, blood_group, units, urgency, type) VALUES (?, ?, ?, ?, ?)`,
-        [facility_id, blood_group, units, urgency, type]
+        `INSERT INTO bloodRequests 
+         (facility_id, blood_group, units, urgency, type, address, contactNumber, facilityName, notes, patientName, patientAge) 
+         VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)`,
+        [facility_id, blood_group, units, urgency, type, address, contactNumber, facilityName, notes, patientName, patientAge]
       );
-      return { id: result.insertId, facility_id, blood_group, units, urgency, type };
+      return { id: result.insertId, facility_id, blood_group, units, urgency, type, address, contactNumber, facilityName, notes, patientName, patientAge };
     } catch (error) {
       throw new Error("Failed to create blood request: " + error.message);
     }

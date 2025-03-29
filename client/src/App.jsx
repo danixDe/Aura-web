@@ -15,6 +15,7 @@ import Analytics from "./pages/Analytics.jsx";
 import { AuthProvider, AuthContext } from "./utils/AuthContext.jsx";
 import { useContext } from "react";
 import ProtectedRoute from "./ProtectedRoute.jsx";
+import GoogleSignup from "./pages/GoogleSignup.jsx";
 function App() {
   return (
     <AuthProvider>
@@ -25,6 +26,7 @@ function App() {
         <Route path="/MFLogin" element={<MFLogin />} />
         <Route path="/MFSignup" element={<MFSignup />} />
         <Route path="/VSignup" element={<VSignup />} />
+        <Route path="google-signup" element={<GoogleSignup/>} />
        <Route element={<ProtectedRoute/>}>
         <Route path = '/DonorHome' element = {<DonorHome />} />
         <Route path="/bloodbank" element={<BloodBankPage/>} />
