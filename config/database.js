@@ -4,7 +4,7 @@ const dbConfig = {
   host: "localhost",
   user: "root",
   // password: "zx@123",
-  password:"Dileep@1412",
+  password:"zx@123",
   waitForConnections: true,
   connectionLimit: 10,
   queueLimit: 0,
