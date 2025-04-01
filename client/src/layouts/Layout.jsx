@@ -1,4 +1,4 @@
-import React, { useState, createContext, useContext } from 'react';
+import { useState, createContext, useContext } from 'react';
 import Sidebar from '../pages/Sidebar';
 import styles from './Layout.module.css';
 import { Menu, Sun, Moon } from 'lucide-react';

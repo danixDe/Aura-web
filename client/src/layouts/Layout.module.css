@@ -17,9 +17,6 @@
   opacity: 0.1;
   z-index: 0;
 }
-
-
-
 .dark {
   --bg-gradient: linear-gradient(135deg, #0f172a 0%, #1e1b4b 100%);
   --text-primary: #ffffff;

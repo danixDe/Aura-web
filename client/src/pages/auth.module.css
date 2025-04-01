@@ -135,7 +135,7 @@
   }
   
   .switchLink {
-    color: var(--accent-color);
+    color: rgb(219, 37, 77);
     text-decoration: none;
     font-weight: 600;
     margin-left: 0.5rem;
@@ -143,6 +143,7 @@
   
   .switchLink:hover {
     text-decoration: underline;
+
   }
   
   .formGroup {
