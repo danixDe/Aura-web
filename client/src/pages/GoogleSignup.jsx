@@ -1,27 +1,26 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import { GoogleLogin } from '@react-oauth/google';
 import styles from './auth.module.css';
 import { motion } from 'framer-motion';
 import { jwtDecode } from 'jwt-decode';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate,useLocation } from 'react-router-dom';
 import axios from "axios";
-const VSignup = () => {
+const GoogleSignup = () => {
+    const location=useLocation();
+    const googleclient=location.state;
+    const userdetails=jwtDecode(googleclient.credential);
+    console.log(userdetails);
   const navigate=useNavigate();
   const handleSubmit =async (e) => {
     e.preventDefault();
     const formData = new FormData(e.currentTarget);
     const dName = formData.get('name');
     const email = formData.get('email');
-    const password = formData.get('password');
-    const confirmPassword = formData.get('confirmPassword');
     const phone = formData.get('phone');
     const location = formData.get('location');
     const preferred_notification = formData.get('preferred_notification');
+    const password="";
     const blood_group = formData.get('blood_group');
-    if (password !== confirmPassword) {
-      console.log('Passwords do not match!');
-    } else {
       const user={ dName, email,phone,location,blood_group,preferred_notification, password };
       console.log('Form submitted:', user);
       const response=await axios.post("http://localhost:5000/api/donors",user);
@@ -31,16 +30,7 @@ const VSignup = () => {
       else{
         console.log("error sigi up",response.data.message);
       }
-    }
-  };
-
-  const handleGoogleSuccess = (credentialResponse) => {
-    console.log('Google Sign Up Success:', credentialResponse);
-    navigate("/google-signup",{state:credentialResponse});
-  };
-
-  const handleGoogleError = () => {
-    console.log('Google Sign Up Failed');
+    
   };
 
   return (
@@ -51,8 +41,12 @@ const VSignup = () => {
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.5 }}
       >
-        <h1 className={styles.title}>Volunteer Sign Up</h1>
-        
+        <h1 className={styles.title}>Enter your details</h1>
+        <div className={styles.profilepic} style={{display:"flex",justifyContent:"center"}}>
+            <div style={{width:"100px",height:"100px"}}>
+            <img src={userdetails.picture} alt="User Profile" />
+            </div>
+        </div>
         <form onSubmit={handleSubmit}>
           <div className={styles.formGroup}>
             <label htmlFor="name">Full Name</label>
@@ -61,6 +55,7 @@ const VSignup = () => {
               id="name"
               name="name"
               className={styles.inputField}
+              value={userdetails.name}
               required
             />
           </div>
@@ -72,6 +67,7 @@ const VSignup = () => {
               id="email"
               name="email"
               className={styles.inputField}
+              value={userdetails.email}
               required
             />
           </div>
@@ -116,27 +112,7 @@ const VSignup = () => {
             />
           </div>
 
-          <div className={styles.formGroup}>
-            <label htmlFor="password">Password</label>
-            <input
-              type="password"
-              id="password"
-              name="password"
-              className={styles.inputField}
-              required
-            />
-          </div>
 
-          <div className={styles.formGroup}>
-            <label htmlFor="confirmPassword">Confirm Password</label>
-            <input
-              type="password"
-              id="confirmPassword"
-              name="confirmPassword"
-              className={styles.inputField}
-              required
-            />
-          </div>
 
           <motion.button 
             className={styles.submitButton}
@@ -148,20 +124,7 @@ const VSignup = () => {
           </motion.button>
         </form>
 
-        <div className={styles.divider}>
-          <span>or continue with</span>
-        </div>
 
-        <div className={styles.socialButtons}>
-          <GoogleLogin
-            onSuccess={handleGoogleSuccess}
-            onError={handleGoogleError}
-            size="large"
-            width="100%"
-            text="signup_with"
-            shape="rectangular"
-          />
-        </div>
 
         <p className={styles.switchText}>
           Already have an account?
@@ -172,4 +135,4 @@ const VSignup = () => {
   );
 };
 
-export default VSignup;
+export default GoogleSignup;

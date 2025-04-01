@@ -3,6 +3,7 @@ const BloodRequestsService = require("../services/bloodRequestServices");
 const BloodRequestsController = {
   async createBloodRequest(req, res) {
     try {
+      console.log(req.body);
       const newRequest = await BloodRequestsService.createBloodRequest(req.body);
       res.status(201).json(newRequest);
     } catch (error) {
