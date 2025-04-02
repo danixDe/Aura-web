@@ -80,9 +80,10 @@ export default function Land() {
           whileHover={{ scale: 1.1 }}
           whileTap={{ scale: 0.9 }}
         >
-            <span>
-                <a href='#first-impressions'>Show Me How</a>
-          </span>
+        <span onClick={() => window.location.href = '#first-impressions'} style={{cursor: 'pointer', color: '#ffffff'}}>
+        Show Me How
+         </span>
+
         </motion.button>
       </motion.section>
 
