@@ -1,7 +1,7 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import styles from "./donor_profile.module.css";
 import { Calendar, MapPin, Mail, Phone, Edit3, Save } from "lucide-react";
-import Layout from "./Layout";
+import Layout from "../layouts/Layout";
 const DonorProfile = () => {
   const [user, setUser] = useState({
     name: "arvx",

@@ -8,6 +8,7 @@ CREATE TABLE IF NOT EXISTS donor (
   phone VARCHAR(15) NOT NULL,
   location VARCHAR(255) NOT NULL,
   blood_group ENUM("A+", "A-", "B+", "B-", "AB+", "AB-", "O+", "O-") NOT NULL,
+  password VARCHAR(30) ,
   preferred_notification ENUM("Email", "SMS", "Whatsapp") NOT NULL,
   created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 );

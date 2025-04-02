@@ -1,7 +1,7 @@
 import React from "react";
 import styles from "./donor_history.module.css";
 import { Calendar, MapPin, Printer } from "lucide-react";
-import Layout from "./Layout";
+import Layout from '../layouts/Layout';
 
 const DonationHistory = () => {
   const donations = [

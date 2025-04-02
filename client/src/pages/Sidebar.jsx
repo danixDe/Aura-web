@@ -2,7 +2,7 @@ import React, { useContext } from 'react';
 import styles from './Sidebar.module.css';
 import { X, User, History, Settings, Info, HomeIcon } from 'lucide-react';
 import { useNavigate } from 'react-router-dom';
-import { ThemeContext } from './Layout';
+import { ThemeContext } from '../layouts/Layout';
 
 const Sidebar = ({ onClose }) => {
   const navigate = useNavigate();

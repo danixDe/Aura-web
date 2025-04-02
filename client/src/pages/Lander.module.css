@@ -125,37 +125,62 @@
 .ctaButton,
 .ctadarkButton,
 .ctadarkButtonAlt {
-  background: var(--accent-gradient);
+  position: relative;
+  background-color: #4f46e5;
   color: white;
   border: none;
-  padding: 0.8rem 1.8rem;
+  padding: 0.7rem 1.5rem;
   border-radius: 25px;
   cursor: pointer;
   font-size: 1rem;
-  font-weight: 600;
-  transition: all 0.3s ease;
-  border: 1px solid var(--border-color);
+  font-weight: bold;
+  overflow: hidden;
+  transition: transform 0.3s ease;
 }
-
 .ctadarkButtonAlt {
-  background: transparent;
-  border: 2px solid;
-  border-image: var(--accent-gradient) 1;
-  color: var(--text-primary);
+  background-color: transparent;
+  border:2px solid #4f46e5;
+  color:#4f46e5;
+  transition: border-radius 0.15s ease-out;
 }
 
-.ctaButton:hover,
-.ctadarkButton:hover {
-  transform: translateY(-2px);
-  box-shadow: 0 8px 32px var(--shadow-color);
-}
-
-.ctadarkButtonAlt:hover {
+.ctaButton::before,
+.ctadarkButton::before,
+.ctadarkButtonAlt::before{
+  content: "";
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 0%;
+  height: 100%;
   background: var(--accent-gradient);
-  color: white;
-  border: 2px solid transparent;
+  transition: width 0.3s ease, left 0.3s ease;
+  transform: translate(-50%, -50%);
+  border-radius: 25px;
+  z-index: 0;
 }
 
+.ctaButton:hover::before ,
+.ctadarkButton:hover::before,
+.ctadarkButtonAlt:hover::before{
+  width: 100%;
+  left: 50%;
+}
+
+
+.ctadarkButtonAlt:hover{
+  border:2px solid transparent;
+  color:white
+}
+.ctaButton span,
+.ctadarkButton span,
+.ctadarkButtonAlt span {
+  position: relative;
+  z-index: 100;
+}
+.ctaButton:hover {
+  transform: scale(1.05);
+} 
 .hero {
   text-align: center;
   padding: 4rem 2rem;

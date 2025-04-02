@@ -1,9 +1,10 @@
-import React, { useState, useContext } from "react";
+import { useState, useContext, useEffect } from "react";
 import { Menu, X, Home, ClipboardList, Users, Settings, PlusCircle, Info, Activity, Droplet, AlertTriangle } from "lucide-react";
 import styles from "./BloodBankPage.module.css";
 import { motion, AnimatePresence } from "framer-motion";
-import { ThemeContext } from "./Layout";
-
+import { ThemeContext } from "../layouts/Layout";
+import { Link } from "react-router-dom";
+import axios from "axios";
 function BloodBankPage() {
   document.title = "AuraHP Blood Bank";
   const [isSidebarOpen, setSidebarOpen] = useState(false);
@@ -81,11 +82,11 @@ function Sidebar({ isOpen, toggleSidebar }) {
         <X size={24} />
       </button>
       <ul>
-        <motion.li whileHover={{ x: 5 }}><Home size={20} /> <a href="#">Dashboard</a></motion.li>
-        <motion.li whileHover={{ x: 5 }}><ClipboardList size={20} /> <a href="#">Blood Requests</a></motion.li>
-        <motion.li whileHover={{ x: 5 }}><Users size={20} /> <a href="#">Donors List</a></motion.li>
-        <motion.li whileHover={{ x: 5 }}><Activity size={20} /> <a href="#">Analytics</a></motion.li>
-        <motion.li whileHover={{ x: 5 }}><Settings size={20} /> <a href="#">Settings</a></motion.li>
+        <motion.li whileHover={{ x: 5 }}><Home size={20} /> <Link to="/bloodbank">Dashboard</Link></motion.li>
+        <motion.li whileHover={{ x: 5 }}><ClipboardList size={20} /> <Link to="/blood-requests">Blood Requests</Link></motion.li>
+        <motion.li whileHover={{ x: 5 }}><Users size={20} /> <Link to="/donors-list">Donors List</Link></motion.li>
+        <motion.li whileHover={{ x: 5 }}><Activity size={20} /> <Link to="/analytics">Analytics</Link></motion.li>
+        <motion.li whileHover={{ x: 5 }}><Settings size={20} /> <Link to="#">Settings</Link></motion.li>
         <motion.li whileHover={{ x: 5 }}><Info size={20} /> About</motion.li>
       </ul>
     </motion.div>
@@ -94,21 +95,28 @@ function Sidebar({ isOpen, toggleSidebar }) {
 
 function RequestPopup({ closePopup }) {
   const [formData, setFormData] = useState({
-    bloodGroup: "A+",
-    units: "",
+    facility_id:1,
+    blood_group: "A+",
+    units: 1,
     urgency: "Urgent",
+    type: 'live_blood',
     facilityName: "City Hospital",
     address: "123 Main St, Visakhapatnam",
-    patientName: "",
-    patientAge: "",
+    patientName: " ",
+    patientAge: 18,
     contactNumber: "",
-    notes: ""
+    notes: "",
   });
 
   const handleChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
-
+  const handleSubmit=async()=>{
+    console.log(formData);
+    const response=await  axios.post("http://localhost:5000/api/blood-requests",formData);
+    console.log(response.data);
+    closePopup();
+  }
   return (
     <motion.div 
       className={styles.popupOverlay}
@@ -126,14 +134,14 @@ function RequestPopup({ closePopup }) {
         <h2>Post a Blood Request</h2>
         
         <label>Blood Group</label>
-        <select name="bloodGroup" value={formData.bloodGroup} onChange={handleChange}>
+        <select name="blood_group" value={formData.blood_group} onChange={handleChange}>
           {["A+", "A-", "B+", "B-", "AB+", "AB-", "O+", "O-"].map((type) => (
             <option key={type} value={type}>{type}</option>
           ))}
         </select>
 
         <label>Number of Units</label>
-        <input type="number" name="units" value={formData.units} onChange={handleChange} placeholder="Enter units" />
+        <input type="number" name="units" value={Number.parseInt(formData.units)} onChange={handleChange} placeholder="Enter units" />
 
         <label>Patient Name</label>
         <input type="text" name="patientName" value={formData.patientName} onChange={handleChange} placeholder="Enter patient name" />
@@ -150,7 +158,14 @@ function RequestPopup({ closePopup }) {
             <option key={level} value={level}>{level}</option>
           ))}
         </select>
-
+        <label htmlFor="">Type</label>
+        <select name="type" id="" value={formData.type} onChange={handleChange} >
+          {
+          ["live_blood","store_blood"].map((item)=> (
+            <option value={item}>{item}</option>
+          )
+          )}
+        </select>
         <label>Medical Facility</label>
         <input type="text" value={formData.facilityName} disabled />
 
@@ -164,6 +179,7 @@ function RequestPopup({ closePopup }) {
           className={styles.submitBtn}
           whileHover={{ scale: 1.02 }}
           whileTap={{ scale: 0.98 }}
+          onClick={handleSubmit}
         >
           Submit Request
         </motion.button>

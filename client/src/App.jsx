@@ -9,8 +9,16 @@ import DonorHome from './pages/DonorHome.jsx'
 import BloodBankPage from "./pages/BloodBankPage";
 import DonorProfile from './pages/donor_profile.jsx'
 import DonorHistory from "./pages/donor_history.jsx";
+import BloodRequests from "./pages/BloodRequests.jsx";
+import DonorsList from "./pages/DonorsList.jsx";
+import Analytics from "./pages/Analytics.jsx";
+import { AuthProvider, AuthContext } from "./utils/AuthContext.jsx";
+import { useContext } from "react";
+import ProtectedRoute from "./ProtectedRoute.jsx";
+import GoogleSignup from "./pages/GoogleSignup.jsx";
 function App() {
   return (
+    <AuthProvider>
     <Router>
       <Routes>
         <Route path="/" element={<Land />} />
@@ -18,12 +26,19 @@ function App() {
         <Route path="/MFLogin" element={<MFLogin />} />
         <Route path="/MFSignup" element={<MFSignup />} />
         <Route path="/VSignup" element={<VSignup />} />
+        <Route path="google-signup" element={<GoogleSignup/>} />
+       <Route element={<ProtectedRoute/>}>
         <Route path = '/DonorHome' element = {<DonorHome />} />
         <Route path="/bloodbank" element={<BloodBankPage/>} />
         <Route path = '/donor' element = {<DonorProfile />} />
         <Route path = '/donationHistory' element = {<DonorHistory />} />
+        <Route path="/blood-requests" element={<BloodRequests />} />
+        <Route path="/donors-list" element={<DonorsList />} />
+        <Route path="/analytics" element={<Analytics />} />
+        </Route>
       </Routes>
     </Router>
+    </AuthProvider>
   );
 }
 

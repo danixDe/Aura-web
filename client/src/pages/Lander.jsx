@@ -115,7 +115,7 @@ export default function Land() {
             : "AuraHP assists hospitals and medical facilities by providing a reliable blood donor network for urgent needs."}
         </p>
         <div className={styles.buttonContainer}>
-        <Link to = "/VLogin" style={{textDecoration:"none"}}>
+        <Link to = "/DonorHome" style={{textDecoration:"none"}}>
           <motion.button
             className={styles.ctadarkButton}
             whileHover={{ scale: 1.05 }}
@@ -126,7 +126,7 @@ export default function Land() {
             </span>
           </motion.button>
         </Link>
-        <Link to = "/MFLogin" style = {{textDecoration:"none"}}>
+        <Link to = "/bloodbank" style = {{textDecoration:"none"}}>
           <motion.button
             className={styles.ctadarkButtonAlt}
             whileHover={{ scale: 1.05 }}

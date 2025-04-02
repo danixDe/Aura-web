@@ -2,11 +2,12 @@ const db = require('../config/database');
 const donor = require('../models/donor');
 
 const addDonor = async(donorData) => {
-   const {dName,email,phone,location,blood_group,preferred_notification} = donorData;
-   const query = `INSERT INTO donor (dName,email,phone,location,blood_group,preferred_notification) VALUES (?,?,?,?,?,?)`;
+    console.log("add donor in services");
+   const {dName,email,phone,location,blood_group,preferred_notification,password} = donorData;
+   const query = `INSERT INTO donor (dName,email,phone,location,blood_group,preferred_notification,password) VALUES (?,?,?,?,?,?,?)`;
 
    try{
-    const [result] = await db.execute(query,[dName,email,phone,location,blood_group,preferred_notification]);
+    const [result] = await db.execute(query,[dName,email,phone,location,blood_group,preferred_notification,password]);
     return{id:result.insertId,...donorData};
    }catch(err){
          throw new Error(err.message);
@@ -22,7 +23,20 @@ const getAllDonors = async() => {
         throw new Error(err.message);
     }
 };
-
+const getDonor=async(email)=>{
+    try{
+        const query=`select password from donor where email="${email}"`;
+        const password=await db.execute(query);
+        if(password.length>0){
+            
+            // console.log("password",password[0][0].password);
+            return password[0][0].password;
+        }
+    }
+    catch(err){
+        console.log('ERROR GETTING DONOR',err);
+    }
+}
 const findDonors = async(blood_group,location) => {
    const query = `SELECT * FROM donor WHERE blood_group = ? AND location = ?`;
    try{
@@ -54,4 +68,4 @@ const deleteDonor = async(id) => {
     }
 };
 
-module.exports = {addDonor,getAllDonors,findDonors,updateDonor,deleteDonor};
+module.exports = {addDonor,getAllDonors,findDonors,updateDonor,deleteDonor,getDonor};

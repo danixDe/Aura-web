@@ -4,11 +4,13 @@ const donorRoutes = require("./routes/donorRoutes");
 const facilityRoutes = require("./routes/facilityRoutes");
 const bloodRequestsRoutes = require("./routes/bloodRequestsRoutes");
 const medicalRecordsRoutes = require("./routes/medicalRecordRoutes");
+const authRoutes=require("./routes/AuthenticatorRoute");
 const db = require("./config/database"); 
 const { createDonorTable } = require("./models/donor");
 const { createFacilityTable } = require("./models/facility");
 const { createBloodRequestsTable } = require("./models/bloodRequestsTable");
 const { createMedicalRecordsTable } = require("./models/medicalRecordsModel");
+const cors=require("cors");
 
 
 createDonorTable();
@@ -17,15 +19,15 @@ createBloodRequestsTable();
 createMedicalRecordsTable();
 
 const app = express();
-const PORT = process.env.PORT || 5000;
+const PORT =  5000;
 
-
+app.use(cors());
 app.use(bodyParser.json());
 app.use("/api", donorRoutes);
 app.use("/api", facilityRoutes);
 app.use("/api", bloodRequestsRoutes);
 app.use("/api", medicalRecordsRoutes);
-
+app.use("/api",authRoutes);
 
 app.get("/", (req, res) => {
   res.send("Blood Donation API is running...");

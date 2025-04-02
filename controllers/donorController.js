@@ -3,13 +3,28 @@ const donorServices = require('../services/donorServices');
 
 const createDonor = async(req,res) => {
     try{
+        console.log("donor create",req.body);
         const donor = await donorServices.addDonor(req.body);
         res.status(201).json({message:"Donor added successfully",donor});
     }catch(error){
         res.status(500).json({message:error.message});
     }
 };
-
+const AuthDonor=async(req,res)=>{
+    try{
+        const {email,password}=req.body;
+        const og_password=await donorServices.getDonor(email);
+        if(password===og_password){
+            res.json({message:"valid"});
+        }
+        else{
+            res.json({message:"invalid"});
+        }
+    }
+    catch(err){
+        console.log("ERROR AUTHENTICATING DONOR",err);
+    }
+}
 const getDonors = async(req,res) => {
     try{
         const donors = await donorServices.getAllDonors();
@@ -47,4 +62,4 @@ const deleteDonor = async(req,res) => {
     }
 };
 
-module.exports = {createDonor,getDonors,searchDonors,updateDonor,deleteDonor};
+module.exports = {createDonor,getDonors,searchDonors,updateDonor,deleteDonor,AuthDonor};
