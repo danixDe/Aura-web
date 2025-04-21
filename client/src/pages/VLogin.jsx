@@ -103,7 +103,7 @@ useEffect(()=>{
             onSuccess={handleGoogleSuccess}
             onError={handleGoogleError}
             size="large"
-            width="100%"
+            width="100vh"
             text="signin_with"
             shape="rectangular"
             useOneTap

@@ -27,7 +27,7 @@ function App() {
         <Route path="/MFSignup" element={<MFSignup />} />
         <Route path="/VSignup" element={<VSignup />} />
         <Route path="google-signup" element={<GoogleSignup/>} />
-       <Route element={<ProtectedRoute/>}>
+        <Route element={<ProtectedRoute/>}>
         <Route path = '/DonorHome' element = {<DonorHome />} />
         <Route path="/bloodbank" element={<BloodBankPage/>} />
         <Route path = '/donor' element = {<DonorProfile />} />

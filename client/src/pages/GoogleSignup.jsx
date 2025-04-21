@@ -1,52 +1,77 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate, useLocation } from 'react-router-dom';
 import styles from './auth.module.css';
 import { motion } from 'framer-motion';
 import { jwtDecode } from 'jwt-decode';
-import { useNavigate,useLocation } from 'react-router-dom';
 import axios from "axios";
+
 const GoogleSignup = () => {
-    const location=useLocation();
-    const googleclient=location.state;
-    const userdetails=jwtDecode(googleclient.credential);
-    console.log(userdetails);
-  const navigate=useNavigate();
-  const handleSubmit =async (e) => {
+  const location = useLocation();
+  const navigate = useNavigate();
+
+  const googleclient = location?.state;
+
+  if (!googleclient || !googleclient.credential) {
+    return <p style={{ textAlign: "center", color: "red" }}>Missing Google credentials. Please login again.</p>;
+  }
+
+  const userdetails = jwtDecode(googleclient.credential);
+  console.log("Decoded user:", userdetails);
+
+  const handleSubmit = async (e) => {
     e.preventDefault();
     const formData = new FormData(e.currentTarget);
+
     const dName = formData.get('name');
     const email = formData.get('email');
     const phone = formData.get('phone');
-    const location = formData.get('location');
+    const address = formData.get('location');
     const preferred_notification = formData.get('preferred_notification');
-    const password="";
     const blood_group = formData.get('blood_group');
-      const user={ dName, email,phone,location,blood_group,preferred_notification, password };
-      console.log('Form submitted:', user);
-      const response=await axios.post("http://localhost:5000/api/donors",user);
-      if(response.data.message==="Donor added successfully"){
+    const password = ""; 
+
+    const user = {
+      dName,
+      email,
+      phone,
+      location: address,
+      blood_group,
+      preferred_notification,
+      password,
+    };
+
+    console.log('Form submitted:', user);
+
+    try {
+      const response = await axios.post("http://localhost:5000/api/donors", user);
+      if (response.data.message === "Donor added successfully") {
         navigate("/DonorHome");
+      } else {
+        console.error("Signup error:", response.data.message);
       }
-      else{
-        console.log("error sigi up",response.data.message);
-      }
-    
+    } catch (error) {
+      console.error("Axios error during signup:", error.message);
+    }
   };
 
   return (
     <div className={styles.authContainer}>
-      <motion.div 
+      <motion.div
         className={styles.formCard}
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.5 }}
       >
         <h1 className={styles.title}>Enter your details</h1>
-        <div className={styles.profilepic} style={{display:"flex",justifyContent:"center"}}>
-            <div style={{width:"100px",height:"100px"}}>
-            <img src={userdetails.picture} alt="User Profile" />
-            </div>
+        
+        <div className={styles.profilepic} style={{ display: "flex", justifyContent: "center" }}>
+          <img 
+            src={userdetails.picture} 
+            alt="User Profile" 
+            style={{ width: "100px", height: "100px", borderRadius: "50%" }} 
+          />
         </div>
+
         <form onSubmit={handleSubmit}>
           <div className={styles.formGroup}>
             <label htmlFor="name">Full Name</label>
@@ -55,7 +80,7 @@ const GoogleSignup = () => {
               id="name"
               name="name"
               className={styles.inputField}
-              value={userdetails.name}
+              defaultValue={userdetails.name}
               required
             />
           </div>
@@ -67,12 +92,13 @@ const GoogleSignup = () => {
               id="email"
               name="email"
               className={styles.inputField}
-              value={userdetails.email}
+              defaultValue={userdetails.email}
               required
             />
           </div>
+
           <div className={styles.formGroup}>
-            <label htmlFor="phone">Mobile number</label>
+            <label htmlFor="phone">Mobile Number</label>
             <input
               type="text"
               id="phone"
@@ -81,6 +107,7 @@ const GoogleSignup = () => {
               required
             />
           </div>
+
           <div className={styles.formGroup}>
             <label htmlFor="location">Address</label>
             <input
@@ -91,30 +118,30 @@ const GoogleSignup = () => {
               required
             />
           </div>
+
           <div className={styles.formGroup}>
-            <label htmlFor="blood">Blood Group</label>
+            <label htmlFor="blood_group">Blood Group</label>
             <input
               type="text"
-              id="blood"
+              id="blood_group"
               name="blood_group"
               className={styles.inputField}
               required
             />
           </div>
+
           <div className={styles.formGroup}>
-            <label htmlFor="notification">Preferred Notification</label>
+            <label htmlFor="preferred_notification">Preferred Notification</label>
             <input
               type="text"
-              id="notification"
+              id="preferred_notification"
               name="preferred_notification"
               className={styles.inputField}
               required
             />
           </div>
 
-
-
-          <motion.button 
+          <motion.button
             className={styles.submitButton}
             whileHover={{ scale: 1.02 }}
             whileTap={{ scale: 0.98 }}
@@ -124,10 +151,8 @@ const GoogleSignup = () => {
           </motion.button>
         </form>
 
-
-
         <p className={styles.switchText}>
-          Already have an account?
+          Already have an account?{" "}
           <Link to="/VLogin" className={styles.switchLink}>Sign In</Link>
         </p>
       </motion.div>
