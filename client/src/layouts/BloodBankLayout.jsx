@@ -28,9 +28,8 @@ const BloodBankLayout = () => {
       >
         <Outlet />
       </motion.div>
-    
     </div>
-    <Footer />
+  <Footer />
   </>
   );
 };

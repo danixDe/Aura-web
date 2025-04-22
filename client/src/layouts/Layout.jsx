@@ -59,8 +59,8 @@ const Layout = () => {
       <div className={styles.pageContent}>
         <Outlet />
       </div>
+      <Footer />
     </motion.div>
-    <Footer />
   </>
   );
 };
