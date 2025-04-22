@@ -2,8 +2,7 @@ import { useEffect, useState } from "react";
 import Card from "./Card";
 import styles from "./DonorHome.module.css";
 import { motion } from "framer-motion";
-import { Search, ListFilter } from "lucide-react";
-import Layout from "../layouts//Layout";
+import { ListFilter } from "lucide-react";
 
 const DonorHome = () => {
   const [requests, setRequests] = useState([]);
@@ -75,7 +74,6 @@ const DonorHome = () => {
 
 
   return (
-    <Layout>
       <div className={styles.content}>
       <div className={styles.statsContainer}>
           <motion.div className={styles.statCard} whileHover={{ scale: 1.05 }}>
@@ -116,8 +114,6 @@ const DonorHome = () => {
           )}
         </motion.div>
       </div>
-    </Layout>
-
   );
 };
 

@@ -1,8 +1,6 @@
-import React from 'react';
 import { motion } from 'framer-motion';
-import BloodBankLayout from '../layouts/BloodBankLayout';
 import styles from './BloodBankPage.module.css';
-import { TrendingUp, Users, Activity, Calendar, Clock, AlertTriangle } from 'lucide-react';
+import { Users, Activity, Clock, AlertTriangle } from 'lucide-react';
 
 const Analytics = () => {
   const bloodTypeData = {
@@ -28,7 +26,6 @@ const Analytics = () => {
   const maxDonations = Math.max(...monthlyStats.map(stat => stat.donations));
 
   return (
-    <BloodBankLayout>
       <motion.div 
         className={styles.mainContent}
         initial={{ opacity: 0 }}
@@ -130,7 +127,6 @@ const Analytics = () => {
           </div>
         </div>
       </motion.div>
-    </BloodBankLayout>
   );
 };
 

@@ -3,6 +3,7 @@ import { Link, useNavigate } from 'react-router-dom';
 import { GoogleLogin } from '@react-oauth/google';
 import styles from './auth.module.css';
 import { motion } from 'framer-motion';
+import toast from 'react-hot-toast';
 
 const MFLogin = () => {
   const navigate = useNavigate();
@@ -10,15 +11,18 @@ const MFLogin = () => {
   const handleSubmit = (e) => {
     e.preventDefault();
     navigate('/bloodbank');
+    toast.success('Login Successful!')
   };
 
   const handleGoogleSuccess = (credentialResponse) => {
     console.log('Google Sign In Success:', credentialResponse);
     navigate('/bloodbank');
+    toast.success("Login Successful");
   };
 
   const handleGoogleError = () => {
     console.log('Google Sign In Failed');
+    toast.error("Google Sign In Failed");
   };
 
   return (
