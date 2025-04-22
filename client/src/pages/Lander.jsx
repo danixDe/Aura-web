@@ -10,7 +10,7 @@ export default function Land() {
   const [activeTab, setActiveTab] = useState("donors");
   const { valid, role } = useContext(AuthContext);
   const navigate = useNavigate();
-
+  
   useEffect(() => {
     document.title = "AuraHP - Home";
     const handleScroll = () => {
@@ -27,7 +27,10 @@ export default function Land() {
   }, []);
 
   return (
+    
     <div className={styles.container}>
+      
+
       <nav className={styles.navbar}>
         <div className={styles.logo}>AuraHP</div>
         <ul className={styles.navLinks}>

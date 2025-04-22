@@ -25,11 +25,12 @@ const getAllDonors = async() => {
 };
 const getDonor=async(email)=>{
     try{
+        // console.log(email);
         const query=`select password from donor where email="${email}"`;
         const password=await db.execute(query);
         if(password.length>0){
-            
-            // console.log("password",password[0][0].password);
+            // console.log(query);
+            // console.log("password",password);
             return password[0][0].password;
         }
     }
