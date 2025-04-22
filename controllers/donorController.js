@@ -13,6 +13,7 @@ const createDonor = async(req,res) => {
 const AuthDonor=async(req,res)=>{
     try{
         const {email,password}=req.body;
+        console.log(email);
         const og_password=await donorServices.getDonor(email);
         if(password===og_password){
             res.json({message:"valid"});

@@ -18,7 +18,9 @@ const VLogin = () => {
     const password=formdata.get("password");
     console.log(password);
     const response=await axios.post("http://localhost:5000/api/donors/authdonor",{email,password});
+    console.log(response);
     if(response.data.message==="valid"){
+      login(email);
       setValid("true");
     }
     else{
