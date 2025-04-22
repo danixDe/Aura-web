@@ -1,12 +1,15 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState,useContext } from "react";
 import { motion } from "framer-motion";
 import styles from "./Lander.module.css";
-import {Link} from 'react-router-dom';
+import {Link,useNavigate} from 'react-router-dom';
+import { AuthContext } from "../utils/AuthContext";
 
 export default function Land() {
   const [activeSection, setActiveSection] = useState("hero");
   const [dropdown, setDropdown] = useState(null);
   const [activeTab, setActiveTab] = useState("donors");
+  const { valid, role } = useContext(AuthContext);
+  const navigate = useNavigate();
 
   useEffect(() => {
     document.title = "AuraHP - Home";
@@ -117,24 +120,32 @@ export default function Land() {
         <div className={styles.buttonContainer}>
         <Link to = "/donor" style={{textDecoration:"none"}}>
           <motion.button
-            className={styles.ctadarkButton}
-            whileHover={{ scale: 1.05 }}
-            whileTap={{ scale: 0.95 }}
+             className={styles.ctadarkButton}
+             whileHover={{ scale: 1.05 }}
+             whileTap={{ scale: 0.95 }}
+             onClick={() =>
+             valid === "true" && role === "donor"
+             ? navigate("/DonorHome")
+             : navigate("/VLogin")
+            }
           >
-            <span>
-            AuraHP for Donors
-            </span>
+             <span>AuraHP for Donors</span>
           </motion.button>
-        </Link>
-        <Link to = "/bloodbank" style = {{textDecoration:"none"}}>
+
           <motion.button
-            className={styles.ctadarkButtonAlt}
-            whileHover={{ scale: 1.05 }}
-            whileTap={{ scale: 0.95 }}
+           className={styles.ctadarkButtonAlt}
+           whileHover={{ scale: 1.05 }}
+           whileTap={{ scale: 0.95 }}
+           onClick={() =>
+            valid === "true" && role === "facility"
+            ? navigate("/bloodbank")
+            : navigate("/MFLogin")
+           }
           >
-            <span>AuraHP for Facilities</span>
+           <span>AuraHP for Facilities</span>
           </motion.button>
-        </Link>
+
+        
         </div>
       </motion.section>
 

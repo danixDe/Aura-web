@@ -1,9 +1,24 @@
-import {Outlet,Navigate} from "react-router-dom";
+import { Outlet, Navigate, useLocation } from "react-router-dom";
 import { AuthContext } from "./utils/AuthContext";
 import { useContext } from "react";
-const  ProtectedRoute=()=>{
-    const {valid}=useContext(AuthContext);
-    console.log("protected route",valid);
-    return valid==="true"?<Outlet/>: <Navigate to="/VLogin"/>
-}
+
+const ProtectedRoute = () => {
+  const { valid, role } = useContext(AuthContext);
+  const location = useLocation();
+  const path = location.pathname;
+
+  const donorRoutes = ["/DonorHome", "/donor", "/donationHistory"];
+  const facilityRoutes = ["/bloodbank", "/donors-list", "/blood-requests", "/analytics"];
+
+  return valid !== "true" ? (
+    <Navigate to="/VLogin" />
+  ) : donorRoutes.includes(path) && role !== "donor" ? (
+    <Navigate to="/MFLogin" />
+  ) : facilityRoutes.includes(path) && role !== "facility" ? (
+    <Navigate to="/VLogin" />
+  ) : (
+    <Outlet />
+  );
+};
+
 export default ProtectedRoute;
