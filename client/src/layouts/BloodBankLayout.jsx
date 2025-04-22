@@ -2,7 +2,7 @@ import { useState } from "react";
 import { Menu, X, Home, ClipboardList, Users, Settings, Info, Activity, Sun , Moon } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
 import { useDarkMode } from '../Context/DarkModeContext';
-import { Link, useNavigate, Outlet } from "react-router-dom";
+import { Link, useNavigate, Outlet, useLocation } from "react-router-dom";
 import '../App.css';
 import styles from '../pages/BloodBankPage.module.css'
 import styles1 from './Layout.module.css'
@@ -11,6 +11,7 @@ import Footer from "../Components/Footer";
 const BloodBankLayout = () => {
   const [isSidebarOpen, setSidebarOpen] = useState(false);
   const { isDarkMode } = useDarkMode();
+
   return (
     <>
     <div className={`${styles.wrapper} ${isDarkMode ? 'dark' : 'light'}`}>
@@ -36,6 +37,15 @@ const BloodBankLayout = () => {
 
 function Navbar({ toggleSidebar }) {
   const { isDarkMode, toggleDarkMode } = useDarkMode();
+  const location = useLocation();
+  const navigate = useNavigate();
+  const handleLogo = () => {
+    if (location.pathname === '/donor') {
+      window.location.reload();
+    } else {
+      navigate('/donor');
+    }
+  };
   return (
     <motion.div 
       className={styles1.navbar}
@@ -47,7 +57,7 @@ function Navbar({ toggleSidebar }) {
       <button className={styles1.hamburgerButton} onClick={toggleSidebar}>
         <Menu size={28} />
       </button>
-      <h2 className={styles1.logo}>AuraHP</h2>
+      <h1 onClick={handleLogo} className={styles1.logo}>AuraHP</h1>
     </div>
       <motion.div 
         className={styles1.darkModeToggle} 

@@ -14,10 +14,10 @@ const Layout = () => {
   const navigate = useNavigate();
 
   const handleLogo = () => {
-    if (location.pathname === '/DonorHome') {
+    if (location.pathname === '/donor') {
       window.location.reload();
     } else {
-      navigate('/DonorHome');
+      navigate('/donor');
     }
   };
 
