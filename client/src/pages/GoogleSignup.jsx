@@ -45,7 +45,7 @@ const GoogleSignup = () => {
     try {
       const response = await axios.post("http://localhost:5000/api/donors", user);
       if (response.data.message === "Donor added successfully") {
-        navigate("/DonorHome");
+        navigate("/donor");
       } else {
         console.error("Signup error:", response.data.message);
       }
