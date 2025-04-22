@@ -10,7 +10,7 @@ export default function Land() {
   const [activeTab, setActiveTab] = useState("donors");
   const { valid, role } = useContext(AuthContext);
   const navigate = useNavigate();
-
+  
   useEffect(() => {
     document.title = "AuraHP - Home";
     const handleScroll = () => {
@@ -27,7 +27,10 @@ export default function Land() {
   }, []);
 
   return (
+    
     <div className={styles.container}>
+      
+
       <nav className={styles.navbar}>
         <div className={styles.logo}>AuraHP</div>
         <ul className={styles.navLinks}>
@@ -118,14 +121,13 @@ export default function Land() {
             : "AuraHP assists hospitals and medical facilities by providing a reliable blood donor network for urgent needs."}
         </p>
         <div className={styles.buttonContainer}>
-        
           <motion.button
              className={styles.ctadarkButton}
              whileHover={{ scale: 1.05 }}
              whileTap={{ scale: 0.95 }}
              onClick={() =>
              valid === "true" && role === "donor"
-             ? navigate("/DonorHome")
+             ? navigate("/donor")
              : navigate("/VLogin")
             }
           >
