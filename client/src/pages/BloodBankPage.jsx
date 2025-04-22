@@ -5,6 +5,7 @@ import { motion, AnimatePresence } from "framer-motion";
 import { Link } from "react-router-dom";
 import axios from "axios";
 import {useDarkMode} from '../Context/DarkModeContext';
+import toast from "react-hot-toast";
 function BloodBankPage() {
   document.title = "AuraHP Blood Bank";
   const [isSidebarOpen, setSidebarOpen] = useState(false);
@@ -114,6 +115,7 @@ function RequestPopup({ closePopup }) {
     console.log(formData);
     const response=await  axios.post("http://localhost:5000/api/blood-requests",formData);
     console.log(response.data);
+    toast.success('Blood Request Sent');
     closePopup();
   }
   return (

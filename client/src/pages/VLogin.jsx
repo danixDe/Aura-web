@@ -1,4 +1,4 @@
-import React, { useContext, useEffect, useState } from 'react';
+import { useContext, useEffect, useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { GoogleLogin } from '@react-oauth/google';
 import styles from './auth.module.css';
@@ -6,45 +6,66 @@ import { motion } from 'framer-motion';
 import { AuthContext } from '../utils/AuthContext';
 import {jwtDecode} from "jwt-decode";
 import axios from 'axios';
+import toast from 'react-hot-toast';
 const VLogin = () => {
+
   console.log(window.location.href);
   const navigate = useNavigate();
   const {login}=useContext(AuthContext);
-  const [valid,setValid]=useState("false");
+  const [valid,setValid]=useState(false);
+
   const handleSubmit = async(e) => {
     e.preventDefault();
     const formdata=new FormData(e.currentTarget);
     const email=formdata.get("email");
     const password=formdata.get("password");
     console.log(password);
+
+    try{
     const response=await axios.post("http://localhost:5000/api/donors/authdonor",{email,password});
     if(response.data.message==="valid"){
-      setValid("true");
+      setValid(true);
+      toast.success('Login Successful!');
     }
     else{
       console.log("invalid user");
+      toast.error("Invalid Credentials");
     }
+  }
+  catch(err){
+    toast.error("Server error.");
+    console.log(err);
+  }
   };
 
   const handleGoogleSuccess =async (credentialResponse) => {
+    try{
     console.log('Google Sign In Success:', credentialResponse);
     const credential=credentialResponse.credential;
     const response=await axios.post("http://localhost:5000/api/googleAuth",{credential});
     console.log("response",response);
+
     if(response.data.message==="success"){
       console.log("success");
       login(jwtDecode(credential).email);
-      setValid("true");
+      setValid(true);
+      toast.success('Login Successful');
     }
     else{
       console.log("error login using google",response.data.message);
+      toast.error("Google Login failed");
     }
+  }
+  catch(err){
+    toast.error("Something went wrong with Google Login");
+    console.error(err);
+  }
   };
 useEffect(()=>{
   console.log("valid effect",valid);
-  if(valid==="true"){
+  if(valid===true){
     console.log("valid",valid);
-    navigate('/DonorHome');
+    navigate('/donor');
   }
 },[valid]);
   const handleGoogleError = () => {
@@ -112,7 +133,7 @@ useEffect(()=>{
         </div>
 
         <p className={styles.switchText}>
-          Don't have an account?
+          Don`t have an account?
           <Link to="/VSignup" className={styles.switchLink}>Sign Up</Link>
         </p>
       </motion.div>

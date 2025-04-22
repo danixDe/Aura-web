@@ -5,10 +5,13 @@ import styles from './auth.module.css';
 import { motion } from 'framer-motion';
 import { jwtDecode } from 'jwt-decode';
 import { useNavigate } from 'react-router-dom';
+import toast from 'react-hot-toast';
 import axios from "axios";
 const VSignup = () => {
+
   const navigate=useNavigate();
-  const handleSubmit =async (e) => {
+
+  const handleSubmit = async (e) => {
     e.preventDefault();
     const formData = new FormData(e.currentTarget);
     const dName = formData.get('name');
@@ -19,28 +22,43 @@ const VSignup = () => {
     const location = formData.get('location');
     const preferred_notification = formData.get('preferred_notification');
     const blood_group = formData.get('blood_group');
+  
     if (password !== confirmPassword) {
       console.log('Passwords do not match!');
+      toast.error("Passwords do not match!");
     } else {
-      const user={ dName, email,phone,location,blood_group,preferred_notification, password };
+      const user = { dName, email, phone, location, blood_group, preferred_notification, password };
       console.log('Form submitted:', user);
-      const response=await axios.post("http://localhost:5000/api/donors",user);
-      if(response.data.message==="Donor added successfully"){
-        navigate("/DonorHome");
-      }
-      else{
-        console.log("error sigi up",response.data.message);
+  
+      try {
+        const response = await axios.post("http://localhost:5000/api/donors", user);
+        if (response.data.message === "Donor added successfully") {
+          toast.success("Signup successful!");
+          navigate("/donor");
+        } else {
+          console.log("error signing up", response.data.message);
+          toast.error("Signup failed. Please try again.");
+        }
+      } catch (err) {
+        console.log("Signup error:", err);
+        toast.error("Server error. Try again later.");
       }
     }
   };
-
-  const handleGoogleSuccess = (credentialResponse) => {
-    console.log('Google Sign Up Success:', credentialResponse);
-    navigate("/google-signup",{state:credentialResponse});
+  
+  const handleGoogleSuccess = async (credentialResponse) => {
+    try {
+      console.log('Google Sign Up Success:', credentialResponse);
+      navigate("/google-signup", { state: credentialResponse });
+    } catch (err) {
+      console.log("Error during Google Sign Up redirect:", err);
+      toast.error("Something went wrong with Google Sign Up");
+    }
   };
-
+  
   const handleGoogleError = () => {
     console.log('Google Sign Up Failed');
+    toast.error("Google Sign Up Failed");
   };
 
   return (

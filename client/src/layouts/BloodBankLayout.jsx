@@ -6,11 +6,13 @@ import { Link, useNavigate, Outlet } from "react-router-dom";
 import '../App.css';
 import styles from '../pages/BloodBankPage.module.css'
 import styles1 from './Layout.module.css'
+import Footer from "../Components/Footer";
 
 const BloodBankLayout = () => {
   const [isSidebarOpen, setSidebarOpen] = useState(false);
   const { isDarkMode } = useDarkMode();
   return (
+    <>
     <div className={`${styles.wrapper} ${isDarkMode ? 'dark' : 'light'}`}>
       <Navbar toggleSidebar={() => setSidebarOpen(!isSidebarOpen)} />
       <AnimatePresence>
@@ -25,7 +27,10 @@ const BloodBankLayout = () => {
       >
         <Outlet />
       </motion.div>
+    
     </div>
+    <Footer />
+  </>
   );
 };
 
@@ -38,10 +43,12 @@ function Navbar({ toggleSidebar }) {
       animate={{ y: 0 }}
       transition={{ duration: 0.5 }}
     >
+      <div style={{display:'flex'}} >
       <button className={styles1.hamburgerButton} onClick={toggleSidebar}>
         <Menu size={28} />
       </button>
-      <h2 className={styles1.logo}>Aura HP Blood Bank</h2>
+      <h2 className={styles1.logo}>AuraHP</h2>
+    </div>
       <motion.div 
         className={styles1.darkModeToggle} 
         onClick={toggleDarkMode}

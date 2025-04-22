@@ -5,6 +5,7 @@ import styles from './Layout.module.css';
 import { Menu, Sun, Moon } from 'lucide-react';
 import { motion } from 'framer-motion';
 import { useDarkMode } from '../Context/DarkModeContext';
+import Footer from '../Components/Footer';
 
 const Layout = () => {
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
@@ -21,6 +22,7 @@ const Layout = () => {
   };
 
   return (
+    <>
     <motion.div 
       className={styles.container}
       initial={{ opacity: 0 }} 
@@ -58,6 +60,8 @@ const Layout = () => {
         <Outlet />
       </div>
     </motion.div>
+    <Footer />
+  </>
   );
 };
 

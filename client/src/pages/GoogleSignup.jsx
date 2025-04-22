@@ -1,4 +1,3 @@
-import React from 'react';
 import { Link, useNavigate, useLocation } from 'react-router-dom';
 import styles from './auth.module.css';
 import { motion } from 'framer-motion';

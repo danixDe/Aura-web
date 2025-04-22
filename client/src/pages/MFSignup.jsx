@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom';
 import { GoogleLogin } from '@react-oauth/google';
 import styles from './auth.module.css';
 import { motion } from 'framer-motion';
+import toast from 'react-hot-toast';
 
 const MFSignup = () => {
   const [facilityType, setFacilityType] = useState('');
@@ -20,12 +21,12 @@ const MFSignup = () => {
 
   const handleGoogleSuccess = (credentialResponse) => {
     console.log('Google Sign Up Success:', credentialResponse);
-    // Handle Google sign up success
+    toast.success("Signup Successful")
   };
 
   const handleGoogleError = () => {
     console.log('Google Sign Up Failed');
-    // Handle Google sign up error
+    toast.error("Google Sign Up Failed")
   };
 
   return (
