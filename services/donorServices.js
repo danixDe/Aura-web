@@ -14,6 +14,16 @@ const addDonor = async(donorData) => {
    }
 };
 
+const updateLiveLocation = async (email, location) => {
+    const query = `UPDATE donor SET last_known_location = ? WHERE email = ?`;
+    try {
+      const [rows] = await db.execute(query, [location, email]);
+      return rows;
+    } catch (err) {
+      throw new Error(err.message);
+    }
+  };
+  
 const getAllDonors = async() => {
     const query = `SELECT * FROM donor`;
     try{

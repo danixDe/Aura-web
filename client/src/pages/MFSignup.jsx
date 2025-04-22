@@ -1,32 +1,61 @@
-import { useState } from 'react';
+import React from 'react';
 import { Link } from 'react-router-dom';
 import { GoogleLogin } from '@react-oauth/google';
 import styles from './auth.module.css';
 import { motion } from 'framer-motion';
+import { useNavigate } from 'react-router-dom';
 import toast from 'react-hot-toast';
+import axios from "axios";
 
 const MFSignup = () => {
-  const [facilityType, setFacilityType] = useState('');
-  const [termsAccepted, setTermsAccepted] = useState(false);
+  const navigate = useNavigate();
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    if (!termsAccepted) {
-      alert('Please accept the terms and conditions');
-      return;
-    }
     const formData = new FormData(e.currentTarget);
-    console.log('Form submitted:', Object.fromEntries(formData));
+    const name = formData.get('name');
+    const email = formData.get('email');
+    const password = formData.get('password');
+    const confirmPassword = formData.get('confirmPassword');
+    const licenseNumber = formData.get('licenseNumber');
+    const facilityType = formData.get('facilityType');
+
+    if (password !== confirmPassword) {
+      console.log('Passwords do not match!');
+      toast.error("Passwords do not match!");
+    } else {
+      const facility = { name, email, licenseNumber, facilityType, password };
+      console.log('Form submitted:', facility);
+
+      try {
+        const response = await axios.post("http://localhost:5000/api/facilities", facility);
+        if (response.data.message === "Facility added successfully") {
+          toast.success("Signup successful!");
+          navigate("/facility-dashboard");
+        } else {
+          console.log("error signing up", response.data.message);
+          toast.error("Signup failed. Please try again.");
+        }
+      } catch (err) {
+        console.log("Signup error:", err);
+        toast.error("Server error. Try again later.");
+      }
+    }
   };
 
-  const handleGoogleSuccess = (credentialResponse) => {
-    console.log('Google Sign Up Success:', credentialResponse);
-    toast.success("Signup Successful")
+  const handleGoogleSuccess = async (credentialResponse) => {
+    try {
+      console.log('Google Sign Up Success:', credentialResponse);
+      navigate("/google-signup", { state: credentialResponse });
+    } catch (err) {
+      console.log("Error during Google Sign Up redirect:", err);
+      toast.error("Something went wrong with Google Sign Up");
+    }
   };
 
   const handleGoogleError = () => {
     console.log('Google Sign Up Failed');
-    toast.error("Google Sign Up Failed")
+    toast.error("Google Sign Up Failed");
   };
 
   return (
@@ -57,8 +86,6 @@ const MFSignup = () => {
               id="facilityType"
               name="facilityType"
               className={styles.select}
-              value={facilityType}
-              onChange={(e) => setFacilityType(e.target.value)}
               required
             >
               <option value="">Select Facility Type</option>
@@ -113,15 +140,6 @@ const MFSignup = () => {
               required
             />
           </div>
-
-          <label className={styles.checkbox}>
-            <input
-              type="checkbox"
-              checked={termsAccepted}
-              onChange={(e) => setTermsAccepted(e.target.checked)}
-            />
-            I accept the Terms & Conditions
-          </label>
 
           <motion.button 
             className={styles.submitButton}

@@ -52,6 +52,7 @@
 .statCard {
   background: var(--card-bg);
   backdrop-filter: blur(10px);
+  
   padding: 24px;
   border-radius: 16px;
   text-align: center;
