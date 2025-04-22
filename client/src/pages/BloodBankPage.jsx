@@ -1,19 +1,18 @@
-import { useState, useContext, useEffect } from "react";
+import { useState } from "react";
 import { Menu, X, Home, ClipboardList, Users, Settings, PlusCircle, Info, Activity, Droplet, AlertTriangle } from "lucide-react";
 import styles from "./BloodBankPage.module.css";
 import { motion, AnimatePresence } from "framer-motion";
-import { ThemeContext } from "../layouts/Layout";
 import { Link } from "react-router-dom";
 import axios from "axios";
+import {useDarkMode} from '../Context/DarkModeContext';
 function BloodBankPage() {
   document.title = "AuraHP Blood Bank";
   const [isSidebarOpen, setSidebarOpen] = useState(false);
   const [isRequestOpen, setRequestOpen] = useState(false);
-  const { darkMode } = useContext(ThemeContext);
+  const {isDarkMode} = useDarkMode();
 
   return (
-    <div className={`${styles.wrapper} ${darkMode ? 'dark' : 'light'}`}>
-      <Navbar toggleSidebar={() => setSidebarOpen(!isSidebarOpen)} />
+    <div className={`${styles.wrapper} ${isDarkMode ? 'dark' : 'light'}`}>
       <AnimatePresence>
         {isSidebarOpen && (
           <Sidebar isOpen={isSidebarOpen} toggleSidebar={() => setSidebarOpen(false)} />

@@ -1,7 +1,6 @@
 import { useState } from "react";
 import styles from "./donor_profile.module.css";
 import { Calendar, MapPin, Mail, Phone, Edit3, Save } from "lucide-react";
-import Layout from "../layouts/Layout";
 const DonorProfile = () => {
   const [user, setUser] = useState({
     name: "arvx",
@@ -33,8 +32,6 @@ const DonorProfile = () => {
   };
 
   return (
-    <Layout>
-
     <div className={styles.profileContainer}>
       <div className={styles.profileCard}>
         <img src={user.image} alt="Profile" className={styles.profileImage} />
@@ -61,7 +58,6 @@ const DonorProfile = () => {
         </button>
       </div>
     </div>
-    </Layout>
   );
 };
 

@@ -1,6 +1,5 @@
 import  { useState } from 'react';
 import { motion } from 'framer-motion';
-import BloodBankLayout from '../layouts/BloodBankLayout';
 import styles from './BloodBankPage.module.css';
 import { Calendar, MapPin, Phone, User, Search } from 'lucide-react';
 
@@ -57,7 +56,6 @@ const BloodRequests = () => {
   });
 
   return (
-    <BloodBankLayout>
       <motion.div 
         className={styles.mainContent}
         initial={{ opacity: 0 }}
@@ -175,7 +173,6 @@ const BloodRequests = () => {
           </div>
         </div>
       </motion.div>
-    </BloodBankLayout>
   );
 };
 
