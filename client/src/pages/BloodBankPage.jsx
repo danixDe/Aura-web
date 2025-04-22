@@ -1,24 +1,17 @@
 import { useState } from "react";
-import { Menu, X, Home, ClipboardList, Users, Settings, PlusCircle, Info, Activity, Droplet, AlertTriangle } from "lucide-react";
+import { PlusCircle, Droplet, AlertTriangle } from "lucide-react";
 import styles from "./BloodBankPage.module.css";
 import { motion, AnimatePresence } from "framer-motion";
-import { Link } from "react-router-dom";
 import axios from "axios";
 import {useDarkMode} from '../Context/DarkModeContext';
 import toast from "react-hot-toast";
 function BloodBankPage() {
   document.title = "AuraHP Blood Bank";
-  const [isSidebarOpen, setSidebarOpen] = useState(false);
   const [isRequestOpen, setRequestOpen] = useState(false);
   const {isDarkMode} = useDarkMode();
 
   return (
     <div className={`${styles.wrapper} ${isDarkMode ? 'dark' : 'light'}`}>
-      <AnimatePresence>
-        {isSidebarOpen && (
-          <Sidebar isOpen={isSidebarOpen} toggleSidebar={() => setSidebarOpen(false)} />
-        )}
-      </AnimatePresence>
       <motion.div 
         className={styles.mainContent}
         initial={{ opacity: 0 }}
@@ -52,47 +45,6 @@ function BloodBankPage() {
     </div>
   );
 }
-
-function Navbar({ toggleSidebar }) {
-  return (
-    <motion.div 
-      className={styles.navbar}
-      initial={{ y: -100 }}
-      animate={{ y: 0 }}
-      transition={{ duration: 0.5 }}
-    >
-      <button className={styles.menuBtn} onClick={toggleSidebar}>
-        <Menu size={28} />
-      </button>
-      <h2>Aura HP Blood Bank</h2>
-    </motion.div>
-  );
-}
-
-function Sidebar({ isOpen, toggleSidebar }) {
-  return (
-    <motion.div 
-      className={`${styles.sidebar} ${isOpen ? styles.open : ""}`}
-      initial={{ x: -300 }}
-      animate={{ x: 0 }}
-      exit={{ x: -300 }}
-      transition={{ type: "spring", stiffness: 200, damping: 30 }}
-    >
-      <button className={styles.closeBtn} onClick={toggleSidebar}>
-        <X size={24} />
-      </button>
-      <ul>
-        <motion.li whileHover={{ x: 5 }}><Home size={20} /> <Link to="/bloodbank">Dashboard</Link></motion.li>
-        <motion.li whileHover={{ x: 5 }}><ClipboardList size={20} /> <Link to="/blood-requests">Blood Requests</Link></motion.li>
-        <motion.li whileHover={{ x: 5 }}><Users size={20} /> <Link to="/donors-list">Donors List</Link></motion.li>
-        <motion.li whileHover={{ x: 5 }}><Activity size={20} /> <Link to="/analytics">Analytics</Link></motion.li>
-        <motion.li whileHover={{ x: 5 }}><Settings size={20} /> <Link to="#">Settings</Link></motion.li>
-        <motion.li whileHover={{ x: 5 }}><Info size={20} /> About</motion.li>
-      </ul>
-    </motion.div>
-  );
-}
-
 function RequestPopup({ closePopup }) {
   const [formData, setFormData] = useState({
     facility_id:1,

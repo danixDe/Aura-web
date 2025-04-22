@@ -23,9 +23,9 @@ const VLogin = () => {
 
     try{
     const response=await axios.post("http://localhost:5000/api/donors/authdonor",{email,password});
+    console.log(response);
     if(response.data.message==="valid"){
-      setValid(true);
-      toast.success('Login Successful!');
+      setValid("true");
     }
     else{
       console.log("invalid user");

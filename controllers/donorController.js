@@ -9,17 +9,15 @@ const createDonor = async (req, res) => {
         res.status(500).json({ message: error.message });
     }
 };
-
-const AuthDonor = async (req, res) => {
-    try {
-        const { email, password } = req.body;
-        const donor = await donorServices.getDonor(email);
-
-        // Assuming donor object contains a password property
-        if (donor && donor.password === password) {
-            res.json({ message: "valid" });
-        } else {
-            res.json({ message: "invalid" });
+const AuthDonor=async(req,res)=>{
+    try{
+        const {email,password}=req.body;
+        const og_password=await donorServices.getDonor(email);
+        if(password===og_password){
+            res.json({message:"valid"});
+        }
+        else{
+            res.json({message:"invalid"});
         }
     } catch (err) {
         console.log("ERROR AUTHENTICATING DONOR", err);

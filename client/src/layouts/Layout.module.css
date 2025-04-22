@@ -4,6 +4,8 @@
   color: var(--text-primary);
   background: var(--bg-gradient);
   transition: all 0.3s ease;
+  display: flex;
+  flex-direction: column;
 }
 
 .container::before {
