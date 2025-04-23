@@ -7,7 +7,7 @@ import { ListFilter } from "lucide-react";
 const DonorHome = () => {
   const [requests, setRequests] = useState([]);
   const [searchQuery, setSearchQuery] = useState("");
-  const [userLocation, setUserLocation] = useState(null);
+  const [userLocation, setUserLocation] = useState({latitude:'',longitude:''});
   const [showAllRequests, setShowAllRequests] = useState(false);
   
   useEffect(() => {
@@ -52,6 +52,8 @@ const DonorHome = () => {
   ? userLocation 
   : { latitude: 17.6868, longitude: 83.2185 };
   console.log("User Location:", userLocation);
+  localStorage.setItem('latitude',userLocation.latitude);
+  localStorage.setItem('longitude',userLocation.longitude);
   console.log("Effective Location:", effectiveLocation);
   
   const nearbyRequests = requests.filter((request) => {
