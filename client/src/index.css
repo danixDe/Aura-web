@@ -74,7 +74,6 @@ body {
   background: var(--accent-gradient);
 }
 
-/* Custom cursor styles */
 .cursor {
   width: 20px;
   height: 20px;
@@ -115,7 +114,6 @@ body {
   background-color: rgba(107, 70, 193, 0.1);
 }
 
-/* Intersection Observer animations */
 .fade-in {
   opacity: 0;
   transform: translateY(20px);
