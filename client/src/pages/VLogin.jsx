@@ -26,6 +26,7 @@ const VLogin = () => {
     console.log(response);
     if(response.data.message==="valid"){
       setValid("true");
+      navigate('/donor');
     }
     else{
       console.log("invalid user");
