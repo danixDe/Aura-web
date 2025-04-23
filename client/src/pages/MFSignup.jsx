@@ -19,12 +19,17 @@ const MFSignup = () => {
     const confirmPassword = formData.get('confirmPassword');
     const licenseNumber = formData.get('licenseNumber');
     const facilityType = formData.get('facilityType');
+    const phone = formData.get('phone');
+    const address = formData.get('address');
+    const city = formData.get('city');
+    const state = formData.get('state');
+    const zipCode = formData.get('zipCode');
 
     if (password !== confirmPassword) {
       console.log('Passwords do not match!');
       toast.error("Passwords do not match!");
     } else {
-      const facility = { name, email, licenseNumber, facilityType, password };
+      const facility = { name, email, licenseNumber, facilityType, password ,address ,city,state,zipCode};
       console.log('Form submitted:', facility);
 
       try {
@@ -98,7 +103,7 @@ const MFSignup = () => {
           </div>
 
           <div className={styles.formGroup}>
-            <label htmlFor="licenseNumber">License Number</label>
+            <label htmlFor="licenseNumber"> NIN-2-HFI</label>
             <input
               type="text"
               id="licenseNumber"
@@ -140,6 +145,61 @@ const MFSignup = () => {
               required
             />
           </div>
+          <div className={styles.formGroup}>
+            <label htmlFor="phone">Phone Number</label>
+            <input
+             type="text"
+             id="phone"
+             name="phone"
+             className={styles.inputField}
+             required
+            />
+          </div>
+
+          <div className={styles.formGroup}>
+            <label htmlFor="address">Address</label>
+            <input
+             type="text"
+             id="address"
+             name="address"
+             className={styles.inputField}
+             required
+            />
+          </div>
+
+          <div className={styles.formGroup}>
+             <label htmlFor="city">City</label>
+             <input
+             type="text"
+             id="city"
+             name="city"
+             className={styles.inputField}
+             required
+            />
+          </div>
+
+          <div className={styles.formGroup}>
+            <label htmlFor="state">State</label>
+            <input
+              type="text"
+              id="state"
+              name="state"
+              className={styles.inputField}
+              required
+            />
+          </div>
+
+          <div className={styles.formGroup}>
+            <label htmlFor="zipCode">Zip Code</label>
+            <input
+             type="text"
+             id="zipCode"
+             name="zipCode"
+             className={styles.inputField}
+             required
+            />
+          </div>
+
 
           <motion.button 
             className={styles.submitButton}
@@ -149,6 +209,7 @@ const MFSignup = () => {
           >
             Sign Up
           </motion.button>
+
         </form>
 
         <div className={styles.divider}>
