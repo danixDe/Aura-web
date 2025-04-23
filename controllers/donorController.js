@@ -14,8 +14,6 @@ const AuthDonor = async (req, res) => {
     try {
         const { email, password } = req.body;
         const donor = await donorServices.getDonor(email);
-
-        // Assuming donor object contains a password property
         if (donor && donor.password === password) {
             res.json({ message: "valid" });
         } else {
