@@ -26,6 +26,7 @@ const VLogin = () => {
     console.log(response);
     if(response.data.message==="valid"){
       setValid("true");
+      login(email);
       navigate('/donor');
     }
     else{

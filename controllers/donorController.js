@@ -2,6 +2,7 @@ const donorServices = require('../services/donorServices');
 
 const createDonor = async (req, res) => {
     try {
+
         console.log("donor create", req.body);
         const donor = await donorServices.addDonor(req.body);
         res.status(201).json({ message: "Donor added successfully", donor });
@@ -14,9 +15,10 @@ const AuthDonor = async (req, res) => {
     try {
         const { email, password } = req.body;
         const donor = await donorServices.getDonor(email);
-
         // Assuming donor object contains a password property
-        if (donor && donor.password === password) {
+        if (donor && donor=== password) {
+            console.log(password);
+            console.log(donor);
             res.json({ message: "valid" });
         } else {
             res.json({ message: "invalid" });
