@@ -1,9 +1,8 @@
 #root {
   max-width: 100%;
   margin: 0 auto;
-  /* padding: 2rem; */
+  width: 100%;
   text-align: center;
-  width:100%;
 }
 :root {
   --bg-gradient: linear-gradient(135deg, #f6f8fd 0%, #e2e8f4 100%);

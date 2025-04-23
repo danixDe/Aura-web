@@ -1,8 +1,10 @@
-import { useEffect, useState,useContext } from "react";
+import { useEffect, useState, useContext } from "react";
 import { motion } from "framer-motion";
 import styles from "./Lander.module.css";
-import {Link,useNavigate} from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { AuthContext } from "../utils/AuthContext";
+import CustomCursor from "../Components/CustomCursor";
+import {FaGithub, FaInstagram, FaTwitter} from 'react-icons/fa'
 
 export default function Land() {
   const [activeSection, setActiveSection] = useState("hero");
@@ -10,6 +12,28 @@ export default function Land() {
   const [activeTab, setActiveTab] = useState("donors");
   const { valid, role } = useContext(AuthContext);
   const navigate = useNavigate();
+  
+  const menuItems = {
+    "Why AuraHP": [
+      { title: "Our Mission", link: "/mission" },
+      { title: "Impact Stories", link: "/impact" },
+      { title: "Blood Donation Process", link: "/process" },
+    ],
+    "Our Practices": [
+      { title: "Safety Standards", link: "/safety" },
+      { title: "Medical Guidelines", link: "/guidelines" },
+      { title: "Quality Assurance", link: "/quality" },
+      { title: "Research & Development", link: "/research" },
+    ],
+    "About Us": null,
+    "Careers": null,
+    "Insights": [
+      { title: "Latest News", link: "/news" },
+      { title: "Blood Supply Statistics", link: "/statistics" },
+      { title: "Educational Resources", link: "/resources" },
+      { title: "Research Publications", link: "/publications" },
+    ],
+  };
   
   useEffect(() => {
     document.title = "AuraHP - Home";
@@ -27,20 +51,13 @@ export default function Land() {
   }, []);
 
   return (
-    
+    <>
+    <CustomCursor />
     <div className={styles.container}>
-      
-
       <nav className={styles.navbar}>
         <div className={styles.logo}>AuraHP</div>
         <ul className={styles.navLinks}>
-          {[
-            "Why AuraHP",
-            "Our Practices",
-            "About Us",
-            "Careers",
-            "Insights",
-          ].map((item, index) => (
+          {Object.entries(menuItems).map(([item, submenu], index) => (
             <li
               key={index}
               className={`${styles.navItem} ${
@@ -50,25 +67,34 @@ export default function Land() {
               }`}
               onMouseEnter={() => setDropdown(item)}
               onMouseLeave={() => setDropdown(null)}
+              data-cursor="pointer"
             >
-              {item} <span className={styles.dropdownArrow}>▼</span>
-              {dropdown === item && (
+              {item} 
+              {submenu && <span className={styles.dropdownArrow}>▼</span>}
+              {dropdown === item && submenu && (
                 <motion.div
                   className={styles.dropdownMenu}
                   initial={{ opacity: 0, y: -10 }}
                   animate={{ opacity: 1, y: 0 }}
                   transition={{ duration: 0.3 }}
                 >
-                  <p>Submenu 1</p>
-                  <p>Submenu 2</p>
-                  <p>Submenu 3</p>
+                  {submenu.map((item, idx) => (
+                    <Link 
+                      key={idx} 
+                      to={item.link} 
+                      className={styles.dropdownItem}
+                      data-cursor="pointer"
+                    >
+                      {item.title}<br />
+                    </Link>
+                  ))}
                 </motion.div>
               )}
             </li>
           ))}
         </ul>
-        <Link to = '/VLogin' style = {{textDecoration:'none'}}>
-        <button className={styles.ctaButton}><span>Donate</span></button>
+        <Link to='/VLogin' style={{ textDecoration: 'none' }} data-cursor="pointer">
+          <button className={styles.ctaButton}><span>Donate</span></button>
         </Link>
       </nav>
 
@@ -79,18 +105,22 @@ export default function Land() {
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.8 }}
       >
-        <h1 className={styles.title}>One <span className={styles.highlight}>drop</span> at a time</h1>
-        <p className={styles.subtitle}>AuraHP is your trusted partner for blood donation.</p>
-        <motion.button
-          className={styles.ctaButton}
-          whileHover={{ scale: 1.1 }}
-          whileTap={{ scale: 0.9 }}
-        >
-        <span onClick={() => window.location.href = '#first-impressions'} style={{cursor: 'pointer', color: '#ffffff'}}>
-        Show Me How
-         </span>
-
-        </motion.button>
+        <div className={styles.heroContent}>
+          <h1 className={styles.title}>One <span className={styles.highlight}>drop</span> at a time</h1>
+          <p className={styles.subtitle}>AuraHP is your trusted partner for blood donation.</p>
+          <motion.button
+            className={styles.ctaButton}
+            whileHover={{ scale: 1.1 }}
+            whileTap={{ scale: 0.9 }}
+            data-cursor="pointer"
+          >
+            <a style={{textDecoration:'none'}} href='#first-impressions'> 
+            <span style={{ color: '#ffffff' }}>
+             Show Me How
+            </span>
+          </a>
+          </motion.button>
+        </div>
       </motion.section>
 
       <motion.section
@@ -105,12 +135,14 @@ export default function Land() {
           <span
             className={activeTab === "donors" ? styles.activeTab : ""}
             onClick={() => setActiveTab("donors")}
+            data-cursor="pointer"
           >
             Supporting Blood Donors
           </span>
           <span
             className={activeTab === "facilities" ? styles.activeTab : ""}
             onClick={() => setActiveTab("facilities")}
+            data-cursor="pointer"
           >
             Helping Medical Facilities
           </span>
@@ -122,73 +154,103 @@ export default function Land() {
         </p>
         <div className={styles.buttonContainer}>
           <motion.button
-             className={styles.ctadarkButton}
-             whileHover={{ scale: 1.05 }}
-             whileTap={{ scale: 0.95 }}
-             onClick={() =>
-             valid === "true" && role === "donor"
-             ? navigate("/donor")
-             : navigate("/VLogin")
+            className={styles.ctadarkButton}
+            whileHover={{ scale: 1.05 }}
+            whileTap={{ scale: 0.95 }}
+            onClick={() =>
+              valid === "true" && role === "donor"
+                ? navigate("/donor")
+                : navigate("/VLogin")
             }
+            data-cursor="pointer"
           >
-             <span>AuraHP for Donors</span>
+            <span>AuraHP for Donors</span>
           </motion.button>
 
           <motion.button
-           className={styles.ctadarkButtonAlt}
-           whileHover={{ scale: 1.05 }}
-           whileTap={{ scale: 0.95 }}
-           onClick={() =>
-            valid === "true" && role === "facility"
-            ? navigate("/bloodbank")
-            : navigate("/MFLogin")
-           }
+            className={styles.ctadarkButtonAlt}
+            whileHover={{ scale: 1.05 }}
+            whileTap={{ scale: 0.95 }}
+            onClick={() =>
+              valid === "true" && role === "facility"
+                ? navigate("/bloodbank")
+                : navigate("/MFLogin")
+            }
+            data-cursor="pointer"
           >
-           <span>AuraHP for Facilities</span>
+            <span>AuraHP for Facilities</span>
           </motion.button>
-
-        
         </div>
       </motion.section>
 
       <motion.section
-  id="business-support"
-  className={styles.lightSection}
-  initial={{ opacity: 0, y: 50 }}
-  whileInView={{ opacity: 1, y: 0 }}
-  transition={{ duration: 0.8 }}
->
-  <h2 className={styles.sectionTitle}>Empowering Blood Donation</h2>
-  <p className={styles.sectionText}>
-    AuraHP connects donors with those in urgent need, streamlining the donation process and ensuring efficient medical support.
-  </p>
+        id="business-support"
+        className={styles.lightSection}
+        initial={{ opacity: 0, y: 50 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.8 }}
+      >
+        <h2 className={styles.sectionTitle}>Empowering Blood Donation</h2>
+        <p className={styles.sectionText}>
+          AuraHP connects donors with those in urgent need, streamlining the donation process and ensuring efficient medical support.
+        </p>
 
-  <div className={styles.featuresContainer}>
-    <div className={styles.featureCard}>
-      <h3>🩸 Real-Time Donor Matching</h3>
-      <p>Find and connect with donors quickly based on location and blood type.</p>
-    </div>
-    <div className={styles.featureCard}>
-      <h3>🏥 Medical Facility Support</h3>
-      <p>Hospitals and clinics can request and manage blood supply effortlessly.</p>
-    </div>
-    <div className={styles.featureCard}>
-      <h3>📊 Smart Analytics</h3>
-      <p>Track donation history, upcoming drives, and availability of blood supply.</p>
-    </div>
-  </div>
-            <br></br>
-  <motion.button
-    className={styles.ctaButton}
-    whileHover={{ scale: 1.05 }}
-    whileTap={{ scale: 0.95 }}
-  >
-    <Link to="/learn-more" style={{ textDecoration: "none", color: "white" }}>
-      Learn More
-    </Link>
-  </motion.button>
-</motion.section>
+        <div className={styles.featuresContainer}>
+          <div className={styles.featureCard}>
+            <h3>🩸 Real-Time Donor Matching</h3>
+            <p>Find and connect with donors quickly based on location and blood type.</p>
+          </div>
+          <div className={styles.featureCard}>
+            <h3>🏥 Medical Facility Support</h3>
+            <p>Hospitals and clinics can request and manage blood supply effortlessly.</p>
+          </div>
+          <div className={styles.featureCard}>
+            <h3>📊 Smart Analytics</h3>
+            <p>Track donation history, upcoming drives, and availability of blood supply.</p>
+          </div>
+        </div>
+        <br></br>
+        <motion.button
+          className={styles.ctaButton}
+          whileHover={{ scale: 1.05 }}
+          whileTap={{ scale: 0.95 }}
+          data-cursor="pointer"
+        >
+          <Link to="/learn-more" style={{ textDecoration: "none", color: "white" }}>
+            Learn More
+          </Link>
+        </motion.button>
+      </motion.section>
 
+      <motion.section
+        id="testimonials"
+        className={styles.darkSection}
+        initial={{ opacity: 0, y: 50 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.8 }}
+      >
+        <h2 className={styles.sectionTitle}>Success Stories</h2>
+        <div className={styles.testimonialContainer}>
+          <div className={styles.testimonialCard}>
+            <div className={styles.testimonialContent}>
+              <p>"AuraHP helped me find a blood donor when my father needed emergency surgery. The platform connected us with a compatible donor within hours."</p>
+              <h4>- Sarah Johnson</h4>
+            </div>
+          </div>
+          <div className={styles.testimonialCard}>
+            <div className={styles.testimonialContent}>
+              <p>`As a regular donor, AuraHP has made it easier than ever to contribute. I get notifications when my blood type is needed in my area.`</p>
+              <h4>- Michael Chen</h4>
+            </div>
+          </div>
+          <div className={styles.testimonialCard}>
+            <div className={styles.testimonialContent}>
+              <p>"Our hospital has seen a 40% increase in donation rates since partnering with AuraHP. Their platform has revolutionized our blood supply management."</p>
+              <h4>- Dr. Emily Rodriguez, Memorial Hospital</h4>
+            </div>
+          </div>
+        </div>
+      </motion.section>
 
       <motion.footer
         className={styles.footer}
@@ -204,13 +266,22 @@ export default function Land() {
           </div>
           <div>
             <h3>Quick Links</h3>
-            <p>Why AuraHP</p>
-            <p>Our Practices</p>
-            <p>Careers</p>
+            <p data-cursor="pointer">Why AuraHP</p>
+            <p data-cursor="pointer">Our Practices</p>
+            <p data-cursor="pointer">Careers</p>
+          </div>
+          <div>
+            <h3>Follow Us</h3>
+            <div className={styles.socialLinks}>
+              <a className={styles.socialLink} data-cursor="pointer"><FaGithub /></a>
+              <a className={styles.socialLink} data-cursor="pointer"><FaInstagram /></a>
+              <a className={styles.socialLink} data-cursor="pointer"><FaTwitter /></a>
+            </div>
           </div>
         </div>
         <p className={styles.copyright}>© AuraHP 2024</p>
       </motion.footer>
     </div>
+  </>
   );
 }
