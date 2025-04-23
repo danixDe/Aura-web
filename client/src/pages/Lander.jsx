@@ -229,24 +229,24 @@ export default function Land() {
         whileInView={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.8 }}
       >
-        <h2 className={styles.sectionTitle}>Success Stories</h2>
+        <h2 className={styles.sectionTitle}>Stories of Life</h2>
         <div className={styles.testimonialContainer}>
           <div className={styles.testimonialCard}>
             <div className={styles.testimonialContent}>
               <p>"AuraHP helped me find a blood donor when my father needed emergency surgery. The platform connected us with a compatible donor within hours."</p>
-              <h4>- Sarah Johnson</h4>
+              <h4>- Bharadwaj Dasari</h4>
             </div>
           </div>
           <div className={styles.testimonialCard}>
             <div className={styles.testimonialContent}>
               <p>`As a regular donor, AuraHP has made it easier than ever to contribute. I get notifications when my blood type is needed in my area.`</p>
-              <h4>- Michael Chen</h4>
+              <h4>- Dileep Rambarki</h4>
             </div>
           </div>
           <div className={styles.testimonialCard}>
             <div className={styles.testimonialContent}>
               <p>"Our hospital has seen a 40% increase in donation rates since partnering with AuraHP. Their platform has revolutionized our blood supply management."</p>
-              <h4>- Dr. Emily Rodriguez, Memorial Hospital</h4>
+              <h4>- Dr. Aravind, LifeZone Hospital</h4>
             </div>
           </div>
         </div>

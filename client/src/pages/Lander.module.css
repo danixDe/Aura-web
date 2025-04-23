@@ -350,7 +350,7 @@
 .testimonialContainer {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-  gap: 2rem;
+  gap: 4rem;
   width: 100%;
 }
 
@@ -362,7 +362,7 @@
   transition: all 0.3s var(--transition-bounce);
   height: 100%;
   margin:auto;
-  padding:2rem;
+  padding:1rem;
 }
 
 .testimonialCard:hover {
@@ -379,13 +379,11 @@
 .testimonialContent p {
   font-style: italic;
   line-height: 1.6;
-  margin-bottom: 1.5rem;
   flex-grow: 1;
 }
 
 .testimonialContent h4 {
   font-weight: 600;
-  margin-top: auto;
   background: var(--accent-gradient);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
