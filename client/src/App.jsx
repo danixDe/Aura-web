@@ -1,6 +1,5 @@
 import "./App.css";
 import { Routes, Route } from "react-router-dom";
-import { Toaster } from "react-hot-toast";
 import VLogin from "./pages/VLogin";
 import VSignup from "./pages/VSignup";
 import MFLogin from "./pages/MFLogin";
@@ -13,17 +12,12 @@ import DonorHistory from "./pages/donor_history.jsx";
 import BloodRequests from "./pages/BloodRequests.jsx";
 import DonorsList from "./pages/DonorsList.jsx";
 import Analytics from "./pages/Analytics.jsx";
-import { AuthProvider } from "./Context/AuthContext.jsx";
 import ProtectedRoute from "./ProtectedRoute.jsx";
 import GoogleSignup from "./pages/GoogleSignup.jsx";
-import { DarkModeProvider } from "./Context/DarkModeContext.jsx";
 import Layout from "./layouts/Layout.jsx";
 import BloodBankLayout from "./layouts/BloodBankLayout.jsx";
 function App() {
   return (
-    <AuthProvider>
-    <DarkModeProvider>
-      <Toaster position="top-center" reverseOrder= {false} />
       <Routes>
         <Route path="/" element={<Land />} />
         <Route path="donor" element={<Layout />}>
@@ -43,8 +37,6 @@ function App() {
         <Route path="/VSignup" element={<VSignup />} />
         <Route path="/google-signup" element={<GoogleSignup />} />
       </Routes>
-    </DarkModeProvider>
-    </AuthProvider>
   );
 }
 

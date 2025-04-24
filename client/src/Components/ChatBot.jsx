@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import './ChatBot.css';
+import { ChevronDown, ChevronUp } from 'lucide-react';
 
 export default function ChatBot() {
   const [open, setOpen] = useState(false);
@@ -11,7 +12,7 @@ export default function ChatBot() {
           <div className="chatbot-title">AuraHP Assistant</div>
           <div className="chatbot-subtitle">We typically reply within a few minutes</div>
         </div>
-        <div className="chatbot-arrow">{open ? '▼' : '▲'}</div>
+        <div className="chatbot-arrow">{open ? <ChevronDown size={20} /> : <ChevronUp size= {20} />}</div>
       </div>
 
       {open && (
