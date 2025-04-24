@@ -46,7 +46,19 @@ const getDonors = async (req, res) => {
         res.status(500).json({ message: error.message });
     }
 };
-
+const getDonorByEmail = async(req,res)=>{
+    const {email} = req.params;
+    try{
+        const donor = await donorServices.getDonor(email);
+        if(!donor){
+            return res.status(404).json({message:"Donor not found"})
+        }
+        res.json(donor);
+    }
+    catch(error){
+        res.status(500).json({message: error.message});
+    }
+}
 const searchDonors = async (req, res) => {
     try {
         const { blood_group, location } = req.query; 
@@ -78,6 +90,7 @@ const deleteDonor = async (req, res) => {
 module.exports = {
     createDonor,
     getDonors,
+    getDonorByEmail,
     searchDonors,
     updateDonor,
     deleteDonor,

@@ -5,6 +5,7 @@ import { Link, useNavigate } from 'react-router-dom';
 import { AuthContext } from "../Context/AuthContext";
 import CustomCursor from "../Components/CustomCursor";
 import {FaGithub, FaInstagram, FaTwitter} from 'react-icons/fa'
+import { ChevronDown, ChevronUp } from "lucide-react";
 
 export default function Land() {
   const [activeSection, setActiveSection] = useState("hero");
@@ -70,7 +71,7 @@ export default function Land() {
               data-cursor="pointer"
             >
               {item} 
-              {submenu && <span className={styles.dropdownArrow}>▼</span>}
+              {submenu && <span className={styles.dropdownArrow}><ChevronDown size={12} /></span>}
               {dropdown === item && submenu && (
                 <motion.div
                   className={styles.dropdownMenu}

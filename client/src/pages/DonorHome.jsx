@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import Card from "./Card";
+import Card from "../Components/Card";
 import styles from "./DonorHome.module.css";
 import { motion } from "framer-motion";
 import { ListFilter } from "lucide-react";

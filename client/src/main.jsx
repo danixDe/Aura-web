@@ -15,7 +15,7 @@ createRoot(document.getElementById('root')).render(
       <Router>
         <AuthProvider>
           <DarkModeProvider>
-          <Toaster position="top-center" reverseOrder= {false} />
+            <Toaster position="top-center" reverseOrder= {false} />
             <App />
           </DarkModeProvider>
         </AuthProvider>

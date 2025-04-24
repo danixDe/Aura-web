@@ -2,7 +2,6 @@
   min-height: 100vh;
   background: var(--secondary);
   position: relative;
-  overflow: hidden;
 }
 
 .container::before {
@@ -92,7 +91,7 @@
 }
 
 .dropdownArrow {
-  font-size: 0.7rem;
+  font-size: 0.5rem;
   margin-left: 0.3rem;
   opacity: 0.7;
   transition: transform 0.3s var(--transition-smooth);
@@ -108,14 +107,14 @@
   left: 0;
   min-width: 180px;
   margin-top: 0.7rem;
-  background: var(--glass-bg);
-  backdrop-filter: var(--card-blur);
-  border: 1px solid var(--glass-border);
   border-radius: 12px;
   padding: 1rem;
   z-index: 100;
   box-shadow: 0 8px 32px var(--glass-shadow);
   white-space: nowrap;
+  background: rgba(255, 255, 255, 0.1);
+  backdrop-filter: blur(12px);
+  border: 1px solid var(--glass-border);
 }
 
 .dropdownItem {

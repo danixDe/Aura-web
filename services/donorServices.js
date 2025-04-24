@@ -33,21 +33,17 @@ const getAllDonors = async() => {
         throw new Error(err.message);
     }
 };
-const getDonor=async(email)=>{
-    try{
-        // console.log(email);
-        const query=`select password from donor where email="${email}"`;
-        const password=await db.execute(query);
-        if(password.length>0){
-            // console.log(query);
-            // console.log("password",password);
-            return password[0][0].password;
-        }
+const getDonor = async (email) => {
+    const query = `SELECT * FROM donor WHERE email = ?`;
+    try {
+      const [rows] = await db.execute(query, [email]);
+      if (rows.length > 0) return rows[0];
+      else return null;
+    } catch (err) {
+      throw new Error("Error fetching donor profile: " + err.message);
     }
-    catch(err){
-        console.log('ERROR GETTING DONOR',err);
-    }
-}
+  };
+  
 const findDonors = async(blood_group,location) => {
    const query = `SELECT * FROM donor WHERE blood_group = ? AND location = ?`;
    try{
