@@ -2,7 +2,7 @@ import { useEffect, useState, useContext } from "react";
 import { motion } from "framer-motion";
 import styles from "./Lander.module.css";
 import { Link, useNavigate } from 'react-router-dom';
-import { AuthContext } from "../utils/AuthContext";
+import { AuthContext } from "../Context/AuthContext";
 import CustomCursor from "../Components/CustomCursor";
 import {FaGithub, FaInstagram, FaTwitter} from 'react-icons/fa'
 

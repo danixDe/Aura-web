@@ -13,7 +13,7 @@ import DonorHistory from "./pages/donor_history.jsx";
 import BloodRequests from "./pages/BloodRequests.jsx";
 import DonorsList from "./pages/DonorsList.jsx";
 import Analytics from "./pages/Analytics.jsx";
-import { AuthProvider } from "./utils/AuthContext.jsx";
+import { AuthProvider } from "./Context/AuthContext.jsx";
 import ProtectedRoute from "./ProtectedRoute.jsx";
 import GoogleSignup from "./pages/GoogleSignup.jsx";
 import { DarkModeProvider } from "./Context/DarkModeContext.jsx";
