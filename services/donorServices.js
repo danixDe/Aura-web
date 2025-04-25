@@ -4,7 +4,7 @@ const donor = require('../models/donor');
 const addDonor = async(donorData) => {
     console.log("add donor in services");
    const {dName,email,phone,location,blood_group,preferred_notification,password} = donorData;
-   const query = `INSERT INTO donor (dName,email,phone,location,blood_group,preferred_notification,password) VALUES (?,?,?,?,?,?,?)`;
+   const query = `INSERT INTO donor (dName,email,phone,permanent_location,blood_group,preferred_notification,password) VALUES (?,?,?,?,?,?,?)`;
 
    try{
     const [result] = await db.execute(query,[dName,email,phone,location,blood_group,preferred_notification,password]);
