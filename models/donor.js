@@ -6,12 +6,13 @@ CREATE TABLE IF NOT EXISTS donor (
   dName VARCHAR(255) NOT NULL,
   email VARCHAR(255) UNIQUE NOT NULL,
   phone VARCHAR(15) NOT NULL,
-  permanent_location VARCHAR(255) NOT NULL,
-  last_known_location VARCHAR(255),
   blood_group ENUM("A+", "A-", "B+", "B-", "AB+", "AB-", "O+", "O-") NOT NULL,
-  password VARCHAR(30),
+  password VARCHAR(255) NOT NULL,
   preferred_notification ENUM("Email", "SMS", "Whatsapp") NOT NULL,
-  created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+  location_info JSON,
+  coordinates POINT NOT NULL,
+  created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+  SPATIAL INDEX (coordinates)
 );
 `;
 

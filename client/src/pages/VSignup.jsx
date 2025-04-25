@@ -10,41 +10,66 @@ import axios from "axios";
 const VSignup = () => {
 
   const navigate=useNavigate();
+  const [coords, setCoords] = React.useState({ latitude: null, longitude: null });
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     const formData = new FormData(e.currentTarget);
+  
     const dName = formData.get('name');
     const email = formData.get('email');
     const password = formData.get('password');
     const confirmPassword = formData.get('confirmPassword');
     const phone = formData.get('phone');
-    const location = formData.get('location');
     const preferred_notification = formData.get('preferred_notification');
     const blood_group = formData.get('blood_group');
+    const street = formData.get('street');
+    const city = formData.get('city');
+    const state = formData.get('state');
+    const zip = formData.get('zip');
   
     if (password !== confirmPassword) {
       console.log('Passwords do not match!');
       toast.error("Passwords do not match!");
-    } else {
-      const user = { dName, email, phone, location, blood_group, preferred_notification, password };
-      console.log('Form submitted:', user);
-  
-      try {
-        const response = await axios.post("http://localhost:5000/api/donors", user);
-        if (response.data.message === "Donor added successfully") {
-          toast.success("Signup successful!");
-          navigate("/donor");
-        } else {
-          console.log("error signing up", response.data.message);
-          toast.error("Signup failed. Please try again.");
-        }
-      } catch (err) {
-        console.log("Signup error:", err);
-        toast.error("Server error. Try again later.");
+      return;
+    }
+    const user = {
+      dName,
+      email,
+      phone,
+      blood_group,
+      preferred_notification,
+      password,
+      location_info : {
+        street,
+        city,
+        state,
+        zip
+      },
+      coordinates : {
+        lat: coords.latitude,
+        lng: coords.longitude
       }
+    };
+  
+    console.log('Form submitted:', user);
+  
+    try {
+      const response = await axios.post("http://localhost:5000/api/donors", user);
+  
+      if (response.data.message === "Donor added successfully") {
+        toast.success("Signup successful!");
+        navigate("/donor");
+      } else {
+        console.log("Error signing up", response.data.message);
+        toast.error("Signup failed. Please try again.");
+      }
+    } catch (err) {
+      console.log("Signup error:", err);
+      toast.error("Server error. Try again later.");
     }
   };
+  
   
   const handleGoogleSuccess = async (credentialResponse) => {
     try {
@@ -60,6 +85,26 @@ const VSignup = () => {
     console.log('Google Sign Up Failed');
     toast.error("Google Sign Up Failed");
   };
+
+  React.useEffect(() => {
+    if (navigator.geolocation) {
+      navigator.geolocation.getCurrentPosition(
+        (position) => {
+          setCoords({
+            latitude: position.coords.latitude,
+            longitude: position.coords.longitude
+          });
+        },
+        (error) => {
+          console.error("Error getting location:", error);
+          toast.error("Please enable location access for better experience");
+        }
+      );
+    } else {
+      toast.error("Geolocation is not supported by this browser.");
+    }
+  }, []);
+  
 
   return (
     <div className={styles.authContainer}>
@@ -104,34 +149,81 @@ const VSignup = () => {
             />
           </div>
           <div className={styles.formGroup}>
-            <label htmlFor="location">Address</label>
-            <input
+             <label htmlFor="street">Street</label>
+              <input
               type="text"
-              id="location"
-              name="location"
+              id="street"
+              name="street"
               className={styles.inputField}
               required
             />
           </div>
+
+          <div className={styles.formGroup}>
+             <label htmlFor="city">City</label>
+             <input
+              type="text"
+              id="city"
+              name="city"
+              className={styles.inputField}
+              required
+            />
+          </div>
+
+          <div className={styles.formGroup}>
+            <label htmlFor="state">State</label>
+            <input
+              type="text"
+              id="state"
+              name="state"
+              className={styles.inputField}
+              required
+            />
+          </div>
+
+          <div className={styles.formGroup}>
+            <label htmlFor="zip">ZIP Code</label>
+            <input
+              type="text"
+              id="zip"
+              name="zip"
+              className={styles.inputField}
+              required
+            />
+          </div>
+
           <div className={styles.formGroup}>
             <label htmlFor="blood">Blood Group</label>
-            <input
-              type="text"
-              id="blood"
-              name="blood_group"
-              className={styles.inputField}
-              required
-            />
+            <select 
+            id="blood"
+            name='blood_group'
+            className={styles.inputField}
+            required
+            >
+              <option value="">Select Blood Group</option>
+              <option value="A+">A+</option>
+              <option value="A-">A-</option>
+              <option value="B+">B+</option>
+              <option value="B-">B-</option>
+              <option value="AB+">AB+</option>
+              <option value="AB-">AB-</option>
+              <option value="O+">O+</option>
+              <option value="O-">O-</option>
+            </select>
           </div>
           <div className={styles.formGroup}>
-            <label htmlFor="notification">Preferred Notification</label>
-            <input
-              type="text"
+           <label htmlFor="notification">Preferred Notification</label>
+            <select
               id="notification"
               name="preferred_notification"
               className={styles.inputField}
               required
-            />
+            >
+             <option value="">Select Notification Method</option>
+             <option value="Email">Email</option>
+             <option value="SMS">SMS</option>
+             <option value="WhatsApp">WhatsApp</option>
+            </select>
           </div>
 
           <div className={styles.formGroup}>

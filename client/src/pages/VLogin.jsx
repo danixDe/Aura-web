@@ -14,31 +14,31 @@ const VLogin = () => {
   const {login}=useContext(AuthContext);
   const [valid,setValid]=useState(false);
 
-  const handleSubmit = async(e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    const formdata=new FormData(e.currentTarget);
-    const email=formdata.get("email");
-    const password=formdata.get("password");
-    console.log(password);
-
-    try{
-    const response=await axios.post("http://localhost:5000/api/donors/authdonor",{email,password});
-    console.log(response);
-    if(response.data.message==="valid"){
-      setValid("true");
-      login(email);
-      navigate('/donor');
+    const formdata = new FormData(e.currentTarget);
+    const email = formdata.get("email").trim();
+    const password = formdata.get("password").trim();
+    console.log(`Typed Password: "${password}"`);
+  
+    try {
+      const response = await axios.post("http://localhost:5000/api/donors/authdonor", { email, password });
+      console.log(response);
+  
+      if (response.data.message === "valid") {
+        setValid(true);
+        login(email);
+        navigate('/donor');
+      } else {
+        console.log("invalid user");
+        toast.error("Invalid Credentials");
+      }
+    } catch (err) {
+      toast.error("Server error.");
+      console.log(err);
     }
-    else{
-      console.log("invalid user");
-      toast.error("Invalid Credentials");
-    }
-  }
-  catch(err){
-    toast.error("Server error.");
-    console.log(err);
-  }
   };
+  
 
   const handleGoogleSuccess =async (credentialResponse) => {
     try{

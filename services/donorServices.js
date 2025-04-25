@@ -1,26 +1,72 @@
 const db = require('../config/database');
-const donor = require('../models/donor');
 
-const addDonor = async(donorData) => {
-    console.log("add donor in services");
-   const {dName,email,phone,location,blood_group,preferred_notification,password} = donorData;
-   const query = `INSERT INTO donor (dName,email,phone,permanent_location,blood_group,preferred_notification,password) VALUES (?,?,?,?,?,?,?)`;
+const ensureJSONString = (obj) => 
+  typeof obj === 'string' ? obj : JSON.stringify(obj);
 
-   try{
-    const [result] = await db.execute(query,[dName,email,phone,location,blood_group,preferred_notification,password]);
-    return{id:result.insertId,...donorData};
-   }catch(err){
-         throw new Error(err.message);
-   }
+const validateCoordinates = (coordinates) => {
+    if (!coordinates || !coordinates.lng || !coordinates.lat) {
+        throw new Error("Invalid coordinates");
+    }
 };
 
-const updateLiveLocation = async (email, location) => {
-    const query = `UPDATE donor SET last_known_location = ? WHERE email = ?`;
+const addDonor = async (donorData) => {
+    const {
+        dName,
+        email,
+        phone,
+        location_info,
+        coordinates,
+        blood_group,
+        preferred_notification,
+        password
+    } = donorData;
+
+    validateCoordinates(coordinates);
+
+    const point = `POINT(${coordinates.lng} ${coordinates.lat})`;
+
+    const query = `
+        INSERT INTO donor 
+        (dName, email, phone, location_info, coordinates, blood_group, preferred_notification, password)
+        VALUES (?, ?, ?, ?, ST_GeomFromText(?), ?, ?, ?)
+    `;
+
     try {
-      const [rows] = await db.execute(query, [location, email]);
-      return rows;
+        const [result] = await db.execute(query, [
+            dName,
+            email,
+            phone,
+            ensureJSONString(location_info),
+            point,
+            blood_group,
+            preferred_notification,
+            password
+        ]);
+        return { id: result.insertId, ...donorData };
     } catch (err) {
-      throw new Error(err.message);
+        throw new Error(err.message);
+    }
+};
+
+const updateLiveLocation = async (email, location_info, coordinates) => {
+    validateCoordinates(coordinates);
+
+    const query = `
+        UPDATE donor 
+        SET last_known_location = ?, coordinates = ST_GeomFromText(?) 
+        WHERE email = ?
+    `;
+    const point = `POINT(${coordinates.lng} ${coordinates.lat})`;
+
+    try {
+        const [rows] = await db.execute(query, [
+            ensureJSONString(location_info),
+            point,
+            email
+        ]);
+        return rows;
+    } catch (err) {
+        throw new Error(err.message);
     }
   };
   
@@ -32,7 +78,7 @@ const getAllDonors = async() => {
     }catch(err){
         throw new Error(err.message);
     }
-};
+=======
 const getDonor = async (email) => {
     const query = `SELECT * FROM donor WHERE email = ?`;
     try {
@@ -52,6 +98,36 @@ const findDonors = async(blood_group,location) => {
    }catch(err){
     throw new Error(err.message);
    }
+>>>>>>> 27ed4e0f51fafee5d387363dcc1b51b284477b21
+};
+
+const getDonor = async (email) => {
+    const query = `SELECT * FROM donor WHERE email = ?`;
+    try {
+        const [rows] = await db.execute(query, [email]);
+        return rows.length > 0 ? rows[0] : null;
+    } catch (err) {
+        throw new Error(err.message);
+    }
+};
+
+const findNearbyDonors = async (blood_group, lat, lng, radius = 10) => {
+    const query = `
+        SELECT *, ST_Distance_Sphere(coordinates, POINT(?, ?)) AS distance 
+        FROM donor 
+        WHERE blood_group = ? 
+        HAVING distance <= ? 
+        ORDER BY distance ASC
+    `;
+    try {
+        const [rows] = await db.execute(query, [parseFloat(lng), parseFloat(lat), blood_group, radius * 1000]);
+        return rows.map(donor => ({
+            ...donor,
+            distance_in_km: (donor.distance / 1000).toFixed(2)
+        }));
+    } catch (err) {
+        throw new Error(err.message);
+    }
 };
 
 const updateDonor = async(id,newData) => {
@@ -65,14 +141,22 @@ const updateDonor = async(id,newData) => {
    }
 };
 
-const deleteDonor = async(id) => {
+const deleteDonor = async (id) => {
     const query = `DELETE FROM donor WHERE id = ?`;
-    try{
-        await db.execute(query,[id]);
-        return {message: "Donor deleted succesfully"};
-    }catch(err){
+    try {
+        await db.execute(query, [id]);
+        return { message: "Donor deleted successfully" };
+    } catch (err) {
         throw new Error(err.message);
     }
 };
 
-module.exports = {addDonor,getAllDonors,findDonors,updateDonor,deleteDonor,getDonor};
+module.exports = {
+    addDonor,
+    getAllDonors,
+    getDonor,
+    updateLiveLocation,
+    findNearbyDonors,
+    updateDonor,
+    deleteDonor
+};
