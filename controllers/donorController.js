@@ -2,8 +2,6 @@ const donorServices = require('../services/donorServices');
 
 const createDonor = async (req, res) => {
     try {
-
-        console.log("donor create", req.body);
         const donor = await donorServices.addDonor(req.body);
         res.status(201).json({ message: "Donor added successfully", donor });
     } catch (error) {
@@ -15,23 +13,20 @@ const AuthDonor = async (req, res) => {
     try {
         const { email, password } = req.body;
         const donor = await donorServices.getDonor(email);
-
-        // Assuming donor object contains a password property
         if (donor && donor.password === password) {
             res.json({ message: "valid" });
         } else {
             res.json({ message: "invalid" });
         }
     } catch (err) {
-        console.log("ERROR AUTHENTICATING DONOR", err);
         res.status(500).json({ message: "Error authenticating donor" });
     }
 };
 
 const updateLiveLocation = async (req, res) => {
     try {
-        const { email, liveLocation } = req.body;
-        const result = await donorServices.updateLiveLocation(email, liveLocation);
+        const { email, liveLocation, coordinates } = req.body;
+        const result = await donorServices.updateLiveLocation(email, liveLocation, coordinates);
         res.status(200).json({ message: "Live location updated", result });
     } catch (error) {
         res.status(500).json({ message: error.message });
@@ -49,8 +44,8 @@ const getDonors = async (req, res) => {
 
 const searchDonors = async (req, res) => {
     try {
-        const { blood_group, location } = req.query; 
-        const donors = await donorServices.findDonors(blood_group, location); 
+        const { blood_group, lat, lng, radius } = req.query;
+        const donors = await donorServices.findNearbyDonors(blood_group, lat, lng, radius);
         res.status(200).json(donors);
     } catch (error) {
         res.status(500).json({ message: error.message });
