@@ -69,6 +69,7 @@ const updateLiveLocation = async (email, location_info, coordinates) => {
         throw new Error(err.message);
     }
 };
+<<<<<<< HEAD
 
 const getAllDonors = async () => {
     const query = `SELECT *, ST_AsText(coordinates) as coordinates FROM donor`;
@@ -81,6 +82,27 @@ const getAllDonors = async () => {
     } catch (err) {
         throw new Error(err.message);
     }
+=======
+const getDonor = async (email) => {
+    const query = `SELECT * FROM donor WHERE email = ?`;
+    try {
+      const [rows] = await db.execute(query, [email]);
+      if (rows.length > 0) return rows[0];
+      else return null;
+    } catch (err) {
+      throw new Error("Error fetching donor profile: " + err.message);
+    }
+  };
+  
+const findDonors = async(blood_group,location) => {
+   const query = `SELECT * FROM donor WHERE blood_group = ? AND location = ?`;
+   try{
+    const [rows] = await db.execute(query,[blood_group,location]);
+    return rows;
+   }catch(err){
+    throw new Error(err.message);
+   }
+>>>>>>> 27ed4e0f51fafee5d387363dcc1b51b284477b21
 };
 
 const getDonor = async (email) => {

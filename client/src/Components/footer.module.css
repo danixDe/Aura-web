@@ -1,14 +1,15 @@
 .footer{
     background-color: #1e293b;
-    color:white;    
+    color:white;
 }
 .container {
     display: flex;
     flex-direction: column;
     width: 100%;
     padding-left: 1rem;
+    justify-content: space-between;
     padding-right: 1rem;
-    margin-left:auto;
+    margin-left: auto;
     margin-right: auto;
 }
 @media (min-width: 640px) {
@@ -68,7 +69,6 @@
     color:white;
 }
 .bottomSection{
-    margin-top:2rem;
     padding-top:1rem;
     border-top: 1px solid #334155;
     color:#94a3b8;

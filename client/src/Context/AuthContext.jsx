@@ -5,7 +5,7 @@ export const AuthProvider=({children})=>{
     const [user,setUser]=useState(()=>localStorage.getItem("user"));
     const login=(user)=>{
         localStorage.setItem("valid",'true');
-        localStorage.setItem("user",user);
+        localStorage.setItem("user",JSON.stringify(user));
         setUser(user);
         setValid(true);
     }
