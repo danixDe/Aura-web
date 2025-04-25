@@ -78,7 +78,7 @@ const getAllDonors = async() => {
     }catch(err){
         throw new Error(err.message);
     }
-=======
+  }
 const getDonor = async (email) => {
     const query = `SELECT * FROM donor WHERE email = ?`;
     try {
@@ -98,17 +98,6 @@ const findDonors = async(blood_group,location) => {
    }catch(err){
     throw new Error(err.message);
    }
->>>>>>> 27ed4e0f51fafee5d387363dcc1b51b284477b21
-};
-
-const getDonor = async (email) => {
-    const query = `SELECT * FROM donor WHERE email = ?`;
-    try {
-        const [rows] = await db.execute(query, [email]);
-        return rows.length > 0 ? rows[0] : null;
-    } catch (err) {
-        throw new Error(err.message);
-    }
 };
 
 const findNearbyDonors = async (blood_group, lat, lng, radius = 10) => {
@@ -158,5 +147,6 @@ module.exports = {
     updateLiveLocation,
     findNearbyDonors,
     updateDonor,
-    deleteDonor
+    deleteDonor,
+    findDonors
 };
