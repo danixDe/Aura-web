@@ -53,7 +53,6 @@ export default function Land() {
 
   return (
     <>
-    <CustomCursor />
     <div className={styles.container}>
       <nav className={styles.navbar}>
         <div className={styles.logo}>AuraHP</div>
@@ -68,7 +67,6 @@ export default function Land() {
               }`}
               onMouseEnter={() => setDropdown(item)}
               onMouseLeave={() => setDropdown(null)}
-              data-cursor="pointer"
             >
               {item} 
               {submenu && <span className={styles.dropdownArrow}><ChevronDown size={12} /></span>}
@@ -84,7 +82,6 @@ export default function Land() {
                       key={idx} 
                       to={item.link} 
                       className={styles.dropdownItem}
-                      data-cursor="pointer"
                     >
                       {item.title}<br />
                     </Link>
@@ -94,7 +91,7 @@ export default function Land() {
             </li>
           ))}
         </ul>
-        <Link to='/VLogin' style={{ textDecoration: 'none' }} data-cursor="pointer">
+        <Link to='/VLogin' style={{ textDecoration: 'none' }}>
           <button className={styles.ctaButton}><span>Donate</span></button>
         </Link>
       </nav>
@@ -113,7 +110,6 @@ export default function Land() {
             className={styles.ctaButton}
             whileHover={{ scale: 1.1 }}
             whileTap={{ scale: 0.9 }}
-            data-cursor="pointer"
           >
             <a style={{textDecoration:'none'}} href='#first-impressions'> 
             <span style={{ color: '#ffffff' }}>
@@ -136,14 +132,12 @@ export default function Land() {
           <span
             className={activeTab === "donors" ? styles.activeTab : ""}
             onClick={() => setActiveTab("donors")}
-            data-cursor="pointer"
           >
             Supporting Blood Donors
           </span>
           <span
             className={activeTab === "facilities" ? styles.activeTab : ""}
             onClick={() => setActiveTab("facilities")}
-            data-cursor="pointer"
           >
             Helping Medical Facilities
           </span>
@@ -163,7 +157,6 @@ export default function Land() {
                 ? navigate("/donor")
                 : navigate("/VLogin")
             }
-            data-cursor="pointer"
           >
             <span>AuraHP for Donors</span>
           </motion.button>
@@ -177,7 +170,6 @@ export default function Land() {
                 ? navigate("/bloodbank")
                 : navigate("/MFLogin")
             }
-            data-cursor="pointer"
           >
             <span>AuraHP for Facilities</span>
           </motion.button>
@@ -215,7 +207,6 @@ export default function Land() {
           className={styles.ctaButton}
           whileHover={{ scale: 1.05 }}
           whileTap={{ scale: 0.95 }}
-          data-cursor="pointer"
         >
           <Link to="/learn-more" style={{ textDecoration: "none", color: "white" }}>
             Learn More
@@ -267,16 +258,16 @@ export default function Land() {
           </div>
           <div>
             <h3>Quick Links</h3>
-            <p data-cursor="pointer">Why AuraHP</p>
-            <p data-cursor="pointer">Our Practices</p>
-            <p data-cursor="pointer">Careers</p>
+            <p >Why AuraHP</p>
+            <p>Our Practices</p>
+            <p >Careers</p>
           </div>
           <div>
             <h3>Follow Us</h3>
             <div className={styles.socialLinks}>
-              <a className={styles.socialLink} data-cursor="pointer"><FaGithub /></a>
-              <a className={styles.socialLink} data-cursor="pointer"><FaInstagram /></a>
-              <a className={styles.socialLink} data-cursor="pointer"><FaTwitter /></a>
+              <a className={styles.socialLink} ><FaGithub /></a>
+              <a className={styles.socialLink} ><FaInstagram /></a>
+              <a className={styles.socialLink}><FaTwitter /></a>
             </div>
           </div>
         </div>

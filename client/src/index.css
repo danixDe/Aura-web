@@ -73,7 +73,7 @@ body {
 .bg-gradient {
   background: var(--accent-gradient);
 }
-
+/**
 .cursor {
   width: 20px;
   height: 20px;
@@ -113,7 +113,7 @@ body {
   border-width: 3px;
   background-color: rgba(107, 70, 193, 0.1);
 }
-
+*/
 .fade-in {
   opacity: 0;
   transform: translateY(20px);

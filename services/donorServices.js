@@ -76,32 +76,22 @@ const updateLiveLocation = async (email, location_info, coordinates) => {
         throw new Error(err.message);
     }
 };
+<<<<<<< HEAD
 
 const getAllDonors = async () => {
     const query = `SELECT *, ST_AsText(coordinates) as coordinates FROM donor`;
-
     try {
         const [rows] = await db.execute(query);
-        return rows.map(donor => {
-            const [lng, lat] = donor.coordinates
-                .replace('POINT(', '')
-                .replace(')', '')
-                .split(' ')
-                .map(Number);
-
-            return {
-                ...donor,
-                coordinates: { lng, lat }
-            };
-        });
+        return rows.map(donor => ({
+            ...donor,
+            coordinates: donor.coordinates.replace('POINT(', '').replace(')', '').split(' ').map(Number)
+        }));
     } catch (err) {
         throw new Error(err.message);
     }
-};
-
-const findDonors = async (blood_group, location_info) => {
-    const query = `SELECT * FROM donor WHERE blood_group = ? AND location_info = ?`;
-
+=======
+const getDonor = async (email) => {
+    const query = `SELECT * FROM donor WHERE email = ?`;
     try {
         const [rows] = await db.execute(query, [
             blood_group,
@@ -111,11 +101,21 @@ const findDonors = async (blood_group, location_info) => {
     } catch (err) {
         throw new Error(err.message);
     }
+  };
+  
+const findDonors = async(blood_group,location) => {
+   const query = `SELECT * FROM donor WHERE blood_group = ? AND location = ?`;
+   try{
+    const [rows] = await db.execute(query,[blood_group,location]);
+    return rows;
+   }catch(err){
+    throw new Error(err.message);
+   }
+>>>>>>> 27ed4e0f51fafee5d387363dcc1b51b284477b21
 };
 
 const getDonor = async (email) => {
     const query = `SELECT * FROM donor WHERE email = ?`;
-
     try {
         const [rows] = await db.execute(query, [email]);
         return rows.length > 0 ? rows[0] : null;
@@ -163,14 +163,13 @@ const updateDonor = async (id, newData) => {
 
     validateCoordinates(coordinates);
 
-    const point = `POINT(${coordinates.lng} ${coordinates.lat})`;
-
     const query = `
         UPDATE donor 
         SET dName = ?, email = ?, phone = ?, location_info = ?, coordinates = ST_GeomFromText(?), 
             blood_group = ?, preferred_notification = ?
         WHERE id = ?
     `;
+    const point = `POINT(${coordinates.lng} ${coordinates.lat})`;
 
     try {
         await db.execute(query, [

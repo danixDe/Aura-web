@@ -1,4 +1,4 @@
-const db = require('../config/database');
+wconst db = require('../config/database');
 
 const bloodRequestsTable = `
 CREATE TABLE IF NOT EXISTS bloodRequests (
