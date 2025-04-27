@@ -7,8 +7,10 @@ import { AuthContext } from '../Context/AuthContext';
 import {jwtDecode} from "jwt-decode";
 import axios from 'axios';
 import toast from 'react-hot-toast';
+import {useUser} from '../Context/UserContext.jsx';
 const VLogin = () => {
-
+  const {setUserEmail} = useUser();
+  const [email,setEmailInput] = useState('');
   console.log(window.location.href);
   const navigate = useNavigate();
   const {login}=useContext(AuthContext);
@@ -17,27 +19,38 @@ const VLogin = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     const formdata = new FormData(e.currentTarget);
-    const email = formdata.get("email").trim();
+    const emailInput = formdata.get("email").trim();
     const password = formdata.get("password").trim();
     console.log(`Typed Password: "${password}"`);
   
     try {
-      const response = await axios.post("http://localhost:5000/api/donors/authdonor", { email, password });
+      const response = await axios.post("http://localhost:5000/api/donors/authdonor", { email: emailInput, password });
       console.log(response);
   
       if (response.data.message === "valid") {
+        setUserEmail(emailInput);
+        setEmailInput(emailInput);
         setValid(true);
-        login(email);
+        login(emailInput);
         navigate('/donor');
       } else {
         console.log("invalid user");
         toast.error("Invalid Credentials");
       }
     } catch (err) {
-      toast.error("Server error.");
-      console.log(err);
+      if (err.response) {
+        console.log("Error Response:", err.response);
+        toast.error(`Error: ${err.response.status} ${err.response.statusText}`);
+      } else if (err.request) {
+        console.log("No Response received:", err.request);
+        toast.error("No response from server");
+      } else {
+        console.log("Error setting up request:", err.message);
+        toast.error("Error setting up request");
+      }
     }
   };
+  
   
 
   const handleGoogleSuccess =async (credentialResponse) => {
@@ -50,6 +63,7 @@ const VLogin = () => {
     if(response.data.message==="success"){
       console.log("success");
       login(jwtDecode(credential).email);
+      setEmail(email);
       setValid(true);
       toast.success('Login Successful');
     }

@@ -16,9 +16,11 @@ import ProtectedRoute from "./ProtectedRoute.jsx";
 import GoogleSignup from "./pages/GoogleSignup.jsx";
 import Layout from "./layouts/Layout.jsx";
 import BloodBankLayout from "./layouts/BloodBankLayout.jsx";
+import {UserProvider} from "./Context/UserContext.jsx";
 function App() {
   return (
-      <Routes>
+      <UserProvider>
+        <Routes>
         <Route path="/" element={<Land />} />
         <Route path="donor" element={<Layout />}>
           <Route index element={<DonorHome />} />
@@ -37,6 +39,7 @@ function App() {
         <Route path="/VSignup" element={<VSignup />} />
         <Route path="/google-signup" element={<GoogleSignup />} />
       </Routes>
+      </UserProvider>
   );
 }
 
