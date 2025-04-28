@@ -2,13 +2,27 @@ import React from "react";
 import { MapContainer, TileLayer, Marker, Popup } from "react-leaflet";
 import "leaflet/dist/leaflet.css";
 import styles from "./Card.module.css";
+import { Clock, MapPin, Droplet, AlertTriangle } from "lucide-react";
 
 const Card = ({ request }) => {
   const { medicalFacility, bloodGroup, unitsRequired, eLevel, latitude, longitude } = request;
 
   const getELevelColor = (level) => {
-    const shades = ["#dfe6e9", "#ff6b6b", "#e63946"];
-    return shades[level - 1] || "#dfe6e9";
+    switch(level) {
+      case 1: return "green"; 
+      case 2: return "orange";
+      case 3: return "red";
+      default: return "green";
+    }
+  };
+
+  const getELevelText = (level) => {
+    switch(level) {
+      case 1: return "Normal";
+      case 2: return "Moderate";
+      case 3: return "Urgent";
+      default: return "Normal";
+    }
   };
 
   return (
@@ -30,16 +44,33 @@ const Card = ({ request }) => {
       <div className={styles.details}>
         <div className={styles.header}>
           <h3 className={styles.medicalFacility}>{medicalFacility}</h3>
-          <span className={styles.eLevel} style={{ backgroundColor: getELevelColor(eLevel) }}>
-            E-Level {eLevel}
+          <span 
+            className={styles.eLevel} 
+            style={{ backgroundColor: getELevelColor(eLevel) }}
+          >
+            <AlertTriangle size={16} />
+            {getELevelText(eLevel)}
           </span>
         </div>
 
         <div className={styles.info}>
-          <p><strong>Blood Group:</strong> {bloodGroup}</p>
-          <p><strong>Units Required:</strong> {unitsRequired}</p>
+          <p>
+            <Droplet size={20} />
+            <strong>Blood Group:</strong> {bloodGroup}
+          </p>
+          <p>
+            <Clock size={20} />
+            <strong>Units Required:</strong> {unitsRequired}
+          </p>
+          <p>
+            <MapPin size={20} />
+            <strong>Distance:</strong> 2.5 km
+          </p>
         </div>
-        <button className={styles.donateBtn}>Donate Now</button>
+        
+        <button className={styles.donateBtn}>
+          Donate Now
+        </button>
       </div>
     </div>
   );
