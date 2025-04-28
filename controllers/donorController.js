@@ -1,8 +1,17 @@
 const donorServices = require('../services/donorServices');
+const bcrypt = require('bcrypt');
+const jwt = require('jsonwebtoken');
+const JWT_SECRET = process.env.JWT_SECRET;
 
 const createDonor = async (req, res) => {
     try {
-        const donor = await donorServices.addDonor(req.body);
+        
+        const hashedPassword = await bcrypt.hash(req.body.password,10);
+        const donorData= {
+            ...req.body,
+            password:hashedPassword
+        };
+        const donor = await donorServices.addDonor(donorData);
         res.status(201).json({ message: "Donor added successfully", donor });
     } catch (error) {
         res.status(500).json({ message: error.message });
@@ -13,10 +22,19 @@ const AuthDonor = async (req, res) => {
     try {
         const { email, password } = req.body;
         const donor = await donorServices.getDonor(email);
-        if (donor && donor.password === password) {
-            res.json({ message: "valid" });
+        if (!donor) {
+            return res.status(400).json({message: "Invalid email or password"});
         } else {
-            res.json({ message: "invalid" });
+            const passwordMatch = await bcrypt.compare(password,donor.password);
+            if(!passwordMatch){
+                return res.stat(400).json({message:"Invalid Email or Password"});
+            }
+            const token = jwt.sign(
+                {id:donor.id,email:donor.email},
+                process.env.JWT_SECRET,
+                {expiresIn:'7d'}
+            );
+            res.status(200).json({message:"Login Successful",token});
         }
     } catch (err) {
         res.status(500).json({ message: "Error authenticating donor" });

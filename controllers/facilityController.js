@@ -1,14 +1,44 @@
 const facilityServices = require("../services/facilityServices");
+const bcrypt = require("bcrypt");
+const jwt = require("jsonwebtoken");
+const JWT_SECRET = process.env.JWT_SECRET;
 
 const createFacility = async (req, res) => {
     try {
-        const facilityData = req.body;
+        const hashedPassword = await bcrypt.hash(req.body.password,10);
+        const facilityData = {
+            ...req.body,
+            password:hashedPassword
+           
+        }
         const facility = await facilityServices.createFacility(facilityData);
-        res.status(201).json(facility);
+        res.status(201).json({message:"Facility created Successfully",facility});
     } catch (error) {
         res.status(400).json({ error: error.message });
     }
 };
+
+const AuthFacility = async (req,res) => {
+    try{
+        const {email,password} = req.body;
+        const facility = await facilityServices.getFacilityByEmail(email);
+        if(!facility){
+            return res.status(400).json({message:"Invalid email or password"});
+        }else{
+            const passwordMatch = await bcrypt.comapre(passeord,facility.password);
+            if(!passwordMatch){
+                return res.status(400).json({message:"Invalid email or password"});
+            }
+            const token = jwt.sign(
+                {id:facility.id,email:facility.email},
+                process.env.JWT_SECRET,
+                {expiresIn:'7d'}
+            );
+        }
+    }catch(err){
+        res.status(500).json({message:"Error authentication facility"});
+    }
+}
 
 const getAllFacilities = async (req, res) => {
     try {
@@ -48,4 +78,4 @@ const deleteFacility = async (req, res) => {
     }
 };
 
-module.exports = { createFacility, getAllFacilities, getFacilityById, updateFacility, deleteFacility };
+module.exports = { createFacility,AuthFacility, getAllFacilities, getFacilityById, updateFacility, deleteFacility };

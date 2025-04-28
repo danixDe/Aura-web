@@ -2,8 +2,7 @@ import { useEffect, useState, useContext } from "react";
 import { motion } from "framer-motion";
 import styles from "./Lander.module.css";
 import { Link, useNavigate } from 'react-router-dom';
-import { AuthContext } from "../Context/AuthContext";
-import CustomCursor from "../Components/CustomCursor";
+import { AuthProvider,useAuth } from "../Context/AuthContext";
 import {FaGithub, FaInstagram, FaTwitter} from 'react-icons/fa'
 import { ChevronDown, ChevronUp } from "lucide-react";
 
@@ -11,7 +10,7 @@ export default function Land() {
   const [activeSection, setActiveSection] = useState("hero");
   const [dropdown, setDropdown] = useState(null);
   const [activeTab, setActiveTab] = useState("donors");
-  const { valid, role } = useContext(AuthContext);
+  const { valid, role } = useAuth();
   const navigate = useNavigate();
   
   const menuItems = {

@@ -32,6 +32,16 @@ const getFacilityById = async (id) => {
     }
 };
 
+const getFacilityByEmail = async (email) =>{
+    const query = `SELECT * FROM facility WHERE email = ?`;
+    try{
+        const [rows] = await db.execute(query,[email]);
+        return rows[0];
+    }catch(error){
+        throw new Error(error.message);
+    }
+}
+
 const updateFacility = async (id, newData) => {
     const { name, facility_type, license_number, email, password, confirm_password, phone, address, city, state, zip_code } = newData;
     const query = `UPDATE facility SET name = ?, facility_type = ?, license_number = ?, email = ?, password = ?, confirm_password = ?, phone = ?, address = ?, city = ?, state = ?, zip_code = ? 
