@@ -16,7 +16,7 @@
   --glass-shadow: rgba(0, 0, 0, 0.1);
   --card-blur: blur(12px);
   
-  --font-primary: 'Inter', sans-serif;
+  --font-primary:  sans-serif;
   --font-secondary: 'Poppins', sans-serif;
   
   --transition-smooth: cubic-bezier(0.4, 0, 0.2, 1);

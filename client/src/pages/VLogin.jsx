@@ -7,7 +7,6 @@ import { useAuth } from '../Context/AuthContext';
 import { jwtDecode } from "jwt-decode";
 import axios from 'axios';
 import toast from 'react-hot-toast';
-
 const VLogin = () => {
   const navigate = useNavigate();
   const { login } = useAuth();

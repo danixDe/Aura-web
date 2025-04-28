@@ -191,24 +191,25 @@ const VSignup = () => {
               required
             />
           </div>
-
+          <div className={styles.two}>
           <div className={styles.formGroup}>
             <label htmlFor="blood">Blood Group</label>
             <select 
             id="blood"
             name='blood_group'
-            className={styles.inputField}
+            className={styles.dropDown}
             required
             >
-              <option value="">Select Blood Group</option>
+              <option value="">-- Select --</option>
               <option value="A+">A+</option>
-              <option value="A-">A-</option>
               <option value="B+">B+</option>
-              <option value="B-">B-</option>
-              <option value="AB+">AB+</option>
-              <option value="AB-">AB-</option>
               <option value="O+">O+</option>
+              <option value="AB+">AB+</option>
+              <option value="A-">A-</option>
+              <option value="B-">B-</option>
               <option value="O-">O-</option>
+              <option value="AB-">AB-</option>
+
             </select>
           </div>
           <div className={styles.formGroup}>
@@ -216,16 +217,16 @@ const VSignup = () => {
             <select
               id="notification"
               name="preferred_notification"
-              className={styles.inputField}
+              className={styles.dropDown}
               required
             >
-             <option value="">Select Notification Method</option>
+             <option value="">-- Select --</option>
              <option value="Email">Email</option>
              <option value="SMS">SMS</option>
              <option value="WhatsApp">WhatsApp</option>
             </select>
           </div>
-
+          </div>
           <div className={styles.formGroup}>
             <label htmlFor="password">Password</label>
             <input
@@ -236,7 +237,6 @@ const VSignup = () => {
               required
             />
           </div>
-
           <div className={styles.formGroup}>
             <label htmlFor="confirmPassword">Confirm Password</label>
             <input

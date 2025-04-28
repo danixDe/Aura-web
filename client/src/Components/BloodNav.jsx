@@ -5,7 +5,7 @@ import { AnimatePresence, motion } from 'framer-motion';
 import { useDarkMode } from '../Context/DarkModeContext';
 import Sidebar from './Sidebar';
 import styles from './Nav.module.css';
-import { HomeIcon, User, History, Settings, Info } from 'lucide-react';
+import { Home, ClipboardList, Users, Activity, Settings, Info } from 'lucide-react';
 
 const Navbar = () => {
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
@@ -14,20 +14,23 @@ const Navbar = () => {
   const navigate = useNavigate();
 
   const handleLogo = () => {
-    if (location.pathname === '/donor') {
+    if (location.pathname === '/bloodbank') {
       window.location.reload();
     } else {
-      navigate('/donor');
+      navigate('/bloodbank');
     }
   };
 
+
   const menuItems = [
-    { icon: HomeIcon, label: 'Home', navigate: '/donor' },
-    { icon: User, label: 'Profile', navigate: '/donor/donorProfile' },
-    { icon: History, label: 'Donation History', navigate: '/donor/donationHistory' },
-    { icon: Settings, label: 'Settings', navigate: null }, 
-    { icon: Info, label: 'About', navigate: null },         
+    { icon: Home, label: 'Dashboard', navigate: '/bloodbank' },
+    { icon: ClipboardList, label: 'Blood Requests', navigate: '/bloodbank/bloodRequests' },
+    { icon: Users, label: 'Donors List', navigate: '/bloodbank/donorsList' },
+    { icon: Activity, label: 'Analytics', navigate: '/bloodbank/analytics' },
+    { icon: Settings, label: 'Settings', navigate: '#' },
+    { icon: Info, label: 'About', navigate: '/about' },
   ];
+  
 
   return (
     <>
@@ -36,7 +39,7 @@ const Navbar = () => {
           <button className={styles.hamburgerButton} onClick={() => setIsSidebarOpen(true)}>
             <Menu size={24} />
           </button>
-          <h1 onClick={handleLogo} className={styles.logo}>AuraHP</h1>
+          <h1 onClick={handleLogo} className={styles.logo}>AuraHP Facility</h1>
         </div>
 
         <motion.div
