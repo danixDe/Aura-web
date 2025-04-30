@@ -1,8 +1,14 @@
+.mainContainer {
+  display: flex;
+  min-height: 100vh;
+  width: 100%;
+}
+
 .content {
   display: flex;
   flex-direction: column;
   flex: 1;
-  padding: 32px 48px;
+  padding: var(--space-6) var(--space-7);
   min-height: 100vh;
   background: var(--bg-gradient);
   position: relative;
@@ -18,7 +24,7 @@
   right: 0;
   bottom: 0;
   background: radial-gradient(circle at top right, rgba(238, 82, 83, 0.1), transparent 60%),
-              radial-gradient(circle at bottom left, rgba(0, 0, 0, 0.1), transparent 60%);
+              radial-gradient(circle at bottom left, rgba(0, 0, 0, 0.05), transparent 60%);
   opacity: 0.6;
   z-index: 0;
 }
@@ -26,17 +32,18 @@
 .welcomeBanner {
   background: var(--card-bg);
   backdrop-filter: blur(10px);
-  padding: 24px;
-  border-radius: 24px;
-  margin-bottom: 32px;
+  padding: var(--space-5);
+  border-radius: var(--radius-xl);
+  margin-bottom: var(--space-6);
   border: 1px solid var(--border-color);
   z-index: 1;
+  box-shadow: 0 var(--space-2) var(--space-5) var(--shadow-color);
 }
 
 .welcomeTitle {
   font-size: 2rem;
   font-weight: 800;
-  margin: 0 0 8px 0;
+  margin: 0 0 var(--space-2) 0;
   background: var(--accent-gradient);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
@@ -48,21 +55,27 @@
   margin: 0;
 }
 
+.mobileDonorSummary {
+  margin-bottom: var(--space-6);
+  z-index: 1;
+  display: none;
+}
+
 .statsContainer {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-  gap: 24px;
-  margin: 32px 0;
+  gap: var(--space-5);
+  margin: var(--space-6) 0;
   z-index: 1;
 }
 
 .statCard {
   background: var(--card-bg);
   backdrop-filter: blur(10px);
-  padding: 32px;
-  border-radius: 24px;
+  padding: var(--space-6);
+  border-radius: var(--radius-xl);
   text-align: center;
-  box-shadow: 0 4px 30px var(--shadow-color);
+  box-shadow: 0 var(--space-1) var(--space-6) var(--shadow-color);
   border: 1px solid var(--border-color);
   transition: all 0.3s ease;
   position: relative;
@@ -81,12 +94,12 @@
 
 .statCard:hover {
   transform: translateY(-5px);
-  box-shadow: 0 8px 40px var(--shadow-color);
+  box-shadow: 0 var(--space-2) var(--space-7) var(--shadow-color);
 }
 
 .statCard h3 {
   font-size: 1.2rem;
-  margin-bottom: 16px;
+  margin-bottom: var(--space-4);
   color: var(--text-secondary);
 }
 
@@ -99,7 +112,7 @@
   -webkit-text-fill-color: transparent;
 }
 
-.searchmotion {
+.searchSection {
   width: 100%;
   max-width: 900px;
   margin: 0 auto;
@@ -108,17 +121,30 @@
 
 .searchWrapper {
   width: 100%;
-  margin-bottom: 40px;
+  margin-bottom: var(--space-7);
+}
+
+.inputContainer {
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+
+.searchIcon {
+  position: absolute;
+  left: var(--space-5);
+  color: var(--color-neutral-500);
 }
 
 .searchBar {
   width: 100%;
-  padding: 24px 32px;
-  font-size: 1.2rem;
+  padding: var(--space-5) var(--space-6);
+  padding-left: var(--space-9);
+  font-size: 1.1rem;
   background: var(--card-bg);
   backdrop-filter: blur(10px);
   border: 2px solid var(--border-color);
-  border-radius: 20px;
+  border-radius: var(--radius-lg);
   color: var(--text-primary);
   outline: none;
   transition: all 0.3s ease;
@@ -131,19 +157,19 @@
 .searchBar:focus {
   background: var(--nav-bg);
   border-color: rgba(238, 82, 83, 0.5);
-  box-shadow: 0 8px 32px var(--shadow-color);
+  box-shadow: 0 var(--space-2) var(--space-6) var(--shadow-color);
 }
 
 .header {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  margin-bottom: 32px;
+  margin-bottom: var(--space-6);
   z-index: 1;
 }
 
 .heading {
-  font-size: 2.2rem;
+  font-size: 2rem;
   font-weight: 800;
   color: var(--text-primary);
   margin: 0;
@@ -161,32 +187,10 @@
   border-radius: 2px;
 }
 
-.showRequests {
-  display: flex;
-  align-items: center;
-  gap: 12px;
-  background: var(--card-bg);
-  backdrop-filter: blur(10px);
-  color: var(--text-primary);
-  border: 2px solid var(--border-color);
-  padding: 16px 32px;
-  font-size: 1.1rem;
-  font-weight: 600;
-  border-radius: 16px;
-  cursor: pointer;
-  transition: all 0.3s ease;
-}
-
-.showRequests:hover {
-  background: var(--nav-bg);
-  transform: translateY(-2px);
-  box-shadow: 0 4px 20px var(--shadow-color);
-}
-
 .grid {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(340px, 1fr));
-  gap: 32px;
+  gap: var(--space-6);
   z-index: 1;
 }
 
@@ -196,15 +200,29 @@
   color: var(--text-primary);
   background: var(--card-bg);
   backdrop-filter: blur(10px);
-  padding: 48px;
-  border-radius: 24px;
+  padding: var(--space-7);
+  border-radius: var(--radius-xl);
   border: 1px solid var(--border-color);
   grid-column: 1 / -1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--space-4);
+}
+
+.noRequests p {
+  margin: 0;
+}
+
+@media (max-width: 1023px) {
+  .mobileDonorSummary {
+    display: block;
+  }
 }
 
 @media (max-width: 768px) {
   .content {
-    padding: 20px;
+    padding: var(--space-5);
   }
   
   .grid {
@@ -213,18 +231,13 @@
   
   .header {
     flex-direction: column;
-    gap: 20px;
+    gap: var(--space-5);
     text-align: center;
   }
   
   .heading::after {
     left: 50%;
     transform: translateX(-50%);
-  }
-  
-  .showRequests {
-    width: 100%;
-    justify-content: center;
   }
   
   .welcomeTitle {
@@ -237,7 +250,12 @@
   }
   
   .searchBar {
-    padding: 20px 24px;
-    font-size: 1.1rem;
+    padding: var(--space-5) var(--space-5);
+    padding-left: var(--space-8);
+    font-size: 1rem;
+  }
+  
+  .statsContainer {
+    grid-template-columns: 1fr;
   }
 }

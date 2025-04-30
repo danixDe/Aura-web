@@ -1,76 +1,233 @@
 .sidebar {
-  position: fixed;
-  top: 0;
-  left: 0;
-  height: 100%;
-  background: var(--card-bg);
-  backdrop-filter: blur(10px);
-  box-shadow: 4px 0px 15px var(--shadow-color);
-  z-index: 2000;
-  display: flex;
-  flex-direction: column;
-  padding: 20px;
-  color: var(--text-primary);
-  transition: all 0.3s ease;
-  border-right: 1px solid var(--border-color);
-}
-
-.closeButton {
-  align-self: flex-end;
-  background: transparent;
-  border: none;
-  border-radius: 8px;
-  padding: 8px;
-  cursor: pointer;
-  color: var(--text-primary);
-  transition: all 0.3s ease;
-}
-
-.closeButton:hover {
-  transform: rotate(90deg);
-}
-
-.menu {
-  padding-right: 50px;
-}
-
-.menuTitle {
-  font-size: 1.4rem;
-  margin-bottom: 12px;
-  font-weight: bold;
-  text-transform: uppercase;
-  letter-spacing: 1px;
-  background: var(--accent-gradient);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  padding-bottom: 5px;
-}
-
-.menuList {
-  list-style: none;
-  padding: 0;
-  margin-top: 24px;
-}
-
-.menuItem {
-  display: flex;
-  align-items: center;
-  gap: 12px;
-  cursor: pointer;
-  font-size: 1rem;
-  padding: 16px;
-  border-radius: 12px;
-  color: var(--text-primary);
-  transition: all 0.3s ease;
-  margin-bottom: 8px;
-}
-
-.menuItem:hover {
-  background: var(--nav-bg);
-  transform: translateX(5px);
-  box-shadow: 0 4px 12px var(--shadow-color);
-}
-
-.menuItem svg {
-  color: var(--text-primary);
-}
+    width: 380px;
+    height: 100vh;
+    background: var(--card-bg);
+    backdrop-filter: blur(10px);
+    border-right: 1px solid var(--border-color);
+    padding: var(--space-6);
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-6);
+    overflow-y: auto;
+    position: sticky;
+    top: 0;
+  }
+  
+  .sidebarSection {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-4);
+  }
+  
+  .sectionTitle {
+    font-size: 1.1rem;
+    font-weight: 700;
+    color: var(--text-primary);
+    margin: 0;
+    position: relative;
+    padding-bottom: var(--space-2);
+  }
+  
+  .sectionTitle::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 40px;
+    height: 3px;
+    background: var(--accent-gradient);
+    border-radius: 2px;
+  }
+  
+  /* Ticker styles */
+  .tickerWrapper {
+    background: var(--color-primary-light);
+    border-radius: var(--radius-lg);
+    padding: var(--space-1);
+    overflow: hidden;
+    margin-top: var(--space-2);
+  }
+  
+  .ticker {
+    display: flex;
+    align-items: center;
+    gap: var(--space-2);
+    padding: var(--space-3) var(--space-4);
+    color: white;
+    font-weight: 600;
+    font-size: 0.9rem;
+    animation: tickerScroll 20s linear infinite;
+    white-space: nowrap;
+  }
+  
+  .tickerDate {
+    font-weight: 800;
+  }
+  
+  .tickerContent {
+    padding-left: var(--space-2);
+  }
+  
+  /* Hospital and Donation Drive Lists */
+  .list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-3);
+  }
+  
+  .listItem {
+    display: flex;
+    align-items: center;
+    gap: var(--space-3);
+    padding: var(--space-3) var(--space-4);
+    border-radius: var(--radius-lg);
+    background: rgba(255, 255, 255, 0.05);
+    transition: all 0.3s ease;
+  }
+  
+  .listItem:hover {
+    background: rgba(255, 255, 255, 0.1);
+    transform: translateX(4px);
+  }
+  
+  .listItem svg {
+    color: var(--color-primary);
+  }
+  
+  .listContent {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-1);
+  }
+  
+  .listTitle {
+    font-weight: 600;
+    color: var(--text-primary);
+  }
+  
+  .listSubtitle {
+    font-size: 0.85rem;
+    color: var(--text-secondary);
+  }
+  
+  .factBox {
+    background: rgba(255, 255, 255, 0.05);
+    border-radius: var(--radius-lg);
+    padding: var(--space-4);
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-3);
+  }
+  
+  .fact {
+    display: flex;
+    align-items: flex-start;
+    gap: var(--space-3);
+  }
+  
+  .fact p {
+    margin: 0;
+    font-size: 0.95rem;
+    line-height: 1.5;
+    color: var(--text-secondary);
+  }
+  
+  .factIcon {
+    color: var(--color-primary);
+    margin-top: 3px;
+  }
+  
+  /* Badge styles */
+  .badgeBox {
+    background: rgba(255, 255, 255, 0.05);
+    border-radius: var(--radius-lg);
+    padding: var(--space-4);
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-4);
+  }
+  
+  .badgeHeader {
+    display: flex;
+    align-items: center;
+    gap: var(--space-3);
+  }
+  
+  .badgeIcon {
+    color: var(--color-warning);
+  }
+  
+  .badgeTitle {
+    font-weight: 700;
+    font-size: 1.2rem;
+    color: var(--text-primary);
+  }
+  
+  .progressContainer {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-2);
+  }
+  
+  .progressBar {
+    height: 8px;
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: var(--radius-full);
+    overflow: hidden;
+  }
+  
+  .progressFill {
+    height: 100%;
+    background: var(--color-warning);
+    border-radius: var(--radius-full);
+  }
+  
+  .progressText {
+    font-size: 0.9rem;
+    color: var(--text-secondary);
+    text-align: right;
+  }
+  
+  /* Quick Links */
+  .linkList {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-2);
+  }
+  
+  .linkItem {
+    display: flex;
+    align-items: center;
+    gap: var(--space-3);
+    padding: var(--space-3) var(--space-4);
+    border-radius: var(--radius-lg);
+    background: rgba(255, 255, 255, 0.05);
+    transition: all 0.3s ease;
+    cursor: pointer;
+    font-weight: 500;
+    color: var(--text-primary);
+  }
+  
+  .linkItem:hover {
+    background: rgba(255, 255, 255, 0.1);
+    transform: translateX(4px);
+  }
+  
+  .linkItem svg {
+    color: var(--color-primary);
+  }
+  
+  @keyframes tickerScroll {
+    0% {
+      transform: translateX(100%);
+    }
+    100% {
+      transform: translateX(-100%);
+    }
+  }

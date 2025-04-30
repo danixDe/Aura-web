@@ -1,77 +1,140 @@
 .historyContainer {
-  max-width: 800px;
-  margin: 40px auto;
-  padding: 32px;
-  background: var(--card-bg);
-  backdrop-filter: blur(10px);
-  border-radius: 20px;
-  box-shadow: 0 8px 32px var(--shadow-color);
-  border: 1px solid var(--border-color);
-  color: var(--text-primary);
-  position: relative;
-  z-index: 1;
+  padding: var(--space-6);
+  max-width: 1200px;
+  margin: 0 auto;
 }
 
-.title {
+.statsSection {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: var(--space-4);
+  margin-bottom: var(--space-6);
+}
+
+.statCard {
+  background: var(--card-bg);
+  border-radius: var(--radius-lg);
+  padding: var(--space-4);
   text-align: center;
-  font-size: 2rem;
-  margin-bottom: 32px;
-  background: var(--accent-gradient);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-}
-
-.donationList {
-  list-style: none;
-  padding: 0;
-}
-
-.donationItem {
-  padding: 20px;
-  margin-bottom: 16px;
-  background: var(--nav-bg);
-  border-radius: 12px;
   border: 1px solid var(--border-color);
   transition: all 0.3s ease;
 }
 
-.donationItem:hover {
+.statCard:hover {
   transform: translateY(-2px);
-  background: var(--card-bg);
-  box-shadow: 0 4px 12px var(--shadow-color);
+  box-shadow: 0 var(--space-2) var(--space-4) var(--shadow-color);
 }
 
-.infoRow {
-  display: flex;
-  align-items: center;
-  gap: 12px;
-  font-size: 1.1rem;
+.statCard svg {
+  color: var(--color-primary);
+  margin-bottom: var(--space-2);
+}
+
+.statCard h3 {
+  margin: var(--space-2) 0;
   color: var(--text-secondary);
-  margin: 8px 0;
+  font-size: 1rem;
 }
 
-.buttonContainer {
+.statCard p {
+  margin: 0;
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: var(--text-primary);
+}
+
+.timeline {
   display: flex;
-  justify-content: center;
-  gap: 16px;
-  margin-top: 32px;
+  flex-direction: column;
+  gap: var(--space-4);
 }
 
-.actionButton {
-  padding: 12px 24px;
-  border: none;
-  background: var(--accent-gradient);
-  color: white;
-  border-radius: 12px;
-  cursor: pointer;
+.timelineItem {
+  display: flex;
+  gap: var(--space-4);
+}
+
+.timelineDate {
+  min-width: 120px;
   display: flex;
   align-items: center;
-  gap: 8px;
-  font-size: 1.1rem;
-  transition: all 0.3s ease;
+  gap: var(--space-2);
+  color: var(--text-secondary);
+  font-size: 0.9rem;
 }
 
-.actionButton:hover {
-  transform: translateY(-2px);
-  box-shadow: 0 4px 12px var(--shadow-color);
+.timelineCard {
+  flex: 1;
+  background: var(--card-bg);
+  border-radius: var(--radius-lg);
+  padding: var(--space-4);
+  border: 1px solid var(--border-color);
+  position: relative;
+}
+
+.timelineCard::before {
+  content: '';
+  position: absolute;
+  left: -8px;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 16px;
+  height: 16px;
+  background: var(--color-primary);
+  border-radius: 50%;
+}
+
+.cardHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: var(--space-3);
+}
+
+.cardHeader h3 {
+  margin: 0;
+  font-size: 1.1rem;
+  color: var(--text-primary);
+}
+
+.status {
+  background: var(--color-success);
+  color: white;
+  padding: var(--space-1) var(--space-3);
+  border-radius: var(--radius-full);
+  font-size: 0.8rem;
+  font-weight: 600;
+}
+
+.cardContent {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2);
+}
+
+.cardContent p {
+  margin: 0;
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+  color: var(--text-secondary);
+}
+
+.cardContent svg {
+  color: var(--color-primary);
+}
+
+@media (max-width: 768px) {
+  .historyContainer {
+    padding: var(--space-4);
+  }
+
+  .timelineItem {
+    flex-direction: column;
+    gap: var(--space-2);
+  }
+
+  .timelineCard::before {
+    display: none;
+  }
 }

@@ -16,7 +16,6 @@ const Layout = () => {
       <div className={styles.pageContent}>
         <Outlet />
       </div>
-      <ChatBot />
       <Footer />
     </motion.div>
   );

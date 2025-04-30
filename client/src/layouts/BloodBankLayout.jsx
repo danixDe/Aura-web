@@ -9,13 +9,12 @@ import BloodNav from "../Components/BloodNav";
 
 
 const BloodBankLayout = () => {
-  const [isSidebarOpen, setSidebarOpen] = useState(false);
   const { isDarkMode } = useDarkMode();
 
   return (
     <>
     <div className={`${styles.wrapper} ${isDarkMode ? 'dark' : 'light'}`}>
-      <BloodNav toggleSidebar={() => setSidebarOpen(!isSidebarOpen)} />
+      <BloodNav/>
       <motion.div
         initial={{ opacity: 0 }} 
         animate={{ opacity: 1 }} 

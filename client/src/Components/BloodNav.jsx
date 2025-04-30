@@ -3,7 +3,7 @@ import { useNavigate, useLocation } from 'react-router-dom';
 import { Menu, Sun, Moon } from 'lucide-react';
 import { AnimatePresence, motion } from 'framer-motion';
 import { useDarkMode } from '../Context/DarkModeContext';
-import Sidebar from './Sidebar';
+import Sidebar from './Side';
 import styles from './Nav.module.css';
 import { Home, ClipboardList, Users, Activity, Settings, Info } from 'lucide-react';
 

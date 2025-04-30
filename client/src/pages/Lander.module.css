@@ -1,3 +1,32 @@
+.container{
+  --bg-gradient: linear-gradient(135deg, #f6f8fd 0%, #e2e8f4 100%);
+  --text-primary: #1a1f36;
+  --text-secondary: #4a5568;
+  --accent-gradient: linear-gradient(135deg, #6366f1 0%, #4f46e5 100%);
+  --nav-bg: rgba(255, 255, 255, 0.8);
+  --card-bg: rgba(255, 255, 255, 0.9);
+  --border-color: rgba(226, 232, 240, 0.8);
+  --shadow-color: rgba(0, 0, 0, 0.1);
+  --white: #FFFFFF;
+  --black: #000000;
+  --purple: #6B46C1;
+  --blue: #3182CE;
+  
+  --primary: var(--white);
+  --secondary: var(--black);
+  --accent-gradient: linear-gradient(135deg, var(--purple) 0%, var(--blue) 100%);
+  
+  --glass-bg: rgba(255, 255, 255, 0.1);
+  --glass-border: rgba(255, 255, 255, 0.2);
+  --glass-shadow: rgba(0, 0, 0, 0.1);
+  --card-blur: blur(12px);
+  
+  --font-primary:  sans-serif;
+  --font-secondary: 'Poppins', sans-serif;
+  
+  --transition-smooth: cubic-bezier(0.4, 0, 0.2, 1);
+  --transition-bounce: cubic-bezier(0.68, -0.55, 0.265, 1.55);
+}
 .container {
   min-height: 100vh;
   background: var(--secondary);
@@ -156,6 +185,7 @@
   line-height: 1.1;
   margin-bottom: 1.5rem;
   opacity: 0;
+  color: var(--primary);
   transform: translateY(20px);
   animation: fadeInUp 0.8s var(--transition-smooth) forwards;
 }
@@ -255,6 +285,7 @@
   margin-bottom: 3rem;
   font-size: 1.2rem;
   line-height: 1.6;
+  color: var(--primary);
 }
 
 .toggleContainer {
@@ -331,6 +362,8 @@
   border-radius: 24px;
   padding: 2rem;
   transition: all 0.3s var(--transition-bounce);
+  color: var(--primary);
+
 }
 
 .featureCard:hover {
@@ -344,6 +377,7 @@
   background: var(--accent-gradient);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
+
 }
 
 .testimonialContainer {
@@ -379,6 +413,8 @@
   font-style: italic;
   line-height: 1.6;
   flex-grow: 1;
+  color: var(--primary);
+
 }
 
 .testimonialContent h4 {
@@ -417,6 +453,8 @@
   margin-bottom: 0.8rem;
   cursor: pointer;
   transition: color 0.2s var(--transition-smooth);
+  color: var(--primary);
+
 }
 
 .footerContent p:hover {

@@ -1,16 +1,11 @@
-:root {
-  --card-gradient: linear-gradient(135deg, rgba(255, 255, 255, 0.1), rgba(255, 255, 255, 0.05));
-  --hover-gradient: linear-gradient(135deg, rgba(255, 255, 255, 0.15), rgba(255, 255, 255, 0.1));
-}
-
 .card {
-  background: var(--card-gradient);
+  background: var(--card-bg);
   backdrop-filter: blur(10px);
-  border-radius: 24px;
+  border-radius: var(--radius-xl);
   min-height: 475px;
   overflow: hidden;
-  border: 1px solid rgba(255, 255, 255, 0.1);
-  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+  border: 1px solid var(--border-color);
+  box-shadow: 0 var(--space-2) var(--space-6) var(--shadow-color);
   transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
   color: var(--text-primary);
   font-size: 1rem;
@@ -18,16 +13,15 @@
 }
 
 .card:hover {
-  transform: translateY(-8px) scale(1.02);
-  background: var(--hover-gradient);
-  box-shadow: 0 12px 48px rgba(0, 0, 0, 0.2);
+  transform: translateY(-8px);
+  box-shadow: 0 var(--space-3) var(--space-7) var(--shadow-color);
 }
 
 .mapContainer {
   height: 220px;
   position: relative;
   overflow: hidden;
-  border-radius: 24px 24px 0 0;
+  border-radius: var(--radius-xl) var(--radius-xl) 0 0;
 }
 
 .map {
@@ -37,10 +31,10 @@
 }
 
 .details {
-  padding: 28px;
+  padding: var(--space-5);
   display: flex;
   flex-direction: column;
-  gap: 20px;
+  gap: var(--space-5);
   position: relative;
 }
 
@@ -48,7 +42,7 @@
   display: flex;
   justify-content: space-between;
   align-items: flex-start;
-  gap: 16px;
+  gap: var(--space-4);
 }
 
 .medicalFacility {
@@ -64,25 +58,26 @@
 .eLevel {
   font-size: 0.9rem;
   font-weight: 700;
-  padding: 8px 16px;
-  border-radius: 24px;
+  padding: var(--space-2) var(--space-4);
+  border-radius: var(--radius-full);
   white-space: nowrap;
   letter-spacing: 0.5px;
   text-transform: uppercase;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 var(--space-1) var(--space-2) var(--shadow-color);
   display: flex;
   flex-direction: row;
   align-items: center;
-  justify-content: center;
+  gap: var(--space-2);
+  color: white;
 }
 
 .info {
   display: grid;
-  gap: 16px;
-  padding: 16px;
+  gap: var(--space-4);
+  padding: var(--space-4);
   background: rgba(255, 255, 255, 0.05);
-  border-radius: 16px;
-  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: var(--radius-lg);
+  border: 1px solid var(--border-color);
 }
 
 .info p {
@@ -90,9 +85,9 @@
   font-size: 1.1rem;
   display: flex;
   align-items: center;
-  gap: 12px;
-  padding: 8px;
-  border-radius: 8px;
+  gap: var(--space-3);
+  padding: var(--space-2);
+  border-radius: var(--radius-sm);
   transition: all 0.3s ease;
 }
 
@@ -108,11 +103,11 @@
 .donateBtn {
   background: var(--accent-gradient);
   color: white;
-  padding: 16px 32px;
+  padding: var(--space-4) var(--space-6);
   border: none;
   font-size: 1.1rem;
   font-weight: 700;
-  border-radius: 16px;
+  border-radius: var(--radius-lg);
   cursor: pointer;
   transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
   position: relative;
@@ -135,7 +130,7 @@
 
 .donateBtn:hover {
   transform: translateY(-2px);
-  box-shadow: 0 8px 24px rgba(238, 82, 83, 0.3);
+  box-shadow: 0 var(--space-2) var(--space-5) rgba(238, 82, 83, 0.3);
 }
 
 .donateBtn:hover::before {
@@ -145,3 +140,12 @@
 .donateBtn:active {
   transform: translateY(0);
 }
+
+.aPos { color: var(--color-a-pos); }
+.aNeg { color: var(--color-a-neg); }
+.bPos { color: var(--color-b-pos); }
+.bNeg { color: var(--color-b-neg); }
+.abPos { color: var(--color-ab-pos); }
+.abNeg { color: var(--color-ab-neg); }
+.oPos { color: var(--color-o-pos); }
+.oNeg { color: var(--color-o-neg); }

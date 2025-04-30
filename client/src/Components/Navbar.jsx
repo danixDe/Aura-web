@@ -1,14 +1,11 @@
-import { useState } from 'react';
+import React from 'react';
 import { useNavigate, useLocation } from 'react-router-dom';
-import { Menu, Sun, Moon } from 'lucide-react';
-import { AnimatePresence, motion } from 'framer-motion';
-import { useDarkMode } from '../Context/DarkModeContext';
-import Sidebar from './Sidebar';
+import { Bell, User, Sun, Moon } from 'lucide-react';
+import { motion } from 'framer-motion';
 import styles from './Nav.module.css';
-import { HomeIcon, User, History, Settings, Info } from 'lucide-react';
+import { useDarkMode } from '../context/DarkModeContext';
 
 const Navbar = () => {
-  const [isSidebarOpen, setIsSidebarOpen] = useState(false);
   const { isDarkMode, toggleDarkMode } = useDarkMode();
   const location = useLocation();
   const navigate = useNavigate();
@@ -21,24 +18,13 @@ const Navbar = () => {
     }
   };
 
-  const menuItems = [
-    { icon: HomeIcon, label: 'Home', navigate: '/donor' },
-    { icon: User, label: 'Profile', navigate: '/donor/donorProfile' },
-    { icon: History, label: 'Donation History', navigate: '/donor/donationHistory' },
-    { icon: Settings, label: 'Settings', navigate: null }, 
-    { icon: Info, label: 'About', navigate: null },         
-  ];
-
   return (
-    <>
-      <nav className={styles.navbar}>
-        <div className={styles.navLeft}>
-          <button className={styles.hamburgerButton} onClick={() => setIsSidebarOpen(true)}>
-            <Menu size={24} />
-          </button>
-          <h1 onClick={handleLogo} className={styles.logo}>AuraHP</h1>
-        </div>
+    <nav className={styles.navbar}>
+      <div className={styles.navLeft}>
+        <h1 onClick={handleLogo} className={styles.logo}>AuraHP</h1>
+      </div>
 
+      <div className={styles.navRight}>
         <motion.div
           className={styles.darkModeToggle}
           onClick={toggleDarkMode}
@@ -55,11 +41,17 @@ const Navbar = () => {
             {isDarkMode ? <Sun size={18} color="#1a1f36" /> : <Moon size={18} color="#1a1f36" />}
           </motion.div>
         </motion.div>
-      </nav>
-      <AnimatePresence>
-      {isSidebarOpen && <Sidebar menuItems={menuItems} onClose={() => setIsSidebarOpen(false)} title='Menu' />}
-      </AnimatePresence>
-    </>
+
+        <button className={styles.iconButton} onClick={() => navigate('/notifications')}>
+          <Bell size={24} />
+          <span className={styles.notificationBadge}>3</span>
+        </button>
+
+        <button className={styles.iconButton} onClick={() => navigate('/donor/donorProfile')}>
+          <User size={24} />
+        </button>
+      </div>
+    </nav>
   );
 };
 
