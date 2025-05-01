@@ -2,6 +2,7 @@ const donorServices = require('../services/donorServices');
 const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
 const JWT_SECRET = process.env.JWT_SECRET;
+require('dotenv').config();
 
 const createDonor = async (req, res) => {
     try {
@@ -21,13 +22,14 @@ const createDonor = async (req, res) => {
 const AuthDonor = async (req, res) => {
     try {
         const { email, password } = req.body;
+
         const donor = await donorServices.getDonor(email);
         if (!donor) {
             return res.status(400).json({message: "Invalid email or password"});
         } else {
             const passwordMatch = await bcrypt.compare(password,donor.password);
             if(!passwordMatch){
-                return res.stat(400).json({message:"Invalid Email or Password"});
+                return res.status(400).json({message:"Invalid Email or Password"});
             }
             const token = jwt.sign(
                 {id:donor.id,email:donor.email},
@@ -37,6 +39,7 @@ const AuthDonor = async (req, res) => {
             res.status(200).json({message:"Login Successful",token});
         }
     } catch (err) {
+        console.error("AuthDonor error:", err);
         res.status(500).json({ message: "Error authenticating donor" });
     }
 };

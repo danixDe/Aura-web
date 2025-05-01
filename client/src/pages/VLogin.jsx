@@ -16,31 +16,29 @@ const VLogin = () => {
     const formdata = new FormData(e.currentTarget);
     const emailInput = formdata.get("email").trim();
     const password = formdata.get("password").trim();
-    
+  
     try {
       const response = await axios.post("http://localhost:5000/api/donors/authdonor", { email: emailInput, password });
-      console.log(response);
-
-      if (response.data.message === "valid") {
+      console.log("✅ Login Response:", response.data);
+  
+      if (response.data.token) {
         login(emailInput);
-        toast.success('Login Successful');
-        navigate('/donor');
+        toast.success("Login Successful");
+        navigate("/donor");
       } else {
         toast.error("Invalid Credentials");
       }
     } catch (err) {
       if (err.response) {
-        console.error("Error Response:", err.response);
-        toast.error(`Error: ${err.response.status} ${err.response.statusText}`);
+        toast.error(`Error: ${err.response.data.message}`);
       } else if (err.request) {
-        console.error("No Response received:", err.request);
         toast.error("No response from server");
       } else {
-        console.error("Error setting up request:", err.message);
-        toast.error("Error setting up request");
+        toast.error("Request setup error");
       }
     }
   };
+  
 
   const handleGoogleSuccess = async (credentialResponse) => {
     try {
