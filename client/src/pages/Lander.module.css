@@ -141,8 +141,8 @@
   z-index: 100;
   box-shadow: 0 8px 32px var(--glass-shadow);
   white-space: nowrap;
-  background: rgba(255, 255, 255, 0.1);
-  backdrop-filter: blur(12px);
+  background: var(--glass-bg);
+  backdrop-filter: var(--card-blur);
   border: 1px solid var(--glass-border);
 }
 
@@ -185,7 +185,6 @@
   line-height: 1.1;
   margin-bottom: 1.5rem;
   opacity: 0;
-  color: var(--primary);
   transform: translateY(20px);
   animation: fadeInUp 0.8s var(--transition-smooth) forwards;
 }
@@ -362,7 +361,6 @@
   border-radius: 24px;
   padding: 2rem;
   transition: all 0.3s var(--transition-bounce);
-  color: var(--primary);
 
 }
 
@@ -413,7 +411,6 @@
   font-style: italic;
   line-height: 1.6;
   flex-grow: 1;
-  color: var(--primary);
 
 }
 
@@ -453,7 +450,6 @@
   margin-bottom: 0.8rem;
   cursor: pointer;
   transition: color 0.2s var(--transition-smooth);
-  color: var(--primary);
 
 }
 

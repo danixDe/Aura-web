@@ -88,15 +88,15 @@
     border-color: transparent;
   }
   
-  .low.active {
+  .normal.active {
     background: var(--color-success);
   }
   
-  .medium.active {
+  .moderate.active {
     background: var(--color-warning);
   }
   
-  .high.active {
+  .urgent.active {
     background: var(--color-error);
   }
   

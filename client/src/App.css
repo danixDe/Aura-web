@@ -89,8 +89,6 @@ body {
   font-family: var(--font-family);
   margin: 0;
   padding: 0;
-  background: var(--bg-gradient);
-  color: var(--text-primary);
   line-height: 1.5;
 }
 
@@ -113,7 +111,7 @@ button {
 }
 
 ::-webkit-scrollbar-track {
-  background: var(--color-neutral-100);
+  background: transparent;
   border-radius: var(--radius-full);
 }
 

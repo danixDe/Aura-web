@@ -1,22 +1,21 @@
 .sidebar {
     width: 380px;
-    height: 100vh;
     background: var(--card-bg);
-    backdrop-filter: blur(10px);
     border-right: 1px solid var(--border-color);
-    padding: var(--space-6);
+    padding: var(--space-2);
     display: flex;
     flex-direction: column;
-    gap: var(--space-6);
+    gap: var(--space-4);
     overflow-y: auto;
-    position: sticky;
     top: 0;
+    align-self: flex-start;
   }
   
   .sidebarSection {
     display: flex;
     flex-direction: column;
     gap: var(--space-4);
+    transform: scale(0.9);
   }
   
   .sectionTitle {
@@ -39,7 +38,6 @@
     border-radius: 2px;
   }
   
-  /* Ticker styles */
   .tickerWrapper {
     background: var(--color-primary-light);
     border-radius: var(--radius-lg);
@@ -68,7 +66,6 @@
     padding-left: var(--space-2);
   }
   
-  /* Hospital and Donation Drive Lists */
   .list {
     list-style: none;
     padding: 0;

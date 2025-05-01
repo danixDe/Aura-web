@@ -1,6 +1,7 @@
 import React from 'react';
 import { User, Award, Edit } from 'lucide-react';
 import styles from './donor_profile.module.css';
+import DonationHistory from './donor_history';
 
 const DonorProfile = () => {
   const donorData = {
@@ -43,7 +44,6 @@ const DonorProfile = () => {
             <p><strong>Address:</strong> {donorData.address}</p>
           </div>
         </div>
-
         <div className={styles.infoCard}>
           <div className={styles.infoHeader}>
             <Award size={20} />
@@ -70,6 +70,7 @@ const DonorProfile = () => {
           ))}
         </div>
       </div>
+    <DonationHistory/>
     </div>
   );
 };

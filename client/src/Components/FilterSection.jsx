@@ -11,7 +11,7 @@ const FilterSection = ({
   onFilterChange
 }) => {
   const bloodGroups = ["All", "A+", "A-", "B+", "B-", "AB+", "AB-", "O+", "O-"];
-  const emergencyLevels = ["All", "Low", "Medium", "High"];
+  const emergencyLevels = ["All", "Normal", "Moderate", "Urgent"];
 
   return (
     <motion.div 
