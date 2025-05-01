@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { User, Award, Edit } from 'lucide-react';
 import styles from './donor_profile.module.css';
 import DonationHistory from './donor_history';
-import { useUser } from '../Context/AuthContext.jsx';
+import { useUser } from '../Context/UserContext.jsx';
 import axios from 'axios';
 
 const DonorProfile = () => {
