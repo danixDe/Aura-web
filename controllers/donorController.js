@@ -6,17 +6,18 @@ require('dotenv').config();
 
 const createDonor = async (req, res) => {
     try {
-        
+        console.log(req.body);
         const hashedPassword = await bcrypt.hash(req.body.password,10);
         const donorData= {
             ...req.body,
             password:hashedPassword
         };
         const donor = await donorServices.addDonor(donorData);
+        // console.log("donor:",donor);
         res.status(201).json({ message: "Donor added successfully", donor });
     } catch (error) {
         res.status(500).json({ message: error.message });
-    }
+    } 
 };
 
 const AuthDonor = async (req, res) => {

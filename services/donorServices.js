@@ -16,6 +16,7 @@ const validateCoordinates = (coordinates) => {
 };
 
 const addDonor = async (donorData) => {
+    // console.log("donordata",donorData);
     const {
         dName,
         email,
@@ -48,6 +49,7 @@ const addDonor = async (donorData) => {
             preferred_notification,
             password
         ]);
+        // console.log("result",result);
         return { id: result.insertId, ...donorData };
     } catch (err) {
         throw new Error(err.message);

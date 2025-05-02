@@ -1,6 +1,6 @@
 const db = require("../config/database");
 
-const donorTable = `
+const donorTable =`
 CREATE TABLE IF NOT EXISTS donor (
   id INT AUTO_INCREMENT PRIMARY KEY,
   dName VARCHAR(255) NOT NULL,
