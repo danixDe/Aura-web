@@ -3,17 +3,13 @@ import { Link, useNavigate } from 'react-router-dom';
 import { GoogleLogin } from '@react-oauth/google';
 import styles from './auth.module.css';
 import { motion } from 'framer-motion';
-import { AuthContext } from '../Context/AuthContext';
-import {jwtDecode} from "jwt-decode";
+import { useAuth } from '../Context/AuthContext';
+import { jwtDecode } from "jwt-decode";
 import axios from 'axios';
 import toast from 'react-hot-toast';
 const VLogin = () => {
-  const {setUserEmail} = useUser();
-  const [email,setEmailInput] = useState('');
-  console.log(window.location.href);
   const navigate = useNavigate();
-  const {login}=useContext(AuthContext);
-  const [valid,setValid]=useState(false);
+  const { login } = useAuth();
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -23,12 +19,12 @@ const VLogin = () => {
   
     try {
       const response = await axios.post("http://localhost:5000/api/donors/authdonor", { email: emailInput, password });
-      console.log(response);
-
-      if (response.data.message === "valid") {
+      console.log("✅ Login Response:", response.data);
+  
+      if (response.data.token) {
         login(emailInput);
-        toast.success('Login Successful');
-        navigate('/donor');
+        toast.success("Login Successful");
+        navigate("/donor");
       } else {
         toast.error("Invalid Credentials");
       }
@@ -38,8 +34,7 @@ const VLogin = () => {
       } else if (err.request) {
         toast.error("No response from server");
       } else {
-        console.error("Error setting up request:", err.message);
-        toast.error("Error setting up request");
+        toast.error("Request setup error");
       }
     }
   };
