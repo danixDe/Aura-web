@@ -41,7 +41,7 @@ const Navbar = () => {
           </button>
           <h1 onClick={handleLogo} className={styles.logo}>AuraHP Facility</h1>
         </div>
-
+      <div className = {styles.navRight}>
         <motion.div
           className={styles.darkModeToggle}
           onClick={toggleDarkMode}
@@ -58,6 +58,7 @@ const Navbar = () => {
             {isDarkMode ? <Sun size={18} color="#1a1f36" /> : <Moon size={18} color="#1a1f36" />}
           </motion.div>
         </motion.div>
+      </div>
       </nav>
       <AnimatePresence>
       {isSidebarOpen && <Sidebar menuItems={menuItems} onClose={() => setIsSidebarOpen(false)} title='Menu' />}

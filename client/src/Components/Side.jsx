@@ -1,4 +1,4 @@
-import styles from './Sidebar.module.css';
+import styles from './Side.module.css';
 import { X } from 'lucide-react';
 import { useNavigate } from 'react-router-dom';
 import { useDarkMode } from '../Context/DarkModeContext'; 
