@@ -1,242 +1,205 @@
-import { useState } from "react";
-import { PlusCircle, Droplet, AlertTriangle } from "lucide-react";
-import styles from "./BloodBankPage.module.css";
-import { motion, AnimatePresence } from "framer-motion";
-import axios from "axios";
-import {useDarkMode} from '../Context/DarkModeContext';
-import toast from "react-hot-toast";
-function BloodBankPage() {
-  document.title = "AuraHP Blood Bank";
-  const [isRequestOpen, setRequestOpen] = useState(false);
-  const {isDarkMode} = useDarkMode();
+import React,{useState} from 'react';
+import styles from './BloodBankPage.module.css';
+import BloodRequests from './BloodRequests.jsx';
+import BloodRequestForm from './BloodRequestForm.jsx';
+import Sidebar from '../Components/Side.jsx';
+import Analytics from './Analytics.jsx';
+
+import {
+  Plus, Droplet, Activity, AlertTriangle, Users, Clock
+} from 'lucide-react';
+
+function BloodBankPage(){
+  const [showRequestForm, setShowRequestForm] = useState(false);
+  const [activeView, setActiveView] = useState('dashboard');
+
+  const handleViewChange = (view) => {
+    setActiveView(view);
+  };
+
+  const toggleRequestForm = () => {
+    setShowRequestForm(!showRequestForm);
+  };
 
   return (
-    <div className={`${styles.wrapper} ${isDarkMode ? 'dark' : 'light'}`}>
-      <motion.div 
-        className={styles.mainContent}
-        initial={{ opacity: 0 }}
-        animate={{ opacity: 1 }}
-        transition={{ duration: 0.5 }}
-      >
-        <div className={styles.container}>
-          <motion.h1 
-            className={styles.title}
-            initial={{ y: -20 }}
-            animate={{ y: 0 }}
-            transition={{ duration: 0.5 }}
-          >
-            Aura HP Blood Bank
-          </motion.h1>
-          <motion.button 
-            className={styles.postRequestBtn}
-            whileHover={{ scale: 1.02 }}
-            whileTap={{ scale: 0.98 }}
-            onClick={() => setRequestOpen(true)}
-          >
-            <PlusCircle size={20} /> Post a Request
-          </motion.button>
-          <Dashboard />
-          <BloodInventory />
-        </div>
-      </motion.div>
-      <AnimatePresence>
-        {isRequestOpen && <RequestPopup closePopup={() => setRequestOpen(false)} />}
-      </AnimatePresence>
+    <div className={styles.appContainer}>
+      <Sidebar activeView={activeView} onViewChange={handleViewChange} />
+      <main className={styles.mainContent}>
+        <Dashboard 
+          activeView={activeView} 
+          onCreateRequest={toggleRequestForm} 
+        />
+        {showRequestForm && (
+          <BloodRequestForm onClose={toggleRequestForm} />
+        )}
+      </main>
     </div>
   );
 }
-function RequestPopup({ closePopup }) {
-  const [formData, setFormData] = useState({
-    facility_id:1,
-    blood_group: "A+",
-    units: 1,
-    urgency: "Urgent",
+
+const mockRequests = [
+  { 
+    id: 1, 
+    blood_group: 'O+', 
+    units: 3, 
+    urgency: 'Urgent', 
     type: 'live_blood',
-    facilityName: "City Hospital",
-    address: "123 Main St, Visakhapatnam",
-    patientName: " ",
-    patientAge: 18,
-    contactNumber: "",
-    notes: "",
-  });
-
-  const handleChange = (e) => {
-    setFormData({ ...formData, [e.target.name]: e.target.value });
-  };
-  const handleSubmit=async()=>{
-    console.log(formData);
-    const response=await  axios.post("http://localhost:5000/api/blood-requests",formData);
-    console.log(response.data);
-    toast.success('Blood Request Sent');
-    closePopup();
+    created_at: '2023-06-15',
+    patientName: 'John Doe',
+    patientAge: 45
+  },
+  { 
+    id: 2, 
+    blood_group: 'AB-', 
+    units: 2, 
+    urgency: 'Within 24 hours', 
+    type: 'store_blood',
+    created_at: '2023-06-14',
+    patientName: 'Jane Smith',
+    patientAge: 32
+  },
+  { 
+    id: 3, 
+    blood_group: 'A+', 
+    units: 1, 
+    urgency: 'Within a week', 
+    type: 'live_blood',
+    created_at: '2023-06-13',
+    patientName: 'Mike Johnson',
+    patientAge: 28
   }
-  return (
-    <motion.div 
-      className={styles.popupOverlay}
-      initial={{ opacity: 0 }}
-      animate={{ opacity: 1 }}
-      exit={{ opacity: 0 }}
-    >
-      <motion.div 
-        className={styles.popup}
-        initial={{ scale: 0.9, y: 20 }}
-        animate={{ scale: 1, y: 0 }}
-        exit={{ scale: 0.9, y: 20 }}
-      >
-        <button className={styles.closeBtn} onClick={closePopup}>×</button>
-        <h2>Post a Blood Request</h2>
-        
-        <label>Blood Group</label>
-        <select name="blood_group" value={formData.blood_group} onChange={handleChange}>
-          {["A+", "A-", "B+", "B-", "AB+", "AB-", "O+", "O-"].map((type) => (
-            <option key={type} value={type}>{type}</option>
-          ))}
-        </select>
+];
 
-        <label>Number of Units</label>
-        <input type="number" name="units" value={Number.parseInt(formData.units)} onChange={handleChange} placeholder="Enter units" />
+const Dashboard = ({ activeView, onCreateRequest }) => {
+  const renderView = () => {
+    switch (activeView) {
+      case 'dashboard':
+        return renderDashboard();
+      case 'bloodRequests':
+        return <BloodRequests onCreateRequest={onCreateRequest} />;
+      case 'donors':
+        return <div className={styles.viewContainer}><h2>Donors Management</h2></div>;
+      case 'analytics':
+        return <div className={styles.viewContainer}><h2>Analytics</h2></div>;
+      case 'settings':
+        return <div className={styles.viewContainer}><h2>Settings</h2></div>;
+      case 'about':
+        return <div className={styles.viewContainer}><h2>About</h2></div>;
+      default:
+        return renderDashboard();
+    }
+  };
 
-        <label>Patient Name</label>
-        <input type="text" name="patientName" value={formData.patientName} onChange={handleChange} placeholder="Enter patient name" />
+  const renderDashboard = () => {
+    return (
+      <div className={styles.dashboard}>
+        <div className={styles.header}>
+          <div>
+            <h1>Facility Dashboard</h1>
+            <p>Welcome back, Medical Center</p>
+          </div>
+          <button 
+            className={styles.newRequestButton} 
+            onClick={onCreateRequest}
+          >
+            <Plus size={18} />
+            New Blood Request
+          </button>
+        </div>
 
-        <label>Patient Age</label>
-        <input type="number" name="patientAge" value={formData.patientAge} onChange={handleChange} placeholder="Enter patient age" />
+        <div className={styles.stats}>
+          <div className={styles.statCard}>
+            <div className={styles.statIcon}>
+              <AlertTriangle size={24} />
+            </div>
+            <div className={styles.statInfo}>
+              <h3>5</h3>
+              <p>Urgent Requests</p>
+            </div>
+          </div>
+          
+          <div className={styles.statCard}>
+            <div className={styles.statIcon}>
+              <Droplet size={24} />
+            </div>
+            <div className={styles.statInfo}>
+              <h3>12</h3>
+              <p>Total Requests</p>
+            </div>
+          </div>
+          
+          <div className={styles.statCard}>
+            <div className={styles.statIcon}>
+              <Activity size={24} />
+            </div>
+            <div className={styles.statInfo}>
+              <h3>85%</h3>
+              <p>Fulfillment Rate</p>
+            </div>
+          </div>
+          
+          <div className={styles.statCard}>
+            <div className={styles.statIcon}>
+              <Users size={24} />
+            </div>
+            <div className={styles.statInfo}>
+              <h3>28</h3>
+              <p>Available Donors</p>
+            </div>
+          </div>
+        </div>
 
-        <label>Contact Number</label>
-        <input type="tel" name="contactNumber" value={formData.contactNumber} onChange={handleChange} placeholder="Enter contact number" />
-
-        <label>Urgency Level</label>
-        <select name="urgency" value={formData.urgency} onChange={handleChange}>
-          {["Urgent", "Within 24 hours", "Within 3 days", "Within a week"].map((level) => (
-            <option key={level} value={level}>{level}</option>
-          ))}
-        </select>
-        <label htmlFor="">Type</label>
-        <select name="type" id="" value={formData.type} onChange={handleChange} >
-          {
-          ["live_blood","store_blood"].map((item)=> (
-            <option value={item}>{item}</option>
-          )
-          )}
-        </select>
-        <label>Medical Facility</label>
-        <input type="text" value={formData.facilityName} disabled />
-
-        <label>Address</label>
-        <input type="text" value={formData.address} disabled />
-
-        <label>Additional Notes</label>
-        <input type="text" name="notes" value={formData.notes} onChange={handleChange} placeholder="Any additional information" />
-
-        <motion.button 
-          className={styles.submitBtn}
-          whileHover={{ scale: 1.02 }}
-          whileTap={{ scale: 0.98 }}
-          onClick={handleSubmit}
-        >
-          Submit Request
-        </motion.button>
-      </motion.div>
-    </motion.div>
-  );
-}
-
-function Dashboard() {
-  const [requests] = useState([
-    { bloodType: "O+", urgency: "High", status: "Pending", timestamp: "2024-03-15 10:30" },
-    { bloodType: "A-", urgency: "Medium", status: "Fulfilled", timestamp: "2024-03-15 09:15" },
-    { bloodType: "B+", urgency: "High", status: "Processing", timestamp: "2024-03-15 08:45" }
-  ]);
-
-  return (
-    <motion.div 
-      className={styles.dashboard}
-      initial={{ opacity: 0, y: 20 }}
-      animate={{ opacity: 1, y: 0 }}
-      transition={{ delay: 0.2 }}
-    >
-      <h2>Recent Blood Requests</h2>
-      <table className={styles.table}>
-        <thead>
-          <tr>
-            <th>Blood Type</th>
-            <th>Urgency</th>
-            <th>Status</th>
-            <th>Timestamp</th>
-          </tr>
-        </thead>
-        <tbody>
-          {requests.map((req, index) => (
-            <motion.tr 
-              key={index}
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              transition={{ delay: index * 0.1 }}
+        <div className={styles.recentRequests}>
+          <div className={styles.sectionHeader}>
+            <h2>Recent Blood Requests</h2>
+            <button 
+              className={styles.viewAllButton}
+              onClick={() => onViewChange('bloodRequests')}
             >
-              <td><Droplet size={16} /> {req.bloodType}</td>
-              <td>
-                <span style={{ color: req.urgency === "High" ? "#ef4444" : "#f59e0b" }}>
-                  {req.urgency === "High" ? <AlertTriangle size={16} /> : null} {req.urgency}
-                </span>
-              </td>
-              <td>{req.status}</td>
-              <td>{req.timestamp}</td>
-            </motion.tr>
-          ))}
-        </tbody>
-      </table>
-    </motion.div>
-  );
-}
+              View All
+            </button>
+          </div>
+          
+          <div className={styles.requestsTable}>
+            <div className={styles.tableHeader}>
+              <div>Blood Group</div>
+              <div>Units</div>
+              <div>Urgency</div>
+              <div>Patient</div>
+              <div>Request Date</div>
+              <div>Type</div>
+            </div>
+            
+            {mockRequests.map(request => (
+              <div key={request.id} className={styles.tableRow}>
+                <div className={styles.bloodGroup}>
+                  <span 
+                    className={`${styles.bloodBadge} ${styles[`blood${request.blood_group.replace('+', 'pos').replace('-', 'neg')}`]}`}
+                  >
+                    {request.blood_group}
+                  </span>
+                </div>
+                <div>{request.units}</div>
+                <div>
+                  <span className={`${styles.urgencyBadge} ${styles[request.urgency.toLowerCase().replace(/\s+/g, '')]}`}>
+                    {request.urgency}
+                  </span>
+                </div>
+                <div>{request.patientName}, {request.patientAge}</div>
+                <div className={styles.requestDate}>
+                  <Clock size={14} />
+                  {request.created_at}
+                </div>
+                <div>{request.type === 'live_blood' ? 'Live Donation' : 'Blood Bank'}</div>
+              </div>
+            ))}
+          </div>
+        </div>
+      </div>
+    );
+  };
 
-function BloodInventory() {
-  const [bloodStock] = useState([
-    { type: "A+", units: 10, status: "Adequate" },
-    { type: "B+", units: 8, status: "Low" },
-    { type: "O-", units: 6, status: "Critical" },
-    { type: "AB+", units: 12, status: "Adequate" }
-  ]);
-
-  return (
-    <motion.div 
-      className={styles.dashboard}
-      initial={{ opacity: 0, y: 20 }}
-      animate={{ opacity: 1, y: 0 }}
-      transition={{ delay: 0.4 }}
-    >
-      <h2>Blood Inventory Status</h2>
-      <table className={styles.table}>
-        <thead>
-          <tr>
-            <th>Blood Type</th>
-            <th>Units Available</th>
-            <th>Status</th>
-          </tr>
-        </thead>
-        <tbody>
-          {bloodStock.map((blood, index) => (
-            <motion.tr 
-              key={index}
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              transition={{ delay: index * 0.1 }}
-            >
-              <td><Droplet size={16} /> {blood.type}</td>
-              <td>{blood.units}</td>
-              <td>
-                <span style={{ 
-                  color: blood.status === "Critical" ? "#ef4444" : 
-                         blood.status === "Low" ? "#f59e0b" : "#22c55e"
-                }}>
-                  {blood.status}
-                </span>
-              </td>
-            </motion.tr>
-          ))}
-        </tbody>
-      </table>
-    </motion.div>
-  );
-}
+  return renderView();
+};
 
 export default BloodBankPage;

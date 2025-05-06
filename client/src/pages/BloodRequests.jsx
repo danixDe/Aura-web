@@ -1,178 +1,194 @@
-import  { useState } from 'react';
-import { motion } from 'framer-motion';
-import styles from './BloodBankPage.module.css';
-import { Calendar, MapPin, Phone, User, Search } from 'lucide-react';
+import React from 'react';
+import styles from './BloodRequests.module.css';
+import { 
+  Plus, Filter, Search, 
+  Droplet, Clock, AlertTriangle
+} from 'lucide-react';
 
-const BloodRequests = () => {
-  const [searchTerm, setSearchTerm] = useState('');
-  const [filter, setFilter] = useState('all');
+const mockRequests = [
+  { 
+    id: 1, 
+    blood_group: 'O+', 
+    units: 3, 
+    urgency: 'Urgent', 
+    type: 'live_blood',
+    created_at: '2023-06-15',
+    address: '123 Medical Blvd',
+    contactNumber: '555-123-4567',
+    facilityName: 'Medical Center',
+    patientName: 'John Doe',
+    patientAge: 45,
+    notes: 'Patient scheduled for surgery tomorrow morning'
+  },
+  { 
+    id: 2, 
+    blood_group: 'AB-', 
+    units: 2, 
+    urgency: 'Within 24 hours', 
+    type: 'store_blood',
+    created_at: '2023-06-14',
+    address: '123 Medical Blvd',
+    contactNumber: '555-123-4567',
+    facilityName: 'Medical Center',
+    patientName: 'Jane Smith',
+    patientAge: 32,
+    notes: 'Rare blood type needed for upcoming procedure'
+  },
+  { 
+    id: 3, 
+    blood_group: 'A+', 
+    units: 1, 
+    urgency: 'Within a week', 
+    type: 'live_blood',
+    created_at: '2023-06-13',
+    address: '123 Medical Blvd',
+    contactNumber: '555-123-4567',
+    facilityName: 'Medical Center',
+    patientName: 'Mike Johnson',
+    patientAge: 28,
+    notes: 'Regular donation for thalassemia patient'
+  },
+  { 
+    id: 4, 
+    blood_group: 'B+', 
+    units: 2, 
+    urgency: 'Within 3 days', 
+    type: 'store_blood',
+    created_at: '2023-06-12',
+    address: '123 Medical Blvd',
+    contactNumber: '555-123-4567',
+    facilityName: 'Medical Center',
+    patientName: 'Sarah Williams',
+    patientAge: 52,
+    notes: 'Upcoming scheduled transfusion'
+  }
+];
 
-  const requests = [
-    {
-      id: 1,
-      patientName: "John Doe",
-      bloodType: "A+",
-      units: 2,
-      urgency: "High",
-      hospital: "City Hospital",
-      location: "123 Main St",
-      contactNumber: "+1 234-567-8900",
-      requestDate: "2024-03-15",
-      status: "Pending"
-    },
-    {
-      id: 2,
-      patientName: "Jane Smith",
-      bloodType: "O-",
-      units: 3,
-      urgency: "Medium",
-      hospital: "General Hospital",
-      location: "456 Oak Ave",
-      contactNumber: "+1 234-567-8901",
-      requestDate: "2024-03-14",
-      status: "Fulfilled"
-    },
-    {
-      id: 3,
-      patientName: "Robert Johnson",
-      bloodType: "B+",
-      units: 1,
-      urgency: "Critical",
-      hospital: "Emergency Care Center",
-      location: "789 Pine St",
-      contactNumber: "+1 234-567-8902",
-      requestDate: "2024-03-15",
-      status: "Processing"
-    }
-  ];
-
-  const filteredRequests = requests.filter(request => {
-    const matchesSearch = request.patientName.toLowerCase().includes(searchTerm.toLowerCase()) ||
-                         request.bloodType.toLowerCase().includes(searchTerm.toLowerCase()) ||
-                         request.hospital.toLowerCase().includes(searchTerm.toLowerCase());
-    
-    if (filter === 'all') return matchesSearch;
-    return matchesSearch && request.status.toLowerCase() === filter.toLowerCase();
-  });
-
+const BloodRequests = ({ onCreateRequest }) => {
   return (
-      <motion.div 
-        className={styles.mainContent}
-        initial={{ opacity: 0 }}
-        animate={{ opacity: 1 }}
-        transition={{ duration: 0.5 }}
-      >
-        <div className={styles.container}>
-          <motion.h1 
-            className={styles.title}
-            initial={{ y: -20 }}
-            animate={{ y: 0 }}
-            transition={{ duration: 0.5 }}
-          >
-            Blood Requests
-          </motion.h1>
+    <div className={styles.bloodRequests}>
+      <div className={styles.header}>
+        <div>
+          <h1>Blood Requests</h1>
+          <p>Manage your facility's blood donation requests</p>
+        </div>
+        <button 
+          className={styles.newRequestButton} 
+          onClick={onCreateRequest}
+        >
+          <Plus size={18} />
+          New Request
+        </button>
+      </div>
 
-          <div className={styles.searchWrapper}>
-            <div style={{ display: 'flex', gap: '1rem', marginBottom: '1rem' }}>
-              <div style={{ flex: 1, position: 'relative' }}>
-                <Search size={20} style={{ position: 'absolute', left: '12px', top: '50%', transform: 'translateY(-50%)', color: 'var(--text-secondary)' }} />
-                <input
-                  type="text"
-                  placeholder="Search requests..."
-                  className={styles.searchBar}
-                  style={{ paddingLeft: '40px' }}
-                  value={searchTerm}
-                  onChange={(e) => setSearchTerm(e.target.value)}
-                />
-              </div>
-              <select 
-                className={styles.searchBar} 
-                style={{ width: 'auto' }}
-                value={filter}
-                onChange={(e) => setFilter(e.target.value)}
-              >
-                <option value="all">All Status</option>
-                <option value="pending">Pending</option>
-                <option value="processing">Processing</option>
-                <option value="fulfilled">Fulfilled</option>
-              </select>
-            </div>
+      <div className={styles.filters}>
+        <div className={styles.searchBar}>
+          <Search size={18} />
+          <input 
+            type="text" 
+            placeholder="Search requests..."
+          />
+        </div>
+        
+        <div className={styles.filterDropdowns}>
+          <div className={styles.filterDropdown}>
+            <Filter size={16} />
+            <select>
+              <option value="">Blood Group</option>
+              <option value="A+">A+</option>
+              <option value="A-">A-</option>
+              <option value="B+">B+</option>
+              <option value="B-">B-</option>
+              <option value="AB+">AB+</option>
+              <option value="AB-">AB-</option>
+              <option value="O+">O+</option>
+              <option value="O-">O-</option>
+            </select>
           </div>
-
-          <div className={styles.dashboard}>
-            <table className={styles.table}>
-              <thead>
-                <tr>
-                  <th>Patient Details</th>
-                  <th>Blood Type</th>
-                  <th>Units</th>
-                  <th>Hospital</th>
-                  <th>Contact</th>
-                  <th>Status</th>
-                </tr>
-              </thead>
-              <tbody>
-                {filteredRequests.map((request) => (
-                  <motion.tr 
-                    key={request.id}
-                    initial={{ opacity: 0 }}
-                    animate={{ opacity: 1 }}
-                  >
-                    <td>
-                      <div style={{ display: 'flex', flexDirection: 'column', gap: '0.5rem' }}>
-                        <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
-                          <User size={16} /> {request.patientName}
-                        </div>
-                        <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', fontSize: '0.9rem', color: 'var(--text-secondary)' }}>
-                          <Calendar size={14} /> {request.requestDate}
-                        </div>
-                      </div>
-                    </td>
-                    <td>
-                      <span style={{ 
-                        padding: '0.5rem 1rem',
-                        borderRadius: '20px',
-                        background: 'var(--nav-bg)',
-                        color: 'var(--text-primary)'
-                      }}>
-                        {request.bloodType}
-                      </span>
-                    </td>
-                    <td>{request.units} units</td>
-                    <td>
-                      <div style={{ display: 'flex', flexDirection: 'column', gap: '0.5rem' }}>
-                        <div>{request.hospital}</div>
-                        <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', fontSize: '0.9rem', color: 'var(--text-secondary)' }}>
-                          <MapPin size={14} /> {request.location}
-                        </div>
-                      </div>
-                    </td>
-                    <td>
-                      <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
-                        <Phone size={16} /> {request.contactNumber}
-                      </div>
-                    </td>
-                    <td>
-                      <span style={{ 
-                        padding: '0.5rem 1rem',
-                        borderRadius: '20px',
-                        background: request.status === 'Pending' ? '#fff3cd' :
-                                   request.status === 'Fulfilled' ? '#d1e7dd' :
-                                   '#cfe2ff',
-                        color: request.status === 'Pending' ? '#856404' :
-                               request.status === 'Fulfilled' ? '#0f5132' :
-                               '#084298'
-                      }}>
-                        {request.status}
-                      </span>
-                    </td>
-                  </motion.tr>
-                ))}
-              </tbody>
-            </table>
+          
+          <div className={styles.filterDropdown}>
+            <AlertTriangle size={16} />
+            <select>
+              <option value="">Urgency</option>
+              <option value="Urgent">Urgent</option>
+              <option value="Within 24 hours">Within 24 hours</option>
+              <option value="Within 3 days">Within 3 days</option>
+              <option value="Within a week">Within a week</option>
+            </select>
+          </div>
+          
+          <div className={styles.filterDropdown}>
+            <Droplet size={16} />
+            <select>
+              <option value="">Type</option>
+              <option value="live_blood">Live Donation</option>
+              <option value="store_blood">Blood Bank</option>
+            </select>
           </div>
         </div>
-      </motion.div>
+      </div>
+
+      <div className={styles.requestsContainer}>
+        {mockRequests.map(request => (
+          <div key={request.id} className={styles.requestCard}>
+            <div className={styles.requestHeader}>
+              <div 
+                className={`${styles.bloodBadge} ${styles[`blood${request.blood_group.replace('+', 'pos').replace('-', 'neg')}`]}`}
+              >
+                {request.blood_group}
+              </div>
+              
+              <div 
+                className={`${styles.urgencyBadge} ${styles[request.urgency.toLowerCase().replace(/\s+/g, '')]}`}
+              >
+                {request.urgency}
+              </div>
+            </div>
+            
+            <div className={styles.requestDetails}>
+              <div className={styles.detailRow}>
+                <span className={styles.label}>Patient:</span>
+                <span className={styles.value}>{request.patientName}, {request.patientAge}</span>
+              </div>
+              
+              <div className={styles.detailRow}>
+                <span className={styles.label}>Units:</span>
+                <span className={styles.value}>{request.units}</span>
+              </div>
+              
+              <div className={styles.detailRow}>
+                <span className={styles.label}>Type:</span>
+                <span className={styles.value}>
+                  {request.type === 'live_blood' ? 'Live Donation' : 'Blood Bank'}
+                </span>
+              </div>
+              
+              <div className={styles.detailRow}>
+                <span className={styles.label}>Contact:</span>
+                <span className={styles.value}>{request.contactNumber}</span>
+              </div>
+              
+              <div className={styles.detailRow}>
+                <span className={styles.label}>Date:</span>
+                <span className={styles.value}>
+                  <Clock size={14} className={styles.inlineIcon} />
+                  {request.created_at}
+                </span>
+              </div>
+            </div>
+            
+            <div className={styles.requestNotes}>
+              <p>{request.notes}</p>
+            </div>
+            
+            <div className={styles.requestActions}>
+              <button className={styles.editButton}>Edit</button>
+              <button className={styles.cancelButton}>Cancel</button>
+            </div>
+          </div>
+        ))}
+      </div>
+    </div>
   );
 };
 
