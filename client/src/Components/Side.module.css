@@ -1,9 +1,12 @@
 .sidebar {
   width: 70px;
   height: 100vh;
-  background-color: var(--color-neutral-0);
+  background: var(--card-bg);
+  backdrop-filter: blur(10px);
+  box-shadow: 4px 0px 15px var(--shadow-color);
+  z-index: 2000;
   box-shadow: 0 0 15px rgba(0, 0, 0, 0.05);
-  transition: width var(--transition-normal);
+  transition: all 0.3s ease;
   position: fixed;
   top: 0;
   left: 0;
@@ -11,7 +14,9 @@
   flex-direction: column;
   overflow: hidden;
   z-index: var(--z-above);
-  color:var(--text-primary)
+  color:var(--text-primary);
+  border-right: 1px solid var(--border-color);
+
 }
 
 .expanded {
@@ -72,14 +77,17 @@
   align-items: center;
   padding: var(--space-3) var(--space-4);
   cursor: pointer;
-  transition: all var(--transition-fast);
+  transition: all 0.3s ease;
   border-left: 3px solid transparent;
-  color: var(--color-neutral-600);
+  color: var(--text-primary);
 }
 
 .navItem:hover {
-  background-color: var(--color-neutral-100);
+  background: var(--nav-bg);
+  transform: translateX(5px);
+  box-shadow: 0 4px 12px var(--shadow-color);
   color: var(--color-primary);
+
 }
 
 .navItem.active {

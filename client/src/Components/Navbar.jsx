@@ -3,7 +3,7 @@ import { useNavigate, useLocation } from 'react-router-dom';
 import { Bell, User, Sun, Moon } from 'lucide-react';
 import { motion } from 'framer-motion';
 import styles from './Nav.module.css';
-import { useDarkMode } from '../context/DarkModeContext';
+import { useDarkMode } from '../Context/DarkModeContext';
 
 const Navbar = () => {
   const { isDarkMode, toggleDarkMode } = useDarkMode();
