@@ -5,6 +5,8 @@ import styles from './auth.module.css';
 import { motion } from 'framer-motion';
 import { AuthProvider, useAuth } from '../Context/AuthContext';
 import {jwtDecode} from "jwt-decode";
+import { useAuth } from '../Context/AuthContext';
+import { jwtDecode } from "jwt-decode";
 import axios from 'axios';
 import toast from 'react-hot-toast';
 const VLogin = () => {
@@ -13,6 +15,7 @@ const VLogin = () => {
   const navigate = useNavigate();
   const {login}=useAuth();
   const [valid,setValid]=useState(false);
+  const { login } = useAuth();
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -29,6 +32,12 @@ const VLogin = () => {
         login(emailInput); 
         toast.success("Login Successful");
         navigate("/donor");
+      console.log("✅ Login Response:", response.data);
+  
+      if (response.data.token) {
+        login(emailInput);
+        toast.success("Login Successful");
+        navigate("/donor");
       } else {
         toast.error("Invalid Credentials");
       }
@@ -40,6 +49,7 @@ const VLogin = () => {
         toast.error("No response from server");
       } else {
 
+        toast.error("Request setup error");
         toast.error("Request setup error");
       }
     }

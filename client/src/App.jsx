@@ -27,12 +27,10 @@ function App() {
           <Route path="donationHistory" element={<DonorHistory />} />
           <Route path="donorProfile" element={<DonorProfile />} />
         </Route>
-        <Route path="bloodbank" element={<BloodBankLayout />}>
-          <Route index element={<BloodBankPage />} />
+          <Route path = "bloodbank" element={<BloodBankPage />} />
           <Route path="bloodRequests" element={<BloodRequests />} />
           <Route path="donorsList" element={<DonorsList />} />
           <Route path="analytics" element={<Analytics />} />
-        </Route>
         <Route path="/VLogin" element={<VLogin />} />
         <Route path="/MFLogin" element={<MFLogin />} />
         <Route path="/MFSignup" element={<MFSignup />} />
