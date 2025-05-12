@@ -25,7 +25,7 @@ const AuthFacility = async (req,res) => {
         if(!facility){
             return res.status(400).json({message:"Invalid email or password"});
         }else{
-            const passwordMatch = await bcrypt.comapre(passeord,facility.password);
+            const passwordMatch = await bcrypt.compare(password,facility.password);
             if(!passwordMatch){
                 return res.status(400).json({message:"Invalid email or password"});
             }

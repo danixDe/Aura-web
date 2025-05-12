@@ -1,11 +1,30 @@
 const db = require("../config/database");
 
+const ensureJSONString = (obj) =>
+    typeof obj === 'string' ? obj : JSON.stringify(obj);
+
+const validateCoordinates = (coordinates) => {
+    if (
+        !coordinates ||
+        typeof coordinates.lng !== 'number' ||
+        typeof coordinates.lat !== 'number' ||
+        isNaN(coordinates.lng) ||
+        isNaN(coordinates.lat)
+    ) {
+        throw new Error("Invalid coordinates");
+    }
+};
+
+
 const createFacility = async (facilityData) => {
-    const { name, facility_type, license_number, email, password, confirm_password, phone, address, city, state, zip_code } = facilityData;
-    const query = `INSERT INTO facility (name, facility_type, license_number, email, password, confirm_password, phone, address, city, state, zip_code) 
-                    VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)`;
+    const { name, facility_type, license_number, email, password, phone,location_info, coordinates } = facilityData;
+    const query = `INSERT INTO facility (name, facility_type, license_number, email, password, phone, location_info,coordinates) 
+                    VALUES ( ?, ?, ?, ?, ?, ?, ?, ST_GeomFromText(?))`;
     try {
-        const [row] = await db.execute(query, [name, facility_type, license_number, email, password, confirm_password, phone, address, city, state, zip_code]);
+        validateCoordinates(coordinates);
+        const point = `POINT(${coordinates.lng} ${coordinates.lat})`;
+        console.log("Geo Point to insert:", point);
+        const [row] = await db.execute(query, [name, facility_type, license_number, email, password, phone, JSON.stringify(location_info),point]);
         return { id: row.insertId, ...facilityData };
     } catch (error) {
         throw new Error(error.message);
@@ -64,4 +83,4 @@ const deleteFacility = async (id) => {
     }
 };
 
-module.exports = { createFacility, getAllFacilities, getFacilityById, updateFacility, deleteFacility };
+module.exports = { createFacility, getAllFacilities, getFacilityById, getFacilityByEmail,updateFacility, deleteFacility };

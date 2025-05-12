@@ -16,7 +16,6 @@ const validateCoordinates = (coordinates) => {
 };
 
 const addDonor = async (donorData) => {
-    // console.log("donordata",donorData);
     const {
         dName,
         email,

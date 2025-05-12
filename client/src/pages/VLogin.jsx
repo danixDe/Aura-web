@@ -1,18 +1,17 @@
-import { useContext } from 'react';
+import { useContext,useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { GoogleLogin } from '@react-oauth/google';
 import styles from './auth.module.css';
 import { motion } from 'framer-motion';
-import { AuthContext } from '../Context/AuthContext';
+import { AuthProvider, useAuth } from '../Context/AuthContext';
 import {jwtDecode} from "jwt-decode";
 import axios from 'axios';
 import toast from 'react-hot-toast';
 const VLogin = () => {
-  const {setUserEmail} = useUser();
   const [email,setEmailInput] = useState('');
   console.log(window.location.href);
   const navigate = useNavigate();
-  const {login}=useContext(AuthContext);
+  const {login}=useAuth();
   const [valid,setValid]=useState(false);
 
   const handleSubmit = async (e) => {
@@ -21,36 +20,40 @@ const VLogin = () => {
     const emailInput = formdata.get("email").trim();
     const password = formdata.get("password").trim();
   
+  
     try {
       const response = await axios.post("http://localhost:5000/api/donors/authdonor", { email: emailInput, password });
-      console.log(response);
-
-      if (response.data.message === "valid") {
-        login(emailInput);
-        toast.success('Login Successful');
-        navigate('/donor');
+      console.log("Login Response:", response.data);
+  
+      if (response.data.token) {
+        login(emailInput); 
+        toast.success("Login Successful");
+        navigate("/donor");
       } else {
         toast.error("Invalid Credentials");
       }
     } catch (err) {
       if (err.response) {
         toast.error(`Error: ${err.response.data.message}`);
+        toast.error(`Error: ${err.response.data.message}`);
       } else if (err.request) {
         toast.error("No response from server");
       } else {
-        console.error("Error setting up request:", err.message);
-        toast.error("Error setting up request");
+
+        toast.error("Request setup error");
       }
     }
   };
   
 
-  const handleGoogleSuccess = async (credentialResponse) => {
-    try {
-      console.log('Google Sign In Success:', credentialResponse);
-      const credential = credentialResponse.credential;
-      const response = await axios.post("http://localhost:5000/api/googleAuth", { credential });
-      console.log("response", response);
+  
+
+  const handleGoogleSuccess =async (credentialResponse) => {
+    try{
+    console.log('Google Sign In Success:', credentialResponse);
+    const credential=credentialResponse.credential;
+    const response=await axios.post("http://localhost:5000/api/googleAuth",{credential});
+    console.log("response",response);
 
       if (response.data.message === "success") {
         login(jwtDecode(credential).email);

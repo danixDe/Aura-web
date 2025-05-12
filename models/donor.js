@@ -16,7 +16,6 @@ CREATE TABLE IF NOT EXISTS donor (
 );
 `;
 
-
 const createDonorTable = async () => {
   try {
     await db.execute(donorTable);
