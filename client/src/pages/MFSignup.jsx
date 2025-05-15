@@ -20,7 +20,11 @@ const MFSignup = () => {
     const licenseNumber = formData.get('licenseNumber');
     const facilityType = formData.get('facilityType');
     const phone = formData.get('phone');
-    const 
+    const address = formData.get('address');
+    const city = formData.get('city');
+    const state = formData.get('state');
+    const zipCode = formData.get('zipCode');  
+  
 
     if (password !== confirmPassword) {
       console.log('Passwords do not match!');

@@ -3,19 +3,17 @@ import { Link, useNavigate } from 'react-router-dom';
 import { GoogleLogin } from '@react-oauth/google';
 import styles from './auth.module.css';
 import { motion } from 'framer-motion';
-import { AuthProvider, useAuth } from '../Context/AuthContext';
+import {  useAuth } from '../Context/AuthContext';
 import {jwtDecode} from "jwt-decode";
-import { useAuth } from '../Context/AuthContext';
-import { jwtDecode } from "jwt-decode";
 import axios from 'axios';
 import toast from 'react-hot-toast';
 const VLogin = () => {
   const [email,setEmailInput] = useState('');
+ 
   console.log(window.location.href);
   const navigate = useNavigate();
   const {login}=useAuth();
   const [valid,setValid]=useState(false);
-  const { login } = useAuth();
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -41,7 +39,8 @@ const VLogin = () => {
       } else {
         toast.error("Invalid Credentials");
       }
-    } catch (err) {
+    } 
+    }catch (err) {
       if (err.response) {
         toast.error(`Error: ${err.response.data.message}`);
         toast.error(`Error: ${err.response.data.message}`);
