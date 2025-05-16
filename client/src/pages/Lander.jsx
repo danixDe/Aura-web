@@ -2,7 +2,7 @@ import { useEffect, useState, useContext } from "react";
 import { motion } from "framer-motion";
 import styles from "./Lander.module.css";
 import { Link, useNavigate } from 'react-router-dom';
-import { AuthProvider,useAuth } from "../Context/AuthContext";
+import { useAuth } from "../Context/AuthContext";
 import {FaGithub, FaInstagram, FaTwitter} from 'react-icons/fa'
 import { ChevronDown, ChevronUp } from "lucide-react";
 
@@ -19,6 +19,7 @@ export default function Land() {
       navigate(`/home?email=${userEmail}`);
     }
   }, [isLoggedIn, userEmail, navigate]);
+
   const menuItems = {
     "Why AuraHP": [
       { title: "Our Mission", link: "/mission" },
