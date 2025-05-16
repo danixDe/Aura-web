@@ -12,7 +12,13 @@ export default function Land() {
   const [activeTab, setActiveTab] = useState("donors");
   const { valid, role } = useAuth();
   const navigate = useNavigate();
-  
+  const { isLoggedIn, userEmail } = useAuth();
+
+  useEffect(() => {
+    if (isLoggedIn && userEmail) {
+      navigate(`/home?email=${userEmail}`);
+    }
+  }, [isLoggedIn, userEmail, navigate]);
   const menuItems = {
     "Why AuraHP": [
       { title: "Our Mission", link: "/mission" },
