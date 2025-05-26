@@ -54,17 +54,17 @@ const DonorsList = () => {
 
   return (
       <motion.div 
-        className={styles.mainContent}
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
         transition={{ duration: 0.5 }}
       >
-        <div className={styles.container}>
+        <div>
           <motion.h1 
             className={styles.title}
             initial={{ y: -20 }}
             animate={{ y: 0 }}
             transition={{ duration: 0.5 }}
+            style={{color:'black'}}
           >
             Donors List
           </motion.h1>

@@ -4,6 +4,8 @@ import BloodRequests from './BloodRequests.jsx';
 import BloodRequestForm from './BloodRequestForm.jsx';
 import Sidebar from '../Components/Side.jsx';
 import Analytics from './Analytics.jsx';
+import DonorsList from './DonorsList.jsx';
+import Bloodhead from '../Components/bloodhead.jsx';
 
 import {
   Plus, Droplet, Activity, AlertTriangle, Users, Clock
@@ -22,6 +24,8 @@ function BloodBankPage(){
   };
 
   return (
+    <>
+          <Bloodhead />
     <div className={styles.appContainer}>
       <Sidebar activeView={activeView} onViewChange={handleViewChange} />
       <main className={styles.mainContent}>
@@ -34,6 +38,7 @@ function BloodBankPage(){
         )}
       </main>
     </div>
+  </>
   );
 }
 
@@ -78,9 +83,9 @@ const Dashboard = ({ activeView, onCreateRequest }) => {
       case 'bloodRequests':
         return <BloodRequests onCreateRequest={onCreateRequest} />;
       case 'donors':
-        return <div className={styles.viewContainer}><h2>Donors Management</h2></div>;
+        return <DonorsList />;
       case 'analytics':
-        return <div className={styles.viewContainer}><h2>Analytics</h2></div>;
+        return <Analytics />;
       case 'settings':
         return <div className={styles.viewContainer}><h2>Settings</h2></div>;
       case 'about':

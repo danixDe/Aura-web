@@ -16,7 +16,7 @@ export default function Land() {
 
   useEffect(() => {
     if (isLoggedIn && userEmail) {
-      navigate(`/home?email=${userEmail}`);
+     // navigate(`/donor?email=${userEmail}`);
     }
   }, [isLoggedIn, userEmail, navigate]);
 
