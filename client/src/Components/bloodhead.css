@@ -73,3 +73,21 @@
     display: none !important;
   }
 }
+.navItem{
+  color:black;
+  cursor: pointer;
+}
+.navItems{
+  text-decoration: none;
+}
+.icon {
+  min-width: 24px;
+  height: 24px;
+  margin-right: var(--space-3);
+}
+
+.items {
+  white-space: nowrap;
+  transition: opacity var(--transition-normal);
+  opacity: 0;
+}

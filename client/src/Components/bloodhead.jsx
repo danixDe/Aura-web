@@ -1,10 +1,16 @@
 import { useState, useEffect } from 'react';
+import { useNavigate, Link } from 'react-router-dom';
 import { FaBars } from 'react-icons/fa';
 import './bloodhead.css';
+import { 
+  Home, Droplet, Users, PieChart, 
+  Settings, Info, Menu, ChevronRight, 
+  User
+} from 'lucide-react';
 
 function Bloodhead() {
   const [menuOpen, setMenuOpen] = useState(false);
-
+  const navigate = useNavigate();
   const toggleMenu = () => {
     setMenuOpen(prev => !prev);
   };
@@ -31,9 +37,41 @@ function Bloodhead() {
 
       <aside className={`mobile-dropdown ${menuOpen ? 'open' : ''}`}>
         <ul className="navItems">
-          <li className="navItem">Home</li>
-          <li className="navItem">About</li>
-          <li className="navItem">Settings</li>
+          <li className="navItem" >
+          <Link to='/bloodbank'>
+            <Home className='icon' />
+            <span>Dashboard</span>
+             </Link>
+            </li>
+          <li className="navItem">
+            <Link to='bloodRequests'>
+            <Droplet className='icon' />
+            <span >Blood Requests</span>
+            </Link>
+          </li>
+          <li className="navItem" >
+          <Link to='donorsList'>
+            <User className='icon' />
+            <span>Donors</span></Link>
+          </li>
+          <li className="navItem" > 
+          <Link to='/analytics'>
+            <PieChart className='icon' />
+            <span >Analytics</span>
+          </Link>
+          </li>
+          <li className="navItem">
+          <Link to='settings'>
+            <Settings className='icon' />
+            <span>Settings</span>
+            </Link>
+          </li>
+          <li className="navItem">
+          <Link to='About'>
+            <Info className='icon' />
+            <span >About</span>
+          </Link>
+          </li>
         </ul>
       </aside>
     </>
