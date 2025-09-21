@@ -1,4 +1,4 @@
-Aura – Blood Donation Platform
+**Aura – Blood Donation Platform**
 
 Aura is a modern blood donation platform designed to connect donors, recipients, and blood banks seamlessly. The project’s goal is to make the donation process more accessible, transparent, and reliable with the help of technology.
 
