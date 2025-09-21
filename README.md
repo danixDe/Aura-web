@@ -4,34 +4,34 @@ Aura is a modern blood donation platform designed to connect donors, recipients,
 
 Features
 
-Find Donors – Search for nearby donors by blood group and location.
+- Find Donors – Search for nearby donors by blood group and location.
 
-Blood Bank Integration – Real-time stock updates from partnered hospitals and banks.
+- Blood Bank Integration – Real-time stock updates from partnered hospitals and banks.
 
-Location Tracking – Map-based view to connect with the nearest donor.
+- Location Tracking – Map-based view to connect with the nearest donor.
 
-Smart Notifications – Get alerts when a matching donor/recipient is available.
+- Smart Notifications – Get alerts when a matching donor/recipient is available.
 
-Verified Profiles – Ensure authenticity with verified donor details.
+- Verified Profiles – Ensure authenticity with verified donor details.
 
-Donation History – Track requests, donations, and eligibility timelines.
+- Donation History – Track requests, donations, and eligibility timelines.
 
 Tech Stack
 
-Frontend: React / Next.js / TailwindCSS
+- Frontend: React / JavaScript / TailwindCSS
 
-Backend: Node.js / Express
+- Backend: Node.js / Express
 
-Database: MongoDB / PostgreSQL
+- Database: SQL
 
-Authentication: JWT / OAuth
+- Authentication: JWT / OAuth
 
-APIs & Services: Google Maps API, Twilio/FCM for notifications
+- APIs & Services: Google Maps API, Twilio/FCM for notifications
 
 Project Structure
 ```
 aura-blood-donation/
-│── client/        # React/Next.js frontend  
+│── client/        # React frontend  
 │── controller/        
 │── middleware/         
 │── model/   
