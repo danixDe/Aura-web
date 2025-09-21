@@ -29,6 +29,7 @@ Authentication: JWT / OAuth
 APIs & Services: Google Maps API, Twilio/FCM for notifications
 
 Project Structure
+```
 aura-blood-donation/
 │── client/        # React/Next.js frontend  
 │── controller/        
@@ -37,7 +38,7 @@ aura-blood-donation/
 │── routes/            
 │── services/            
 │── README.md        # Project readme  
-
+```
 Getting Started
 1. Clone the Repo
 git clone https://github.com/your-username/aura-blood-donation.git
